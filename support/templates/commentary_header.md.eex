@@ -1,0 +1,20 @@
+---
+creators: <%= for creator <- @creators do %>
+    - { creator_type: <%= creator.creator_type %>, first_name: <%= creator.first_name %>, last_name: <%= creator.last_name %> }<% end %>
+edition: "<%= @edition %>"
+filename: "<%= @filename %>"
+languages: <%= for language <- @languages do %>
+    - <%= language %><% end %>
+metadata: |
+    <%= @metadata %>
+pid: <%= @pid %>
+place: <%= @place %>
+publication_date: <%= @publication_date %>
+public_domain_year: <%= @public_domain_year %>
+source_url: "<%= @source_url %>"
+title: "<%= @title %>"
+urn: "<%= @urn %>"
+wikidata_qid: "<%= @wikidata_qid %>"
+zotero_id: "<%= @zotero_id %>"
+zotero_link: "<%= @zotero_link %>"
+---

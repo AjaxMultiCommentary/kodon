@@ -1,0 +1,9 @@
+@<%= @urn %>
+:citable_urn: <%= @citable_urn %>
+:image_paths: <%= Jason.encode!(@image_paths) %>
+:overlays: <%= Jason.encode!(@overlays) %>
+:page_ids: <%= Jason.encode!(@page_ids) %>
+
+<%= @content %>
+
+---
