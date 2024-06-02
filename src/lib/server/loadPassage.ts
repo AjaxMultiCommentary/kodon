@@ -12,7 +12,7 @@ export default function loadPassage(configPath: string, editionsDir: string) {
     const COMMENTARY_CONFIG = parseURNs(parseToml(_doc));
     const EDITIONS_DIR = editionsDir;
 
-    return function (urn: string) {
+    return function loadPassageFn(urn: string) {
         const ctsUrn = new CTS_URN(urn);
         const version = ctsUrn.version
             ? COMMENTARY_CONFIG.editions.find((e: EditionConfig) => e.ctsUrn.version === ctsUrn.version)
