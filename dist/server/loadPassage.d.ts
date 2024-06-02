@@ -1,0 +1,140 @@
+import type { Comment, PassageConfig, TextContainer, TextElement } from '../types.js';
+export default function loadPassage(configPath: string, editionsDir: string): (urn: string) => {
+    comments: {
+        ctsUrn: {
+            collection: string;
+            workComponent: string | undefined;
+            textGroup: string | undefined;
+            work: string | undefined;
+            version: string | undefined;
+            exemplar: string | undefined;
+            passageComponent: string | undefined;
+            citations: string[];
+            integerCitations: number[][];
+            tokens: (string | undefined)[];
+            tokenIndexes: (number | undefined)[];
+            __urn: string;
+        };
+        attributes?: any;
+        body?: string | Promise<string> | undefined;
+        citable_urn?: string | undefined;
+        commentaryAttributes?: import("../types.js").CommentaryAttributes | undefined;
+        content?: string | undefined;
+        end_offset?: string | undefined;
+        image_paths?: string | undefined;
+        isHighlighted?: boolean | undefined;
+        lemma?: string | undefined;
+        overlays?: string | undefined;
+        page_ids?: string | undefined;
+        start_offset?: string | undefined;
+        transcript?: string | undefined;
+        urn: string;
+    }[];
+    currentPassage: {
+        ctsUrn: {
+            collection: string;
+            workComponent: string | undefined;
+            textGroup: string | undefined;
+            work: string | undefined;
+            version: string | undefined;
+            exemplar: string | undefined;
+            passageComponent: string | undefined;
+            citations: string[];
+            integerCitations: number[][];
+            tokens: (string | undefined)[];
+            tokenIndexes: (number | undefined)[];
+            __urn: string;
+        };
+        label: string;
+        urn: string;
+        ref: string;
+    };
+    editions: {
+        ctsUrn: {
+            collection: string;
+            workComponent: string | undefined;
+            textGroup: string | undefined;
+            work: string | undefined;
+            version: string | undefined;
+            exemplar: string | undefined;
+            passageComponent: string | undefined;
+            citations: string[];
+            integerCitations: number[][];
+            tokens: (string | undefined)[];
+            tokenIndexes: (number | undefined)[];
+            __urn: string;
+        };
+        description: string;
+        filename: string;
+        label: string;
+        urn: string;
+    }[];
+    metadata: {
+        title: any;
+        description: any;
+    };
+    passages: {
+        ctsUrn: {
+            collection: string;
+            workComponent: string | undefined;
+            textGroup: string | undefined;
+            work: string | undefined;
+            version: string | undefined;
+            exemplar: string | undefined;
+            passageComponent: string | undefined;
+            citations: string[];
+            integerCitations: number[][];
+            tokens: (string | undefined)[];
+            tokenIndexes: (number | undefined)[];
+            __urn: string;
+        };
+        label: string;
+        urn: string;
+        ref: string;
+    }[];
+    textContainers: {
+        comments: {
+            ctsUrn: {
+                collection: string;
+                workComponent: string | undefined;
+                textGroup: string | undefined;
+                work: string | undefined;
+                version: string | undefined;
+                exemplar: string | undefined;
+                passageComponent: string | undefined;
+                citations: string[];
+                integerCitations: number[][];
+                tokens: (string | undefined)[];
+                tokenIndexes: (number | undefined)[];
+                __urn: string;
+            };
+            attributes?: any;
+            body?: string | Promise<string> | undefined;
+            citable_urn?: string | undefined;
+            commentaryAttributes?: import("../types.js").CommentaryAttributes | undefined;
+            content?: string | undefined;
+            end_offset?: string | undefined;
+            image_paths?: string | undefined;
+            isHighlighted?: boolean | undefined;
+            lemma?: string | undefined;
+            overlays?: string | undefined;
+            page_ids?: string | undefined;
+            start_offset?: string | undefined;
+            transcript?: string | undefined;
+            urn: string;
+        }[];
+        location: string[];
+        offset: number;
+        speaker?: string | null | undefined;
+        subtype: "line" | "paragraph";
+        text: string;
+        type: "text_container";
+        words: import("../types.js").Word[];
+        urn: string;
+        textElements?: TextElement[] | undefined;
+    }[];
+};
+export declare function getCommentsForPassage(allComments: Comment[], passageInfo: PassageConfig): Comment[];
+export declare function getTextContainersForPassage(passageInfo: PassageConfig, jsonl: (TextContainer | TextElement)[]): TextContainer[];
+export declare function getPassage(passages: PassageConfig[], passageStart: number[]): PassageConfig | undefined;
+export declare function parseURNs(config: any): any;
