@@ -78,10 +78,12 @@ function toggleDetails(_e) {
 
 <style>
 	.comment-body :global(a) {
-		@apply underline;
-	}
+
+    text-decoration-line: underline
+}
 
 	.comment-body :global(a:hover) {
-		@apply font-bold;
-	}
+
+    font-weight: 700
+}
 </style>
