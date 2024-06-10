@@ -22,6 +22,10 @@
 		return `v. ${integerCitations[0].join('')}`;
 	}
 
+	function commentHasIIIF(comment: Comment) {
+		return (comment.image_paths || []).length > 0;
+	}
+
 	function toggleDetails(_e: Event) {
 		isOpen = !isOpen;
 
@@ -65,19 +69,21 @@
 	</div>
 	<div class="collapse-content float-right">
 		<p class="max-w-2xl text-sm text-gray-800 prose comment-body">{@html comment.body}</p>
-		<div class="flex justify-center mt-2">
-			{#if showIIIFViewer}
-				<IIIFViewer url={iiifURL} {comment} />
-			{:else}
-				<button
-					type="button"
-					class="btn btn-xs btn-outline btn-secondary"
-					on:click={() => (showIIIFViewer = true)}
-				>
-					Show page image
-				</button>
-			{/if}
-		</div>
+		{#if commentHasIIIF(comment)}
+			<div class="flex justify-center mt-2">
+				{#if showIIIFViewer}
+					<IIIFViewer url={iiifURL} {comment} />
+				{:else}
+					<button
+						type="button"
+						class="btn btn-xs btn-outline btn-secondary"
+						on:click={() => (showIIIFViewer = true)}
+					>
+						Show page image
+					</button>
+				{/if}
+			</div>
+		{/if}
 	</div>
 </div>
 
