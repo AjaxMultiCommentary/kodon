@@ -3,7 +3,14 @@
 
 	import { createEventDispatcher } from 'svelte';
 
-	export let showHeatmap: boolean;
+	/**
+	 * Should the heatmap for comment density be displayed?
+	 */
+	export let showHeatmap: boolean = true;
+
+	/**
+	 * The token to render here.
+	 */
 	export let token: Word;
 
 	const dispatch = createEventDispatcher();
