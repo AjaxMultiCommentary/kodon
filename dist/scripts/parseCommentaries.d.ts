@@ -1,8 +1,7 @@
-import CTS_URN from '../cts_urn.js';
-export declare function parseCommentaries(): ({
-    body: string | Promise<string>;
-    ctsUrn: CTS_URN;
-    rawBody: string;
-    urn: string;
-    commentaryAttributes: unknown;
-} | undefined)[];
+import type { Comment } from '../types.js';
+/**
+ *
+ * @param {string} COMMENTARIES_DIR - the directory containing commentary files as markdown
+ * @returns {Array<Comment>} - a flat array of the parsed comments from all commentary files found in `COMMENTARIES_DIR`
+ */
+export declare function parseCommentaries(COMMENTARIES_DIR?: string): Comment[];

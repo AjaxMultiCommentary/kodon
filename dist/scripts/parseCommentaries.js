@@ -2,10 +2,14 @@ import fs from 'fs';
 import frontMatter from 'front-matter';
 import { marked } from 'marked';
 import CTS_URN from '../cts_urn.js';
-const COMMENTARIES_DIR = 'commentaries';
 const GLOSSA_PROPERTY_REGEX = /^:(?<name>[^:\n]+):\s+(?<value>.*)(?:\n|$)/;
 const URN_REGEX = /\@(?<urn>[^\n]+)/;
-export function parseCommentaries() {
+/**
+ *
+ * @param {string} COMMENTARIES_DIR - the directory containing commentary files as markdown
+ * @returns {Array<Comment>} - a flat array of the parsed comments from all commentary files found in `COMMENTARIES_DIR`
+ */
+export function parseCommentaries(COMMENTARIES_DIR = 'commentaries') {
     const files = fs.readdirSync(COMMENTARIES_DIR);
     return files.flatMap((file) => {
         const s = fs.readFileSync(`${COMMENTARIES_DIR}/${file}`, 'utf-8');
