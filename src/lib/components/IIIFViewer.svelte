@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { Comment } from '$lib/types.js';
-	// @ts-expect-error
 	import type { Viewer } from 'openseadragon';
 
 	import { onMount } from 'svelte';
@@ -28,7 +27,6 @@
 	}
 
 	async function updateViewer() {
-		// @ts-expect-error
 		const { default: OpenSeadragon } = await import('openseadragon');
 
 		const tileSources = tiles(comment).map((tile) => {
@@ -51,15 +49,17 @@
 			prefixUrl: 'https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/images/',
 			preserveViewport: true,
 			sequenceMode: true,
+			// @ts-expect-error
 			tileSources
 		});
 
-		// @ts-expect-error
 		viewer.addOnceHandler('add-overlay', ({ eventSource }) => {
 			window.requestAnimationFrame(() => {
+				// @ts-expect-error
 				let overlay = eventSource.currentOverlays.at(1);
 
 				if (overlay == undefined) {
+					// @ts-expect-error
 					overlay = eventSource.currentOverlays[0];
 				}
 

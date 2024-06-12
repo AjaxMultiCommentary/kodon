@@ -16,7 +16,7 @@ export type PassageConfig = {
 };
 
 export type Word = {
-	comments?: Comment[];
+	commentURNs: (string | undefined)[];
 	offset: number;
 	text: string;
 	xml_id: string;

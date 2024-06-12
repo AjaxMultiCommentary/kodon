@@ -1,8 +1,3 @@
-declare class CTS_Token {
-    token: string | undefined;
-    index: number | undefined;
-    constructor(s: string);
-}
 export default class CTS_URN {
     __urn: string;
     collection: string;
@@ -14,7 +9,8 @@ export default class CTS_URN {
     exemplar?: string;
     citations: string[];
     integerCitations: number[][];
-    tokens: (CTS_Token | undefined)[];
+    tokens: (string | undefined)[];
+    tokenIndexes: (number | undefined)[];
     constructor(urn: string);
     setPassages(passageComponent: string): void;
     contains(ctsUrn: CTS_URN): boolean;
@@ -37,4 +33,3 @@ export default class CTS_URN {
     };
     toString(): string;
 }
-export {};

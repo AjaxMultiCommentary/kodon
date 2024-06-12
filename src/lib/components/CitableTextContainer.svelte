@@ -89,7 +89,7 @@
 	$: tokens = textContainer.words.map((w, _index, allWords) => {
 		return {
 			...w,
-			comments: comments
+			commentURNs: comments
 				?.filter((c) => c.ctsUrn.tokens.some((t: string | undefined) => Boolean(t)))
 				.filter((c) => {
 					const commentUrn = new CTS_URN(c.ctsUrn.__urn);
@@ -116,6 +116,7 @@
 
 					return false;
 				})
+				.map((c) => c.citable_urn)
 		};
 	});
 </script>

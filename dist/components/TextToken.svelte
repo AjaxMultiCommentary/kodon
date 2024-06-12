@@ -1,32 +1,25 @@
 <script>import { createEventDispatcher } from "svelte";
-export let showHeatmap;
+export let showHeatmap = true;
 export let token;
 const dispatch = createEventDispatcher();
 function tokenTitleText(t) {
-  const commentsLength = t.comments?.length || 0;
+  const commentsLength = t.commentURNs.length || 0;
   return `${commentsLength} ${commentsLength === 1 ? "gloss" : "glosses"} on this lemma`;
 }
 </script>
 
 <a
 	id={token.xml_id}
-	class={`comments-${Math.min(token.comments?.length || 0, 10)}`}
+	class={`comments-${Math.min(token.commentURNs.length || 0, 10)}`}
 	class:comment-box-shadow={showHeatmap}
-	class:cursor-pointer={token.comments?.length || 0 > 0}
+	class:cursor-pointer={token.commentURNs.length || 0 > 0}
 	role="button"
 	tabindex="0"
 	title={tokenTitleText(token)}
-	on:click={() =>
-		dispatch(
-			'highlightComments',
-			token.comments?.map((c) => c.citable_urn)
-		)}
+	on:click={() => dispatch('highlightComments', token.commentURNs)}
 	on:keyup={(event) => {
 		if (event.key === 'Enter') {
-			dispatch(
-				'highlightComments',
-				token.comments?.map((c) => c.citable_urn)
-			);
+			dispatch('highlightComments', token.commentURNs);
 		}
 	}}
 	>{token.text}{' '}

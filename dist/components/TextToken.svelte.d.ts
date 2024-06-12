@@ -2,8 +2,12 @@ import { SvelteComponent } from "svelte";
 import type { Word } from '../types.js';
 declare const __propDef: {
     props: {
-        showHeatmap: boolean;
-        token: Word;
+        /**
+             * Should the heatmap for comment density be displayed?
+             */ showHeatmap?: boolean | undefined;
+        /**
+             * The token to render here.
+             */ token: Word;
     };
     events: {
         highlightComments: CustomEvent<any>;

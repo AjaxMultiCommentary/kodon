@@ -11,22 +11,22 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const ctsUrn1 = new CTS_URN('urn:cts:greekLit:tlg0011.tlg003.ajmc-meta:1@Second');
+const ctsUrn1 = 'urn:cts:greekLit:tlg0011.tlg003.ajmc-meta:1@Second';
 
 const manyComments = [
     ctsUrn1,
-    new CTS_URN('urn:cts:greekLit:tlg0011.tlg003.ajmc-cam:1@Second'),
-    new CTS_URN('urn:cts:greekLit:tlg0011.tlg003.ajmc-fin:1@Second'),
-    new CTS_URN('urn:cts:greekLit:tlg0011.tlg003.ajmc-her:1@Second'),
-    new CTS_URN('urn:cts:greekLit:tlg0011.tlg003.ajmc-jeb:1@Second'),
-    new CTS_URN('urn:cts:greekLit:tlg0011.tlg003.ajmc-unt:1@Second'),
-    new CTS_URN('urn:cts:greekLit:tlg0011.tlg003.ajmc-fer:1@Second')
-].map((urn, index) => ({ body: `text_${index}`, ctsUrn: urn, urn: urn.__urn }));
+    'urn:cts:greekLit:tlg0011.tlg003.ajmc-cam:1@Second',
+    'urn:cts:greekLit:tlg0011.tlg003.ajmc-fin:1@Second',
+    'urn:cts:greekLit:tlg0011.tlg003.ajmc-her:1@Second',
+    'urn:cts:greekLit:tlg0011.tlg003.ajmc-jeb:1@Second',
+    'urn:cts:greekLit:tlg0011.tlg003.ajmc-unt:1@Second',
+    'urn:cts:greekLit:tlg0011.tlg003.ajmc-fer:1@Second'
+];
 
 export const ManyComments: Story = {
     args: {
         token: {
-            comments: manyComments,
+            commentURNs: manyComments,
             offset: 0,
             text: 'Second',
             xml_id: 'xml_id3',
@@ -39,7 +39,7 @@ export const ManyComments: Story = {
 export const OneComment: Story = {
     args: {
         token: {
-            comments: [{ body: 'text', ctsUrn: ctsUrn1, urn: ctsUrn1.__urn }],
+            commentURNs: [ctsUrn1],
             offset: 0,
             text: 'Second',
             xml_id: 'xml_id2',
@@ -53,7 +53,7 @@ export const OneComment: Story = {
 export const NoComments: Story = {
     args: {
         token: {
-            comments: [],
+            commentURNs: [],
             offset: 0,
             text: 'Example',
             xml_id: 'xml_id1',

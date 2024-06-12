@@ -1,19 +1,5 @@
 const STEPHANUS_BEKKER_REGEX = /((?<book>\d+)\.)?(?<page>\d+)(?<column>[ABCDE])/i;
 const TOKEN_REGEX = /(?<token>\p{Letter}+)(\[(?<index>\d+)\])?/iu;
-class CTS_Token {
-    token;
-    index;
-    constructor(s) {
-        const parsed = TOKEN_REGEX.exec(s);
-        this.token = parsed?.groups?.token;
-        if (parsed?.groups?.index) {
-            this.index = parseInt(parsed.groups.index);
-        }
-        else {
-            this.index = 1;
-        }
-    }
-}
 export default class CTS_URN {
     __urn;
     collection;
@@ -26,6 +12,7 @@ export default class CTS_URN {
     citations = [];
     integerCitations = [];
     tokens = [];
+    tokenIndexes = [];
     constructor(urn) {
         const [_urn_s, _cts, collection, workComponent, passageComponent] = urn.split(':');
         const [textGroup, work, version, exemplar] = workComponent.split('.');
@@ -44,12 +31,20 @@ export default class CTS_URN {
     setPassages(passageComponent) {
         this.citations = passageComponent.split('-').map((p) => p.split('@')[0]);
         this.integerCitations = this.citations.map(citationToInteger);
-        this.tokens = passageComponent.split('-').map((p) => {
+        const tokensWithIndexes = passageComponent.split('-').map((p) => {
             const maybeToken = p.split('@')[1];
             if (maybeToken) {
-                return new CTS_Token(maybeToken);
+                const parsed = TOKEN_REGEX.exec(maybeToken);
+                if (parsed?.groups?.token) {
+                    return {
+                        index: parseInt(parsed?.groups?.index || '1'),
+                        token: parsed?.groups?.token
+                    };
+                }
             }
         });
+        this.tokens = tokensWithIndexes.map(x => x && x.token);
+        this.tokenIndexes = tokensWithIndexes.map(x => x && x.index);
     }
     contains(ctsUrn) {
         return ((this.integerCitations[0].every((value, index) => value <= ctsUrn.integerCitations[0][index]) && this.integerCitations[this.integerCitations.length - 1].every((value, index) => value >= ctsUrn.integerCitations[ctsUrn.integerCitations.length - 1][index])));
@@ -75,8 +70,8 @@ export default class CTS_URN {
             passageComponent: this.passageComponent,
             citations: this.citations,
             integerCitations: this.integerCitations,
-            tokens: this.tokens.map(t => t && t.token),
-            tokenIndexes: this.tokens.map(t => t && t.index),
+            tokens: this.tokens,
+            tokenIndexes: this.tokenIndexes,
             __urn: this.__urn
         };
     }
