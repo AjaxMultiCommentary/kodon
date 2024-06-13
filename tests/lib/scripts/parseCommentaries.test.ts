@@ -1,6 +1,11 @@
-import { expect, test } from 'vitest';
+import { expect, expectTypeOf, test } from 'vitest';
 import { parseCommentaries } from '$lib/scripts/parseCommentaries.js';
 
+import type { Comment } from '$lib/types.js';
+
 test('processes commentaries in supplied folder', () => {
-	expect(true).toBeTruthy();
+	const parsedCommentaries = parseCommentaries('tests/support/commentaries');
+
+	expect(parsedCommentaries.length).toBeGreaterThan(0);
+	expectTypeOf(parsedCommentaries).toMatchTypeOf<Array<Comment>>();
 });
