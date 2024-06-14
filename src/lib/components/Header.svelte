@@ -13,7 +13,6 @@
 		<div class="flex h-16 justify-between">
 			<div class="flex">
 				<div class="hidden sm:-my-px sm:flex sm:space-x-8 sm:items-center">
-					<a href="{base}/" class="link link-hover">{@html marked(title)}</a>
 					{#each staticPages as staticPage}
 						<a href="{base}/{staticPage.path}" class="link link-hover">{staticPage.title}</a>
 					{/each}
