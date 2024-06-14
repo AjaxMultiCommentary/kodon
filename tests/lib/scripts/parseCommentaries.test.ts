@@ -1,5 +1,5 @@
 import { expect, expectTypeOf, test } from 'vitest';
-import { parseCommentaries } from '$lib/scripts/parseCommentaries.js';
+import { parseCommentaries } from '$lib/server/parseCommentaries.js';
 
 import type { Comment } from '$lib/types.js';
 

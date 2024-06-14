@@ -1,6 +1,70 @@
 import type CTS_URN from '$lib/cts_urn.js';
 
-export type EditionConfig = {
+// Credit: https://stackoverflow.com/a/55032655
+type Modify<T, R> = Omit<T, keyof R> & R;
+
+
+// Credit: https://stackoverflow.com/a/55483981
+type NonFunctionPropertyNames<T> = {
+	[K in keyof T]: T[K] extends Function ? never : K
+}[keyof T];
+
+type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
+
+export type Comment = {
+	attributes?: any;
+	body?: string | Promise<string>;
+	citable_urn?: string;
+	commentaryAttributes?: CommentaryAttributes;
+	content?: string;
+	ctsUrn: CTS_URN;
+	end_offset?: string;
+	image_paths?: string;
+	isHighlighted?: boolean;
+	lemma?: string;
+	overlays?: string;
+	page_ids?: string;
+	start_offset?: string;
+	transcript?: string;
+	urn: string;
+};
+
+export type CommentaryAttributes = {
+	creators?: Author[];
+	edition?: string;
+	filename?: string;
+	languages?: string[];
+	metadata?: string;
+	pid?: string;
+	place?: string;
+	public_domain_year?: number;
+	publication_date?: number;
+	source_url?: string;
+	title?: string;
+	urn?: string;
+	wikidata_qid?: string;
+	zotero_id?: string;
+	zotero_link?: string;
+};
+
+export type CommentaryConfig = {
+	title: string;
+	description: string;
+	commentaries_directory: string;
+	editions_directory: string;
+	static_pages: StaticPageInfo[];
+	editions: DeserializedEditionConfig[];
+	passages: DeserializedPassageConfig[];
+	table_of_contents: DeserializedPassageConfig[];
+};
+
+export type StaticPageInfo = {
+	title: string;
+	path: string;
+	file_path: string;
+};
+
+export interface EditionConfig {
 	ctsUrn: CTS_URN;
 	description: string;
 	filename: string;
@@ -8,12 +72,43 @@ export type EditionConfig = {
 	urn: string;
 };
 
+export type Metadata = {
+	title: string;
+	description: string;
+}
+
 export type PassageConfig = {
 	ctsUrn: CTS_URN;
 	label: string;
 	urn: string;
 	ref: string;
 };
+
+export type DeserializedComment = Modify<Comment, {
+	ctsUrn: NonFunctionProperties<CTS_URN>;
+}>;
+
+export type DeserializedEditionConfig = Modify<EditionConfig, {
+	ctsUrn: NonFunctionProperties<CTS_URN>;
+}>;
+
+export type DeserializedPassageConfig = Modify<PassageConfig, {
+	ctsUrn: NonFunctionProperties<CTS_URN>;
+}>;
+
+export type DeserializedTextContainer = Modify<TextContainer, {
+	comments: DeserializedComment[];
+	ctsUrn: NonFunctionProperties<CTS_URN>;
+}>;
+
+export type PassageInfo = {
+	comments: DeserializedComment[];
+	currentPassage: DeserializedPassageConfig;
+	editions: DeserializedEditionConfig[];
+	metadata: Metadata;
+	passages: DeserializedPassageConfig[];
+	textContainers: DeserializedTextContainer[];
+}
 
 export type Word = {
 	commentURNs: (string | undefined)[];
@@ -34,6 +129,7 @@ export type TextElement = {
 
 export type TextContainer = {
 	comments?: Comment[];
+	ctsUrn: CTS_URN;
 	location: string[];
 	offset: number;
 	speaker?: string | null;
@@ -64,41 +160,7 @@ export type Tag = {
 	image: string;
 };
 
-export type CommentaryAttributes = {
-	creators?: Author[];
-	edition?: string;
-	filename?: string;
-	languages?: string[];
-	metadata?: string;
-	pid?: string;
-	place?: string;
-	public_domain_year?: number;
-	publication_date?: number;
-	source_url?: string;
-	title?: string;
-	urn?: string;
-	wikidata_qid?: string;
-	zotero_id?: string;
-	zotero_link?: string;
-};
 
-export type Comment = {
-	attributes?: any;
-	body?: string | Promise<string>;
-	citable_urn?: string;
-	commentaryAttributes?: CommentaryAttributes;
-	content?: string;
-	ctsUrn: CTS_URN;
-	end_offset?: string;
-	image_paths?: string;
-	isHighlighted?: boolean;
-	lemma?: string;
-	overlays?: string;
-	page_ids?: string;
-	start_offset?: string;
-	transcript?: string;
-	urn: string;
-};
 
 export type Line = {
 	n: string;

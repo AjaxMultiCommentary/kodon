@@ -89,7 +89,7 @@
 	}
 </script>
 
-<article class="mx-auto w-full p-8">
+<article class="mx-auto w-full">
 	<div class="grid grid-cols-10 gap-x-8 gap-y-2 h-screen max-h-[64rem]">
 		<div class="col-span-full flex justify-between">
 			<div>
