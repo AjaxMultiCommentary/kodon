@@ -11,6 +11,16 @@ type NonFunctionPropertyNames<T> = {
 
 type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
 
+export interface Bibliography {
+	name: string;
+	items: object[];
+};
+
+export interface CSL {
+	name: string;
+	template: string;
+}
+
 export type Comment = {
 	attributes?: any;
 	body?: string | Promise<string>;
