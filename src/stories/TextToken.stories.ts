@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/svelte';
 import TextToken from '$lib/components/TextToken.svelte';
-import CTS_URN from '$lib/cts_urn.js';
 
 const meta = {
     component: TextToken,

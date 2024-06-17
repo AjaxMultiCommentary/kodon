@@ -78,6 +78,7 @@
   "types": "./dist/index.d.ts",
   "type": "module",
   "dependencies": {
+    "@citation-js/plugin-csl": "^0.7.14",
     "@tailwindcss/typography": "^0.5.13",
     "autoprefixer": "^10.4.19",
     "citation-js": "^0.7.14",

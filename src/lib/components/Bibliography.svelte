@@ -1,5 +1,8 @@
 <script lang="ts">
+	// @ts-expect-error
 	import { Cite, plugins } from '@citation-js/core';
+
+	import '@citation-js/plugin-csl';
 
 	import type { Bibliography, CSL } from '$lib/types.js';
 
