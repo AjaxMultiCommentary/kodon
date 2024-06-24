@@ -1,18 +1,11 @@
 import fs from 'node:fs';
 
 import frontMatter from 'front-matter';
-// @ts-expect-error
-import { Cite, plugins } from '@citation-js/core';
-import { marked } from 'marked';
-
-import '@citation-js/plugin-csl';
 
 import CTS_URN from '$lib/cts_urn.js';
 
 import type { Comment } from '$lib/types.js';
-import { loadBibliographies } from './loadBibliographies.js';
 
-const IN_TEXT_CITATION_REGEX = /@(?<key>[\p{Letter}\p{Number}\-_\.]+)/u;
 const GLOSSA_PROPERTY_REGEX = /^:(?<name>[^:\n]+):\s+(?<value>.*)(?:\n|$)/;
 const URN_REGEX = /@(?<urn>[^\n]+)(?:\n|$)/u;
 
@@ -23,8 +16,6 @@ const URN_REGEX = /@(?<urn>[^\n]+)(?:\n|$)/u;
  * @returns {Array<Comment>} - a flat array of the parsed comments from all commentary files found in `COMMENTARIES_DIR`
  */
 export function parseCommentaries(commentariesDirectory = 'commentaries', bibliographiesDirectory = 'bibliographies'): Comment[] {
-    marked.use({ renderer: _markedCitationRenderer(bibliographiesDirectory) });
-
     const files = fs.readdirSync(commentariesDirectory);
 
     return files.flatMap((file: string) => {
@@ -58,7 +49,7 @@ export function parseGlossa(attributes: object, glossa: string) {
         return {
             commentaryAttributes: attributes,
             ...glossaProperties,
-            body: convertMarkdownBodyToHtml(withProperties),
+            body: withProperties,
             ctsUrn: new CTS_URN(urn),
             rawBody: withProperties,
             urn
@@ -66,41 +57,3 @@ export function parseGlossa(attributes: object, glossa: string) {
     }
 }
 
-export function convertMarkdownBodyToHtml(body: string) {
-    return marked(body);
-}
-
-export function _markedCitationRenderer(bibliographiesDirectory: string) {
-    const { bibliographies, csls } = loadBibliographies(bibliographiesDirectory);
-    const bibliographiesDict = bibliographies.reduce((acc, b) => {
-        b.items.forEach((i: any) => {
-            acc[i.id] = i;
-        });
-
-        return acc;
-    }, {} as any);
-
-    const citationCSLConfig = plugins.config.get('@csl');
-
-    csls.forEach((csl) => {
-        citationCSLConfig.templates.add(csl.name, csl.template);
-    });
-
-    return {
-        text(token: string) {
-            const match = token.match(IN_TEXT_CITATION_REGEX);
-
-            if (match?.groups?.key) {
-                const item = bibliographiesDict[match.groups.key];
-
-                if (typeof item !== 'undefined') {
-                    const citation = new Cite(item).format('citation', { template: csls[0].name || 'harvard1' });
-
-                    return `[${citation}](/bibliography#${match.groups.key})`;
-                }
-            }
-
-            return false;
-        }
-    }
-}
