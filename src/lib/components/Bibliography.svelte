@@ -33,9 +33,15 @@
 	});
 </script>
 
-<article class="bibliographies prose">
+<article class="bibliographies prose text-pretty">
 	{#each formattedBibliographies as formattedBibliography}
 		<h1>{formattedBibliography.name}</h1>
 		{@html formattedBibliography.output}
 	{/each}
 </article>
+
+<style lang="postcss">
+	.bibliographies {
+		text-indent: 3em hanging;
+	}
+</style>
