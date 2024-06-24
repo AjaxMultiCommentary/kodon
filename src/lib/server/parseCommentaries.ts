@@ -5,10 +5,14 @@ import { marked } from 'marked';
 
 import CTS_URN from '$lib/cts_urn.js';
 
+import type { Tokens } from 'marked';
 import type { Comment } from '$lib/types.js';
 
+const IN_TEXT_CITATION_REGEX = /@(?<key>[\p{Letter}\p{Number}\-_\.]+)/u;
 const GLOSSA_PROPERTY_REGEX = /^:(?<name>[^:\n]+):\s+(?<value>.*)(?:\n|$)/;
-const URN_REGEX = /\@(?<urn>[^\n]+)/;
+const URN_REGEX = /@(?<urn>[^\n]+)(?:\n|$)/u;
+
+marked.use({ renderer: _markedCitationRenderer() })
 
 /**
  * 
@@ -61,10 +65,16 @@ export function convertMarkdownBodyToHtml(body: string) {
     return marked(body);
 }
 
-function _markedAddInTextCitations() {
+export function _markedCitationRenderer() {
     return {
-        renderer: {
+        text(token: string) {
+            const match = token.match(IN_TEXT_CITATION_REGEX);
 
+            if (match?.groups?.key) {
+                return `<a href="/bibliography#${match.groups.key}">${match.groups.key}</a>`
+            }
+
+            return false;
         }
     }
 }
