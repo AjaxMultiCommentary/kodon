@@ -4,7 +4,7 @@ import { parse as parseToml } from 'smol-toml';
 
 import CTS_URN from '$lib/cts_urn.js';
 
-import type { CommentaryConfig, EditionConfig, PassageConfig } from '$lib/types.js';
+import type { EditionConfig, PassageConfig } from '$lib/types.js';
 
 export default function loadConfig(configPath: string) {
     const _doc = fs.readFileSync(configPath, 'utf-8');

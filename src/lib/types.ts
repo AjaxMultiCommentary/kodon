@@ -60,6 +60,7 @@ export type CommentaryAttributes = {
 export type CommentaryConfig = {
 	title: string;
 	description: string;
+	bibliographies_directory: string;
 	commentaries_directory: string;
 	editions_directory: string;
 	static_pages: StaticPageInfo[];
@@ -169,8 +170,6 @@ export type Tag = {
 	name: string;
 	image: string;
 };
-
-
 
 export type Line = {
 	n: string;

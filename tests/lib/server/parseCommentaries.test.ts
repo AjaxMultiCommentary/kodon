@@ -4,15 +4,15 @@ import { parseCommentaries, _markedCitationRenderer } from '$lib/server/parseCom
 import type { Comment } from '$lib/types.js';
 
 test('processes commentaries in supplied folder', () => {
-	const parsedCommentaries = parseCommentaries('tests/support/commentaries');
+	const parsedCommentaries = parseCommentaries('tests/support/commentaries', 'tests/support/bibliographies');
 
 	expect(parsedCommentaries.length).toBeGreaterThan(0);
 	expectTypeOf(parsedCommentaries).toMatchTypeOf<Array<Comment>>();
 });
 
 test('_markedCitationRenderer() correctly renders an in-text citation', () => {
-	const renderer = _markedCitationRenderer();
-	const result = renderer.text('@TestCitation');
+	const renderer = _markedCitationRenderer('tests/support/bibliographies');
+	const result = renderer.text('@jebb_sophocles_1896');
 
-	expect(result).toEqual(`<a href="/bibliography#TestCitation">TestCitation</a>`)
+	expect(result).toEqual(`[(Jebb 1896)](/bibliography#jebb_sophocles_1896)`)
 });
