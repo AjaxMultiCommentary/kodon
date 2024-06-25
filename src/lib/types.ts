@@ -23,7 +23,7 @@ export interface CSL {
 
 export type Comment = {
 	attributes?: any;
-	body?: string | Promise<string>;
+	body: string;
 	citable_urn?: string;
 	commentaryAttributes?: CommentaryAttributes;
 	content?: string;
