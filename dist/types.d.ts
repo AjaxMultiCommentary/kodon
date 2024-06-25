@@ -4,9 +4,17 @@ type NonFunctionPropertyNames<T> = {
     [K in keyof T]: T[K] extends Function ? never : K;
 }[keyof T];
 type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
+export interface Bibliography {
+    name: string;
+    items: object[];
+}
+export interface CSL {
+    name: string;
+    template: string;
+}
 export type Comment = {
     attributes?: any;
-    body?: string | Promise<string>;
+    body: string;
     citable_urn?: string;
     commentaryAttributes?: CommentaryAttributes;
     content?: string;
@@ -41,6 +49,7 @@ export type CommentaryAttributes = {
 export type CommentaryConfig = {
     title: string;
     description: string;
+    bibliographies_directory: string;
     commentaries_directory: string;
     editions_directory: string;
     static_pages: StaticPageInfo[];

@@ -1,55 +1,64 @@
 import fs from 'node:fs';
+import { base } from '$app/paths';
 import CTS_URN from '../cts_urn.js';
+import MarkdownParser from './MarkdownParser.js';
 import { parseCommentaries } from './parseCommentaries.js';
-export default function loadPassage(config, urn) {
+export default function loadPassage(config) {
     // FIXME: (@pletcher) It's not great to parse all of the commentaries every time we load
     // a passage.
-    const ALL_COMMENTS = parseCommentaries(config.commentaries_directory);
-    const ctsUrn = new CTS_URN(urn);
-    const version = ctsUrn.version
-        ? config.editions.find((e) => e.ctsUrn.version === ctsUrn.version)
-        : config.editions[0];
-    if (!version) {
-        throw new Error(`Edition ${ctsUrn.toString()} not found.`);
-    }
-    const passageStart = ctsUrn.integerCitations[0] || [1];
-    const passages = config.passages;
-    const passageInfo = getPassage(passages, passageStart);
-    if (!passageInfo) {
-        throw new Error('Passage not found.');
-    }
-    const editions = config.editions;
-    const editionFile = `${config.editions_directory}/${version.ctsUrn.workComponent}.jsonl`;
-    const jsonl = fs
-        .readFileSync(editionFile, 'utf-8')
-        .split('\n')
-        .filter((l) => l !== '')
-        .map((l) => JSON.parse(l));
-    const textContainers = getTextContainersForPassage(passageInfo, jsonl);
-    const comments = getCommentsForPassage(ALL_COMMENTS, {
-        ...passageInfo,
-        ctsUrn: new CTS_URN(passageInfo.ctsUrn.__urn)
-    });
-    return {
-        comments: comments.map((c) => ({ ...c, ctsUrn: c?.ctsUrn.toJSON() })),
-        currentPassage: passageInfo,
-        editions,
-        metadata: { title: config.title, description: config.description },
-        passages,
-        textContainers: textContainers.map((tc) => ({
-            ...tc,
-            comments: comments
-                .filter((c) => {
-                const textContainerUrn = new CTS_URN(tc.urn);
-                // comment starts on this textContainer
-                return (c?.ctsUrn.hasEqualStart(textContainerUrn) ||
-                    // comment ends on this textContainer
-                    c?.ctsUrn.hasEqualEnd(textContainerUrn) ||
-                    // textContainer is contained by this comment
-                    c?.ctsUrn.contains(textContainerUrn));
-            })
-                .map((c) => ({ ...c, ctsUrn: c?.ctsUrn.toJSON() }))
-        }))
+    const ALL_COMMENTS = parseCommentaries(config.commentaries_directory, config.bibliographies_directory);
+    const markdownParser = new MarkdownParser(config.bibliographies_directory, `${base}/bibliography/`);
+    return function _loadPassage(urn) {
+        const ctsUrn = new CTS_URN(urn);
+        const version = ctsUrn.version
+            ? config.editions.find((e) => e.ctsUrn.version === ctsUrn.version)
+            : config.editions[0];
+        if (!version) {
+            throw new Error(`Edition ${ctsUrn.toString()} not found.`);
+        }
+        const passageStart = ctsUrn.integerCitations[0] || [1];
+        const passages = config.passages;
+        const passageInfo = getPassage(passages, passageStart);
+        if (!passageInfo) {
+            throw new Error('Passage not found.');
+        }
+        const editions = config.editions;
+        const editionFile = `${config.editions_directory}/${version.ctsUrn.workComponent}.jsonl`;
+        const jsonl = fs
+            .readFileSync(editionFile, 'utf-8')
+            .split('\n')
+            .filter((l) => l !== '')
+            .map((l) => JSON.parse(l));
+        const textContainers = getTextContainersForPassage(passageInfo, jsonl);
+        const comments = getCommentsForPassage(ALL_COMMENTS, {
+            ...passageInfo,
+            ctsUrn: new CTS_URN(passageInfo.ctsUrn.__urn)
+        });
+        return {
+            comments: comments.map((c) => ({
+                ...c,
+                body: markdownParser.toHTML(c.body),
+                ctsUrn: c?.ctsUrn.toJSON()
+            })),
+            currentPassage: passageInfo,
+            editions,
+            metadata: { title: config.title, description: config.description },
+            passages,
+            textContainers: textContainers.map((tc) => ({
+                ...tc,
+                comments: comments
+                    .filter((c) => {
+                    const textContainerUrn = new CTS_URN(tc.urn);
+                    // comment starts on this textContainer
+                    return (c?.ctsUrn.hasEqualStart(textContainerUrn) ||
+                        // comment ends on this textContainer
+                        c?.ctsUrn.hasEqualEnd(textContainerUrn) ||
+                        // textContainer is contained by this comment
+                        c?.ctsUrn.contains(textContainerUrn));
+                })
+                    .map((c) => ({ ...c, ctsUrn: c?.ctsUrn.toJSON() }))
+            }))
+        };
     };
 }
 export function getCommentsForPassage(allComments, passageInfo) {
