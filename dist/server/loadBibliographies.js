@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-export function loadBibliographies(bibliographiesDirectory = 'bibliographies') {
+export default function loadBibliographies(bibliographiesDirectory = 'bibliographies') {
     const allFiles = fs.readdirSync(bibliographiesDirectory);
     const bibliographies = allFiles
         .filter((f) => path.extname(f) === '.json')

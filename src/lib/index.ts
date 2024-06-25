@@ -1,5 +1,6 @@
 // Reexport your entry components here
 
+export { default as loadBibliographies } from './server/loadBibliographies.js';
 export { default as loadConfig } from './server/loadConfig.js';
 export { default as loadPassage } from './server/loadPassage.js';
 

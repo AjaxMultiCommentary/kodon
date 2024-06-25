@@ -1,4 +1,4 @@
-export declare function loadBibliographies(bibliographiesDirectory?: string): {
+export default function loadBibliographies(bibliographiesDirectory?: string): {
     bibliographies: {
         name: string;
         items: any;
