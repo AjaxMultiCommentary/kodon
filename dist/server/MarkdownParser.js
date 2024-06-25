@@ -2,7 +2,7 @@
 import { Cite, plugins } from '@citation-js/core';
 import { Marked } from 'marked';
 import '@citation-js/plugin-csl';
-import { loadBibliographies } from './loadBibliographies.js';
+import loadBibliographies from './loadBibliographies.js';
 const IN_TEXT_CITATION_REGEX = /@(?<key>[\p{Letter}\p{Number}\-_\.]+)/gu;
 export default class MarkdownParser {
     _marked;
