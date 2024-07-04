@@ -8,7 +8,9 @@ declare const __propDef: {
     events: {
         [evt: string]: CustomEvent<any>;
     };
-    slots: {};
+    slots: {
+        default: {};
+    };
     exports?: {} | undefined;
     bindings?: string | undefined;
 };
