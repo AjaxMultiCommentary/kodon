@@ -62,7 +62,9 @@ function toggleDetails(_e) {
 		{/if}
 	</div>
 	<div class="collapse-content float-right">
-		<p class="max-w-2xl text-sm text-gray-800 prose comment-body">{@html comment.body}</p>
+		<p class="max-w-2xl text-sm text-gray-800 prose comment-body font-serif">
+			{@html comment.body}
+		</p>
 		{#if commentHasIIIF(comment)}
 			<div class="flex justify-center mt-2">
 				{#if showIIIFViewer}
