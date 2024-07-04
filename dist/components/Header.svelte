@@ -18,4 +18,5 @@ export let staticPages;
 			</div>
 		</div>
 	</div>
+	<div class="divider" />
 </nav>
