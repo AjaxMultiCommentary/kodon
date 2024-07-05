@@ -8,9 +8,9 @@ declare const __propDef: {
         metadata: any;
         passages: PassageConfig[];
         textContainers: TextContainer[];
-        heatmapTooltip: string;
-        filterListTooltip: string;
-        navigationTooltip: string;
+        heatmapTooltip: string | undefined;
+        filterListTooltip: string | undefined;
+        navigationTooltip: string | undefined;
     };
     events: {
         [evt: string]: CustomEvent<any>;

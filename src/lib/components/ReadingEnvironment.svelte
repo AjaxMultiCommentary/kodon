@@ -18,9 +18,9 @@
 	export let passages: PassageConfig[];
 	export let textContainers: TextContainer[];
 
-	export let heatmapTooltip: string;
-	export let filterListTooltip: string;
-	export let navigationTooltip: string;
+	export let heatmapTooltip: string | undefined;
+	export let filterListTooltip: string | undefined;
+	export let navigationTooltip: string | undefined;
 
 	$: commentCountsByCommentary = _.countBy(comments, (c) => c.commentaryAttributes?.pid);
 	$: commentaryOptions = _.sortBy(
