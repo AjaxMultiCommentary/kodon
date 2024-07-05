@@ -85,6 +85,9 @@ function toggleHeatmap() {
 				<p>{@html marked(metadata.description)}</p>
 			</div>
 			<div class="flex">
+				{#if heatmapTooltip}
+					<Tooltip text={heatmapTooltip} />
+				{/if}
 				<form on:submit={toggleHeatmap}>
 					<div class="form-control">
 						<label class="label cursor-pointer">
@@ -100,9 +103,6 @@ function toggleHeatmap() {
 						</label>
 					</div>
 				</form>
-				{#if heatmapTooltip}
-					<Tooltip text={heatmapTooltip} />
-				{/if}
 			</div>
 		</div>
 		<section class="col-span-2">
