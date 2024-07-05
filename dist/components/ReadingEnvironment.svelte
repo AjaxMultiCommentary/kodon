@@ -4,14 +4,18 @@ import { marked } from "marked";
 import { onMount, tick } from "svelte";
 import CitableTextContainer from "./CitableTextContainer.svelte";
 import CollapsibleComment from "./CollapsibleComment.svelte";
-import Navigation from "./Navigation.svelte";
 import FilterList from "./FilterList.svelte";
+import Navigation from "./Navigation.svelte";
+import Tooltip from "./Tooltip.svelte";
 export let comments;
 export let currentPassage;
 export let iiifURL;
 export let metadata;
 export let passages;
 export let textContainers;
+export let heatmapTooltip;
+export let filterListTooltip;
+export let navigationTooltip;
 $:
   commentCountsByCommentary = _.countBy(comments, (c) => c.commentaryAttributes?.pid);
 $:
@@ -80,7 +84,7 @@ function toggleHeatmap() {
 
 				<p>{@html marked(metadata.description)}</p>
 			</div>
-			<div>
+			<div class="flex">
 				<form on:submit={toggleHeatmap}>
 					<div class="form-control">
 						<label class="label cursor-pointer">
@@ -96,12 +100,25 @@ function toggleHeatmap() {
 						</label>
 					</div>
 				</form>
+				{#if heatmapTooltip}
+					<Tooltip text={heatmapTooltip} />
+				{/if}
 			</div>
 		</div>
 		<section class="col-span-2">
-			<Navigation {passages} currentPassageUrn={currentPassage.urn} />
+			<div class="flex">
+				<Navigation {passages} currentPassageUrn={currentPassage.urn} />
+				{#if navigationTooltip}
+					<Tooltip text={navigationTooltip} />
+				{/if}
+			</div>
 			<div class="py-2" />
-			<FilterList options={commentaryOptions} on:change={handleCommentaryFiltersChange} />
+			<div class="flex">
+				<FilterList options={commentaryOptions} on:change={handleCommentaryFiltersChange} />
+				{#if filterListTooltip}
+					<Tooltip text={filterListTooltip} />
+				{/if}
+			</div>
 		</section>
 		<section class="col-span-5 overflow-y-scroll -mt-4">
 			{#each textContainers as textContainer}
