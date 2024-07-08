@@ -119,10 +119,10 @@ function handleStartSelection(e) {
 		<div class="col-span-full flex justify-between">
 			<div>
 				{#if selectedURN}
-					<p class="text-gray-600">Selected URN: {selectedURN}</p>
+					<p class="text-gray-500">Selected URN: {selectedURN}</p>
 				{/if}
 			</div>
-			<div class="flex">
+			<div class="flex justify-between items-center mb-2">
 				{#if heatmapTooltip}
 					<Tooltip text={heatmapTooltip} />
 				{/if}
@@ -144,23 +144,23 @@ function handleStartSelection(e) {
 			</div>
 		</div>
 		<section class="col-span-2">
-			<div class="flex">
-				<h2 class="prose prose-h2">Navigation</h2>
+			<div class="flex justify-between items-center mb-2">
+				<h3 class="prose prose-h3 font-semibold text-sm">Navigation</h3>
 				{#if navigationTooltip}
 					<Tooltip text={navigationTooltip} />
 				{/if}
 			</div>
 			<Navigation {passages} currentPassageUrn={currentPassage.urn} />
 			<div class="py-2" />
-			<div class="flex">
-				<h2 class="prose prose-h2">Filter Comments</h2>
+			<div class="flex justify-between items-center mb-2">
+				<h3 class="prose prose-h3 font-semibold text-sm">Filter Comments</h3>
 				{#if filterListTooltip}
 					<Tooltip text={filterListTooltip} />
 				{/if}
 			</div>
 			<FilterList options={commentaryOptions} on:change={handleCommentaryFiltersChange} />
 		</section>
-		<section class="col-span-5 overflow-y-scroll -mt-4">
+		<section class="col-span-5 overflow-y-scroll">
 			{#each textContainers as textContainer}
 				<CitableTextContainer
 					{textContainer}
