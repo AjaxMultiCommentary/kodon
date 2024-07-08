@@ -45,6 +45,7 @@ const passages = [
 		ref: 'vv. 4-5'
 	}
 ];
+
 const textContainers = [
 	{
 		offset: 0,
@@ -52,13 +53,55 @@ const textContainers = [
 		location: ['1'],
 		text: 'Ἀεὶ μέν, ὦ παῖ Λαρτίου, δέδορκά σε',
 		words: [
-			{ offset: 0, text: 'Ἀεὶ', xml_id: 'word_index_0', urn_index: 1 },
-			{ offset: 4, text: 'μέν,', xml_id: 'word_index_1', urn_index: 1 },
-			{ offset: 9, text: 'ὦ', xml_id: 'word_index_2', urn_index: 1 },
-			{ offset: 11, text: 'παῖ', xml_id: 'word_index_3', urn_index: 1 },
-			{ offset: 15, text: 'Λαρτίου,', xml_id: 'word_index_4', urn_index: 1 },
-			{ offset: 24, text: 'δέδορκά', xml_id: 'word_index_5', urn_index: 1 },
-			{ offset: 32, text: 'σε', xml_id: 'word_index_6', urn_index: 1 }
+			{
+				offset: 0,
+				text: 'Ἀεὶ',
+				urn: 'urn:cts:greekLit:tlg0011.tlg003.ajmc-lj:1@Ἀεὶ[1]',
+				urn_index: 1,
+				xml_id: 'word_index_0'
+			},
+			{
+				offset: 4,
+				text: 'μέν,',
+				urn: 'urn:cts:greekLit:tlg0011.tlg003.ajmc-lj:1@μέν,[1]',
+				urn_index: 1,
+				xml_id: 'word_index_1'
+			},
+			{
+				offset: 9,
+				text: 'ὦ',
+				urn: 'urn:cts:greekLit:tlg0011.tlg003.ajmc-lj:1@ὦ[1]',
+				urn_index: 1,
+				xml_id: 'word_index_2'
+			},
+			{
+				offset: 11,
+				text: 'παῖ',
+				urn: 'urn:cts:greekLit:tlg0011.tlg003.ajmc-lj:1@παῖ[1]',
+				urn_index: 1,
+				xml_id: 'word_index_3'
+			},
+			{
+				offset: 15,
+				text: 'Λαρτίου,',
+				urn: 'urn:cts:greekLit:tlg0011.tlg003.ajmc-lj:1@Λαρτίου,[1]',
+				urn_index: 1,
+				xml_id: 'word_index_4'
+			},
+			{
+				offset: 24,
+				text: 'δέδορκά',
+				urn: 'urn:cts:greekLit:tlg0011.tlg003.ajmc-lj:1@δέδορκά[1]',
+				urn_index: 1,
+				xml_id: 'word_index_5'
+			},
+			{
+				offset: 32,
+				text: 'σε',
+				urn: 'urn:cts:greekLit:tlg0011.tlg003.ajmc-lj:1@σε[1]',
+				urn_index: 1,
+				xml_id: 'word_index_6'
+			}
 		],
 		subtype: 'line',
 		urn: 'urn:cts:greekLit:tlg0011.tlg003.ajmc-lj:1'
@@ -69,11 +112,41 @@ const textContainers = [
 		location: ['2'],
 		text: 'πεῖράν τινʼ ἐχθρῶν ἁρπάσαι θηρώμενον·',
 		words: [
-			{ offset: 0, text: 'πεῖράν', xml_id: 'word_index_7', urn_index: 1 },
-			{ offset: 7, text: 'τινʼ', xml_id: 'word_index_8', urn_index: 1 },
-			{ offset: 12, text: 'ἐχθρῶν', xml_id: 'word_index_9', urn_index: 1 },
-			{ offset: 19, text: 'ἁρπάσαι', xml_id: 'word_index_10', urn_index: 1 },
-			{ offset: 27, text: 'θηρώμενον·', xml_id: 'word_index_11', urn_index: 1 }
+			{
+				offset: 0,
+				text: 'πεῖράν',
+				urn: 'urn:cts:greekLit:tlg0011.tlg003.ajmc-lj:2@πεῖράν[1]',
+				urn_index: 1,
+				xml_id: 'word_index_7'
+			},
+			{
+				offset: 7,
+				text: 'τινʼ',
+				urn: 'urn:cts:greekLit:tlg0011.tlg003.ajmc-lj:2@τινʼ[1]',
+				urn_index: 1,
+				xml_id: 'word_index_8'
+			},
+			{
+				offset: 12,
+				text: 'ἐχθρῶν',
+				urn: 'urn:cts:greekLit:tlg0011.tlg003.ajmc-lj:2@ἐχθρῶν[1]',
+				urn_index: 1,
+				xml_id: 'word_index_9'
+			},
+			{
+				offset: 19,
+				text: 'ἁρπάσαι',
+				urn: 'urn:cts:greekLit:tlg0011.tlg003.ajmc-lj:2@ἁρπάσαι[1]',
+				urn_index: 1,
+				xml_id: 'word_index_10'
+			},
+			{
+				offset: 27,
+				text: 'θηρώμενον·',
+				urn: 'urn:cts:greekLit:tlg0011.tlg003.ajmc-lj:2@θηρώμενον·[1]',
+				urn_index: 1,
+				xml_id: 'word_index_11'
+			}
 		],
 		subtype: 'line',
 		urn: 'urn:cts:greekLit:tlg0011.tlg003.ajmc-lj:2'
@@ -84,13 +157,55 @@ const textContainers = [
 		location: ['3'],
 		text: 'καὶ νῦν ἐπὶ σκηναῖς σε ναυτικαῖς ὁρῶ',
 		words: [
-			{ offset: 0, text: 'καὶ', xml_id: 'word_index_12', urn_index: 1 },
-			{ offset: 4, text: 'νῦν', xml_id: 'word_index_13', urn_index: 1 },
-			{ offset: 8, text: 'ἐπὶ', xml_id: 'word_index_14', urn_index: 1 },
-			{ offset: 12, text: 'σκηναῖς', xml_id: 'word_index_15', urn_index: 1 },
-			{ offset: 20, text: 'σε', xml_id: 'word_index_16', urn_index: 1 },
-			{ offset: 23, text: 'ναυτικαῖς', xml_id: 'word_index_17', urn_index: 1 },
-			{ offset: 33, text: 'ὁρῶ', xml_id: 'word_index_18', urn_index: 1 }
+			{
+				offset: 0,
+				text: 'καὶ',
+				urn: 'urn:cts:greekLit:tlg0011.tlg003.ajmc-lj:3@καὶ[1]',
+				urn_index: 1,
+				xml_id: 'word_index_12'
+			},
+			{
+				offset: 4,
+				text: 'νῦν',
+				urn: 'urn:cts:greekLit:tlg0011.tlg003.ajmc-lj:3@νῦν[1]',
+				urn_index: 1,
+				xml_id: 'word_index_13'
+			},
+			{
+				offset: 8,
+				text: 'ἐπὶ',
+				urn: 'urn:cts:greekLit:tlg0011.tlg003.ajmc-lj:3@ἐπὶ[1]',
+				urn_index: 1,
+				xml_id: 'word_index_14'
+			},
+			{
+				offset: 12,
+				text: 'σκηναῖς',
+				urn: 'urn:cts:greekLit:tlg0011.tlg003.ajmc-lj:3@σκηναῖς[1]',
+				urn_index: 1,
+				xml_id: 'word_index_15'
+			},
+			{
+				offset: 20,
+				text: 'σε',
+				urn: 'urn:cts:greekLit:tlg0011.tlg003.ajmc-lj:3@σε[1]',
+				urn_index: 1,
+				xml_id: 'word_index_16'
+			},
+			{
+				offset: 23,
+				text: 'ναυτικαῖς',
+				urn: 'urn:cts:greekLit:tlg0011.tlg003.ajmc-lj:3@ναυτικαῖς[1]',
+				urn_index: 1,
+				xml_id: 'word_index_17'
+			},
+			{
+				offset: 33,
+				text: 'ὁρῶ',
+				urn: 'urn:cts:greekLit:tlg0011.tlg003.ajmc-lj:3@ὁρῶ[1]',
+				urn_index: 1,
+				xml_id: 'word_index_18'
+			}
 		],
 		subtype: 'line',
 		urn: 'urn:cts:greekLit:tlg0011.tlg003.ajmc-lj:3'

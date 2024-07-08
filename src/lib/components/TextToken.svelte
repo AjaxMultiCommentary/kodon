@@ -22,11 +22,12 @@
 	}
 </script>
 
-<a
+<span
 	id={token.xml_id}
 	class={`comments-${Math.min(token.commentURNs.length || 0, 10)}`}
 	class:comment-box-shadow={showHeatmap}
 	class:cursor-pointer={token.commentURNs.length || 0 > 0}
+	data-urn={token.urn}
 	role="button"
 	tabindex="0"
 	title={tokenTitleText(token)}
@@ -36,8 +37,10 @@
 			dispatch('highlightComments', token.commentURNs);
 		}
 	}}
+	on:mousedown={() => dispatch('startSelection', token.urn)}
+	on:mouseup={() => dispatch('endSelection', token.urn)}
 	>{token.text}{' '}
-</a>
+</span>
 
 <style lang="postcss">
 	.addition::before {

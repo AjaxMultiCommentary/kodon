@@ -10,6 +10,7 @@
 	import FilterList from '$lib/components/FilterList.svelte';
 	import Navigation from '$lib/components/Navigation.svelte';
 	import Tooltip from '$lib/components/Tooltip.svelte';
+	import CTS_URN from '$lib/cts_urn.js';
 
 	export let comments: Comment[];
 	export let currentPassage: PassageConfig;
@@ -21,6 +22,10 @@
 	export let heatmapTooltip: string | undefined;
 	export let filterListTooltip: string | undefined;
 	export let navigationTooltip: string | undefined;
+
+	let selectedURN: string | null | undefined = null;
+	let selectionAnchorURN: string | null | undefined = null;
+	let selectionFocusURN: string | null | undefined = null;
 
 	$: commentCountsByCommentary = _.countBy(comments, (c) => c.commentaryAttributes?.pid);
 	$: commentaryOptions = _.sortBy(
@@ -92,6 +97,43 @@
 	function toggleHeatmap() {
 		showHeatmap = !showHeatmap;
 	}
+
+	function handleEndSelection(e: CustomEvent) {
+		if (showHeatmap) {
+			selectionFocusURN = null;
+			return;
+		}
+
+		if (typeof e.detail === 'string') {
+			selectionFocusURN = e.detail;
+		}
+
+		if (!selectionAnchorURN) return;
+
+		const anchorURN = new CTS_URN(selectionAnchorURN as string);
+		const focusURN = new CTS_URN(selectionFocusURN as string);
+		const anchorLocation = anchorURN.integerCitations;
+		const focusLocation = focusURN.integerCitations;
+
+		const isBackward = focusLocation.some((l, index) => l < anchorLocation[index]);
+
+		if (isBackward) {
+			selectedURN = `${selectionFocusURN}-${selectionAnchorURN}`;
+		} else {
+			selectedURN = `${selectionAnchorURN}-${selectionFocusURN}`;
+		}
+	}
+
+	function handleStartSelection(e: CustomEvent) {
+		if (showHeatmap) {
+			selectionAnchorURN = null;
+			return;
+		}
+
+		if (typeof e.detail === 'string') {
+			selectionAnchorURN = e.detail;
+		}
+	}
 </script>
 
 <article class="mx-auto w-full">
@@ -101,6 +143,9 @@
 				<h1 class="text-2xl font-bold">{@html marked(metadata.title)}</h1>
 
 				<p>{@html marked(metadata.description)}</p>
+				{#if selectedURN}
+					<p class="text-gray-600">Selected URN: {selectedURN}</p>
+				{/if}
 			</div>
 			<div class="flex">
 				{#if heatmapTooltip}
@@ -148,6 +193,9 @@
 							)
 						: textContainer.comments || []}
 					on:highlightComments={handleHighlightComments}
+					on:handleEndSelection={handleEndSelection}
+					on:startSelection={handleStartSelection}
+					on:endSelection={handleEndSelection}
 					{showHeatmap}
 				/>
 			{/each}

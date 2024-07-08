@@ -3,10 +3,9 @@ import type CTS_URN from '$lib/cts_urn.js';
 // Credit: https://stackoverflow.com/a/55032655
 type Modify<T, R> = Omit<T, keyof R> & R;
 
-
 // Credit: https://stackoverflow.com/a/55483981
 type NonFunctionPropertyNames<T> = {
-	[K in keyof T]: T[K] extends Function ? never : K
+	[K in keyof T]: T[K] extends Function ? never : K;
 }[keyof T];
 
 type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
@@ -14,7 +13,7 @@ type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
 export interface Bibliography {
 	name: string;
 	items: object[];
-};
+}
 
 export interface CSL {
 	name: string;
@@ -81,12 +80,12 @@ export interface EditionConfig {
 	filename: string;
 	label: string;
 	urn: string;
-};
+}
 
 export type Metadata = {
 	title: string;
 	description: string;
-}
+};
 
 export type PassageConfig = {
 	ctsUrn: CTS_URN;
@@ -95,22 +94,34 @@ export type PassageConfig = {
 	ref: string;
 };
 
-export type DeserializedComment = Modify<Comment, {
-	ctsUrn: NonFunctionProperties<CTS_URN>;
-}>;
+export type DeserializedComment = Modify<
+	Comment,
+	{
+		ctsUrn: NonFunctionProperties<CTS_URN>;
+	}
+>;
 
-export type DeserializedEditionConfig = Modify<EditionConfig, {
-	ctsUrn: NonFunctionProperties<CTS_URN>;
-}>;
+export type DeserializedEditionConfig = Modify<
+	EditionConfig,
+	{
+		ctsUrn: NonFunctionProperties<CTS_URN>;
+	}
+>;
 
-export type DeserializedPassageConfig = Modify<PassageConfig, {
-	ctsUrn: NonFunctionProperties<CTS_URN>;
-}>;
+export type DeserializedPassageConfig = Modify<
+	PassageConfig,
+	{
+		ctsUrn: NonFunctionProperties<CTS_URN>;
+	}
+>;
 
-export type DeserializedTextContainer = Modify<TextContainer, {
-	comments: DeserializedComment[];
-	ctsUrn: NonFunctionProperties<CTS_URN>;
-}>;
+export type DeserializedTextContainer = Modify<
+	TextContainer,
+	{
+		comments: DeserializedComment[];
+		ctsUrn: NonFunctionProperties<CTS_URN>;
+	}
+>;
 
 export type PassageInfo = {
 	comments: DeserializedComment[];
@@ -119,7 +130,7 @@ export type PassageInfo = {
 	metadata: Metadata;
 	passages: DeserializedPassageConfig[];
 	textContainers: DeserializedTextContainer[];
-}
+};
 
 export type Word = {
 	commentURNs: (string | undefined)[];
@@ -127,6 +138,7 @@ export type Word = {
 	text: string;
 	xml_id: string;
 	urn_index: number;
+	urn: string;
 };
 
 export type TextElement = {
