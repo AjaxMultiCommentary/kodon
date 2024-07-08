@@ -96,6 +96,7 @@
 
 	function toggleHeatmap() {
 		showHeatmap = !showHeatmap;
+		selectedURN = null;
 	}
 
 	function handleEndSelection(e: CustomEvent) {

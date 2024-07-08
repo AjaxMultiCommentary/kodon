@@ -77,6 +77,7 @@ async function highlightComments(commentsToHighlight) {
 }
 function toggleHeatmap() {
   showHeatmap = !showHeatmap;
+  selectedURN = null;
 }
 function handleEndSelection(e) {
   if (showHeatmap) {
