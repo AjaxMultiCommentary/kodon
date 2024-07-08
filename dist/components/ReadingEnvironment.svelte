@@ -11,7 +11,6 @@ import CTS_URN from "../cts_urn.js";
 export let comments;
 export let currentPassage;
 export let iiifURL;
-export let metadata;
 export let passages;
 export let textContainers;
 export let heatmapTooltip;
@@ -89,6 +88,10 @@ function handleEndSelection(e) {
   }
   if (!selectionAnchorURN)
     return;
+  if (selectionAnchorURN === selectionFocusURN) {
+    selectedURN = selectionAnchorURN;
+    return;
+  }
   const anchorURN = new CTS_URN(selectionAnchorURN);
   const focusURN = new CTS_URN(selectionFocusURN);
   const anchorLocation = anchorURN.integerCitations;
@@ -115,9 +118,6 @@ function handleStartSelection(e) {
 	<div class="grid grid-cols-10 gap-x-8 gap-y-2 h-screen max-h-[64rem]">
 		<div class="col-span-full flex justify-between">
 			<div>
-				<h1 class="text-2xl font-bold">{@html marked(metadata.title)}</h1>
-
-				<p>{@html marked(metadata.description)}</p>
 				{#if selectedURN}
 					<p class="text-gray-600">Selected URN: {selectedURN}</p>
 				{/if}
@@ -145,18 +145,20 @@ function handleStartSelection(e) {
 		</div>
 		<section class="col-span-2">
 			<div class="flex">
-				<Navigation {passages} currentPassageUrn={currentPassage.urn} />
+				<h2 class="prose prose-h2">Navigation</h2>
 				{#if navigationTooltip}
 					<Tooltip text={navigationTooltip} />
 				{/if}
 			</div>
+			<Navigation {passages} currentPassageUrn={currentPassage.urn} />
 			<div class="py-2" />
 			<div class="flex">
-				<FilterList options={commentaryOptions} on:change={handleCommentaryFiltersChange} />
+				<h2 class="prose prose-h2">Filter Comments</h2>
 				{#if filterListTooltip}
 					<Tooltip text={filterListTooltip} />
 				{/if}
 			</div>
+			<FilterList options={commentaryOptions} on:change={handleCommentaryFiltersChange} />
 		</section>
 		<section class="col-span-5 overflow-y-scroll -mt-4">
 			{#each textContainers as textContainer}

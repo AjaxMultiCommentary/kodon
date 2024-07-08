@@ -5,7 +5,6 @@ declare const __propDef: {
         comments: Comment[];
         currentPassage: PassageConfig;
         iiifURL: string;
-        metadata: any;
         passages: PassageConfig[];
         textContainers: TextContainer[];
         heatmapTooltip: string | undefined;
