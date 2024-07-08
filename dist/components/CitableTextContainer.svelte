@@ -76,16 +76,16 @@ $:
 		<Speaker name={textContainer.speaker} />
 	{/if}
 	<div class="flex justify-between">
-		<p class="max-w-prose indent-hanging">
+		<div class="max-w-prose indent-hanging" data-urn={ctsUrn.__urn} role="presentation">
 			{#each tokens as token (token.xml_id)}
-				<TextToken {showHeatmap} {token} on:highlightComments />
+				<TextToken {showHeatmap} {token} on:highlightComments on:startSelection on:endSelection />
 			{/each}
-		</p>
+		</div>
 		{#if wholeLineComments.length > 0}
 			<a
 				href={'#'}
 				role="button"
-				class={`base-content hover:opacity-70 cursor-pointer w-12 text-center inline-block comments-${wholeLineComments.length}`}
+				class={`base-content hover:opacity-70 cursor-pointer w-12 text-center inline-block comments-${wholeLineComments.length} select-none`}
 				class:comment-box-shadow={showHeatmap}
 				tabindex="0"
 				on:click={() =>
@@ -104,7 +104,9 @@ $:
 				data-citation={ctsUrn.citations[0]}>{ctsUrn.citations[0]}</a
 			>
 		{:else}
-			<span class="base-content w-12 text-center inline-block">{ctsUrn.citations.join('.')}</span>
+			<span class="base-content w-12 text-center inline-block select-none"
+				>{ctsUrn.citations.join('.')}</span
+			>
 		{/if}
 	</div>
 </div>

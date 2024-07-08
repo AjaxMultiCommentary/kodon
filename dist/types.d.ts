@@ -106,6 +106,7 @@ export type Word = {
     text: string;
     xml_id: string;
     urn_index: number;
+    urn: string;
 };
 export type TextElement = {
     attributes: any;

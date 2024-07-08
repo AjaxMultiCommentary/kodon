@@ -7,6 +7,7 @@ import CollapsibleComment from "./CollapsibleComment.svelte";
 import FilterList from "./FilterList.svelte";
 import Navigation from "./Navigation.svelte";
 import Tooltip from "./Tooltip.svelte";
+import CTS_URN from "../cts_urn.js";
 export let comments;
 export let currentPassage;
 export let iiifURL;
@@ -16,6 +17,9 @@ export let textContainers;
 export let heatmapTooltip;
 export let filterListTooltip;
 export let navigationTooltip;
+let selectedURN = null;
+let selectionAnchorURN = null;
+let selectionFocusURN = null;
 $:
   commentCountsByCommentary = _.countBy(comments, (c) => c.commentaryAttributes?.pid);
 $:
@@ -74,6 +78,36 @@ async function highlightComments(commentsToHighlight) {
 function toggleHeatmap() {
   showHeatmap = !showHeatmap;
 }
+function handleEndSelection(e) {
+  if (showHeatmap) {
+    selectionFocusURN = null;
+    return;
+  }
+  if (typeof e.detail === "string") {
+    selectionFocusURN = e.detail;
+  }
+  if (!selectionAnchorURN)
+    return;
+  const anchorURN = new CTS_URN(selectionAnchorURN);
+  const focusURN = new CTS_URN(selectionFocusURN);
+  const anchorLocation = anchorURN.integerCitations;
+  const focusLocation = focusURN.integerCitations;
+  const isBackward = focusLocation.some((l, index) => l < anchorLocation[index]);
+  if (isBackward) {
+    selectedURN = `${selectionFocusURN}-${selectionAnchorURN}`;
+  } else {
+    selectedURN = `${selectionAnchorURN}-${selectionFocusURN}`;
+  }
+}
+function handleStartSelection(e) {
+  if (showHeatmap) {
+    selectionAnchorURN = null;
+    return;
+  }
+  if (typeof e.detail === "string") {
+    selectionAnchorURN = e.detail;
+  }
+}
 </script>
 
 <article class="mx-auto w-full">
@@ -83,6 +117,9 @@ function toggleHeatmap() {
 				<h1 class="text-2xl font-bold">{@html marked(metadata.title)}</h1>
 
 				<p>{@html marked(metadata.description)}</p>
+				{#if selectedURN}
+					<p class="text-gray-600">Selected URN: {selectedURN}</p>
+				{/if}
 			</div>
 			<div class="flex">
 				{#if heatmapTooltip}
@@ -130,6 +167,9 @@ function toggleHeatmap() {
 							)
 						: textContainer.comments || []}
 					on:highlightComments={handleHighlightComments}
+					on:handleEndSelection={handleEndSelection}
+					on:startSelection={handleStartSelection}
+					on:endSelection={handleEndSelection}
 					{showHeatmap}
 				/>
 			{/each}

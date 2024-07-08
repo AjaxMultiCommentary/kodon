@@ -8,6 +8,8 @@ declare const __propDef: {
     };
     events: {
         highlightComments: CustomEvent<any>;
+        startSelection: CustomEvent<any>;
+        endSelection: CustomEvent<any>;
     } & {
         [evt: string]: CustomEvent<any>;
     };
