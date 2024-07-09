@@ -4,8 +4,6 @@ import CTS_URN from '../cts_urn.js';
 import MarkdownParser from './MarkdownParser.js';
 import { parseCommentaries } from './parseCommentaries.js';
 export default function loadPassage(config) {
-    // FIXME: (@pletcher) It's not great to parse all of the commentaries every time we load
-    // a passage.
     const ALL_COMMENTS = parseCommentaries(config.commentaries_directory, config.bibliographies_directory);
     const markdownParser = new MarkdownParser(config.bibliographies_directory, `${base}/bibliography/`);
     return function _loadPassage(urn) {

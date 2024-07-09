@@ -4,6 +4,8 @@
 
 	export let iiifURL: string;
 	export let comment: Comment;
+	export let citationPrefix: string = 'v.';
+	export let citationPrefixPlural: string = 'vv.';
 
 	$: creators = comment.commentaryAttributes?.creators as Author[];
 	$: isHighlighted = comment.isHighlighted;
@@ -15,11 +17,11 @@
 
 		if (integerCitations.length === 2) {
 			if (integerCitations[0].join('') !== integerCitations[1].join('')) {
-				return `vv. ${integerCitations[0].join('')}-${integerCitations[1].join('')}`;
+				return `${citationPrefixPlural} ${integerCitations[0].join('')}-${integerCitations[1].join('')}`;
 			}
 		}
 
-		return `v. ${integerCitations[0].join('')}`;
+		return `${citationPrefix} ${integerCitations[0].join('')}`;
 	}
 
 	function commentHasIIIF(comment: Comment) {

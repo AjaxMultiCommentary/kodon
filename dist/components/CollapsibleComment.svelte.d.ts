@@ -4,6 +4,8 @@ declare const __propDef: {
     props: {
         iiifURL: string;
         comment: Comment;
+        citationPrefix?: string | undefined;
+        citationPrefixPlural?: string | undefined;
     };
     events: {
         [evt: string]: CustomEvent<any>;

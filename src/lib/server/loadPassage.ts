@@ -18,8 +18,6 @@ import MarkdownParser from './MarkdownParser.js';
 import { parseCommentaries } from '$lib/server/parseCommentaries.js';
 
 export default function loadPassage(config: CommentaryConfig): (urn: string) => PassageInfo {
-	// FIXME: (@pletcher) It's not great to parse all of the commentaries every time we load
-	// a passage.
 	const ALL_COMMENTS = parseCommentaries(
 		config.commentaries_directory,
 		config.bibliographies_directory

@@ -1,6 +1,8 @@
 <script>import IIIFViewer from "./IIIFViewer.svelte";
 export let iiifURL;
 export let comment;
+export let citationPrefix = "v.";
+export let citationPrefixPlural = "vv.";
 $:
   creators = comment.commentaryAttributes?.creators;
 $:
@@ -13,10 +15,10 @@ function citation(comment2) {
   const { integerCitations } = comment2.ctsUrn;
   if (integerCitations.length === 2) {
     if (integerCitations[0].join("") !== integerCitations[1].join("")) {
-      return `vv. ${integerCitations[0].join("")}-${integerCitations[1].join("")}`;
+      return `${citationPrefixPlural} ${integerCitations[0].join("")}-${integerCitations[1].join("")}`;
     }
   }
-  return `v. ${integerCitations[0].join("")}`;
+  return `${citationPrefix} ${integerCitations[0].join("")}`;
 }
 function commentHasIIIF(comment2) {
   return (comment2.image_paths || []).length > 0;
