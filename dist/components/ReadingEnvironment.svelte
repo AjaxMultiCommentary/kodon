@@ -38,7 +38,7 @@ $:
 $:
   showHeatmap = true;
 onMount(() => {
-  const commentToHighlight = new URL(currentURL).searchParams.get("gloss");
+  const commentToHighlight = currentURL.searchParams.get("gloss");
   if (commentToHighlight) {
     highlightComments([commentToHighlight]);
   }

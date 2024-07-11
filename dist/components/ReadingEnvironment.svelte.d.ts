@@ -2,7 +2,7 @@ import { SvelteComponent } from "svelte";
 import type { Comment, PassageConfig, TextContainer } from '../types.js';
 declare const __propDef: {
     props: {
-        currentURL: string;
+        currentURL: URL;
         comments: Comment[];
         currentPassage: PassageConfig;
         iiifURL: string;

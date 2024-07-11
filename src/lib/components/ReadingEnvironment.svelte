@@ -10,7 +10,7 @@
 	import Tooltip from '$lib/components/Tooltip.svelte';
 	import CTS_URN from '$lib/cts_urn.js';
 
-	export let currentURL: string;
+	export let currentURL: URL;
 	export let comments: Comment[];
 	export let currentPassage: PassageConfig;
 	export let iiifURL: string;
@@ -48,7 +48,7 @@
 	// TODO: (charles) This needs to happen in the parent component (the
 	// app running the show)
 	onMount(() => {
-		const commentToHighlight = new URL(currentURL).searchParams.get('gloss');
+		const commentToHighlight = currentURL.searchParams.get('gloss');
 
 		if (commentToHighlight) {
 			highlightComments([commentToHighlight]);
@@ -88,7 +88,7 @@
 			await tick();
 
 			setTimeout(() => {
-				// @ts-ignore
+				// @ts-expect-error We check for foundComment above
 				document.getElementById(foundComment.citable_urn)?.scrollIntoView({ behavior: 'smooth' });
 			}, 200);
 		}
