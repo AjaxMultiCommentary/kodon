@@ -2,8 +2,6 @@
 	import type { Comment, PassageConfig, TextContainer } from '$lib/types.js';
 
 	import _ from 'lodash';
-	import { page } from '$app/stores';
-	import { marked } from 'marked';
 	import { onMount, tick } from 'svelte';
 	import CitableTextContainer from '$lib/components/CitableTextContainer.svelte';
 	import CollapsibleComment from '$lib/components/CollapsibleComment.svelte';
@@ -12,6 +10,7 @@
 	import Tooltip from '$lib/components/Tooltip.svelte';
 	import CTS_URN from '$lib/cts_urn.js';
 
+	export let currentURL: string;
 	export let comments: Comment[];
 	export let currentPassage: PassageConfig;
 	export let iiifURL: string;
@@ -46,8 +45,10 @@
 	$: selectedCommentaries = [] as string[];
 	$: showHeatmap = true;
 
+	// TODO: (charles) This needs to happen in the parent component (the
+	// app running the show)
 	onMount(() => {
-		const commentToHighlight = $page.url.searchParams.get('gloss');
+		const commentToHighlight = new URL(currentURL).searchParams.get('gloss');
 
 		if (commentToHighlight) {
 			highlightComments([commentToHighlight]);

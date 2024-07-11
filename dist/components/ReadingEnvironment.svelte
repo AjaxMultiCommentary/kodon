@@ -1,6 +1,4 @@
 <script>import _ from "lodash";
-import { page } from "$app/stores";
-import { marked } from "marked";
 import { onMount, tick } from "svelte";
 import CitableTextContainer from "./CitableTextContainer.svelte";
 import CollapsibleComment from "./CollapsibleComment.svelte";
@@ -8,6 +6,7 @@ import FilterList from "./FilterList.svelte";
 import Navigation from "./Navigation.svelte";
 import Tooltip from "./Tooltip.svelte";
 import CTS_URN from "../cts_urn.js";
+export let currentURL;
 export let comments;
 export let currentPassage;
 export let iiifURL;
@@ -39,7 +38,7 @@ $:
 $:
   showHeatmap = true;
 onMount(() => {
-  const commentToHighlight = $page.url.searchParams.get("gloss");
+  const commentToHighlight = new URL(currentURL).searchParams.get("gloss");
   if (commentToHighlight) {
     highlightComments([commentToHighlight]);
   }
