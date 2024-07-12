@@ -18,10 +18,7 @@ import MarkdownParser from './MarkdownParser.js';
 import { parseCommentaries } from '$lib/server/parseCommentaries.js';
 
 export default function loadPassage(config: CommentaryConfig): (urn: string) => PassageInfo {
-	const ALL_COMMENTS = parseCommentaries(
-		config.commentaries_directory,
-		config.bibliographies_directory
-	);
+	const ALL_COMMENTS = parseCommentaries(config.commentaries_directory);
 	const markdownParser = new MarkdownParser(
 		config.bibliographies_directory,
 		`${base}/bibliography/`
@@ -106,7 +103,6 @@ export function getCommentsForPassage(allComments: Comment[], passageInfo: Passa
 				return 0;
 			}
 
-			// @ts-ignore
 			if (cA?.ctsUrn.integerCitations[0][0] < cB?.ctsUrn.integerCitations[0][0]) {
 				return -1;
 			}
@@ -140,7 +136,7 @@ export function getTextContainersForPassage(
 
 				return acc;
 			},
-			{ previousSpeaker: null } as any
+			{ previousSpeaker: null }
 		);
 
 	return textContainers.map((tc) => ({

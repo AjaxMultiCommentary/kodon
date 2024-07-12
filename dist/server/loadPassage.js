@@ -4,7 +4,7 @@ import CTS_URN from '../cts_urn.js';
 import MarkdownParser from './MarkdownParser.js';
 import { parseCommentaries } from './parseCommentaries.js';
 export default function loadPassage(config) {
-    const ALL_COMMENTS = parseCommentaries(config.commentaries_directory, config.bibliographies_directory);
+    const ALL_COMMENTS = parseCommentaries(config.commentaries_directory);
     const markdownParser = new MarkdownParser(config.bibliographies_directory, `${base}/bibliography/`);
     return function _loadPassage(urn) {
         const ctsUrn = new CTS_URN(urn);
@@ -72,7 +72,6 @@ export function getCommentsForPassage(allComments, passageInfo) {
             }
             return 0;
         }
-        // @ts-ignore
         if (cA?.ctsUrn.integerCitations[0][0] < cB?.ctsUrn.integerCitations[0][0]) {
             return -1;
         }
