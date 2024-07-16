@@ -1,10 +1,11 @@
 <script lang="ts">
-	// @ts-expect-error
+	// @ts-expect-error @citation-js doesn't have proper types'
 	import { Cite, plugins } from '@citation-js/core';
 
 	import '@citation-js/plugin-csl';
 
 	import type { Bibliography, CSL } from '$lib/types.js';
+	import Tabs from '$lib/components/Tabs.svelte';
 
 	export let bibliographies: Bibliography[];
 	export let csls: CSL[] = [];
@@ -24,7 +25,7 @@
 
 		return {
 			name: bib.name,
-			output: cite.format('bibliography', {
+			content: cite.format('bibliography', {
 				format: 'html',
 				lang,
 				template
@@ -34,10 +35,7 @@
 </script>
 
 <article class="bibliographies prose text-pretty">
-	{#each formattedBibliographies as formattedBibliography}
-		<h1>{formattedBibliography.name}</h1>
-		{@html formattedBibliography.output}
-	{/each}
+	<Tabs items={formattedBibliographies} />
 </article>
 
 <style lang="postcss">

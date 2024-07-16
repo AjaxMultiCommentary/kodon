@@ -1,502 +1,415 @@
 import type { Meta, StoryObj } from '@storybook/svelte';
-import Bibliography from '$lib/components/Bibliography.svelte';
+import ZoteroBibliography from '$lib/components/ZoteroBibliography.svelte';
 
 const meta = {
-    component: Bibliography,
-    tags: ['autodocs']
-} satisfies Meta<Bibliography>;
+	component: ZoteroBibliography,
+	tags: ['autodocs']
+} satisfies Meta<ZoteroBibliography>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-const bibliographies = [{
-    name: 'ajmc', items: [
-        {
-            "id": "jebb_sophocles_1896",
-            "type": "book",
-            "abstract": "Book digitized by Google and uploaded to the Internet Archive by user tpb.",
-            "event-place": "London",
-            "language": "eng, grc",
-            "note": "QID: Q123679675\nPublic Domain Year: 1975\nURN: tlg0011.tlg003.ajmc-jeb",
-            "number-of-pages": "354",
-            "publisher": "Cambridge University Press",
-            "publisher-place": "London",
-            "source": "Internet Archive",
-            "title": "Sophocles: The Plays and Fragments",
-            "URL": "http://archive.org/details/sophoclesplaysa05campgoog",
-            "author": [
-                {
-                    "family": "Jebb",
-                    "given": "Richard Claverhouse"
-                }
-            ],
-            "accessed": {
-                "date-parts": [
-                    [
-                        "2020",
-                        11,
-                        9
-                    ]
-                ]
-            },
-            "issued": {
-                "date-parts": [
-                    [
-                        "1896"
-                    ]
-                ]
-            }
-        },
-        {
-            "id": "ferrari_aiace_1974",
-            "type": "book",
-            "event-place": "Torino, Italie",
-            "language": "ita, grc",
-            "note": "QID: Q122238857\nPublic Domain Year: 2093\nURN: tlg0011.tlg003.ajmc-fer",
-            "publisher": "Loescher Editore",
-            "publisher-place": "Torino, Italie",
-            "title": "L'Aiace",
-            "author": [
-                {
-                    "family": "Ferrari",
-                    "given": "Franco"
-                }
-            ],
-            "issued": {
-                "date-parts": [
-                    [
-                        "1974"
-                    ]
-                ]
-            }
-        },
-        {
-            "id": "kamerbeek_plays_1963a",
-            "type": "book",
-            "edition": "2",
-            "event-place": "Leiden",
-            "language": "eng, grc",
-            "note": "QID: Q122238739\nPublic Domain Year: 2068\nURN: tlg0011.tlg003.ajmc-kam",
-            "publisher": "E.J. Brill",
-            "publisher-place": "Leiden",
-            "title": "The Plays of Sophocles: Commentaries",
-            "title-short": "The Plays of Sophocles",
-            "author": [
-                {
-                    "family": "Kamerbeek",
-                    "given": "Jan Coenraad"
-                }
-            ],
-            "issued": {
-                "date-parts": [
-                    [
-                        "1963"
-                    ]
-                ]
-            }
-        },
-        {
-            "id": "schneidewin_sophokles_1853",
-            "type": "book",
-            "event-place": "Leipzig",
-            "language": "ger, grc",
-            "note": "QID: Q123679673\nPublic Domain Year: 1926\nURN: tlg0011.tlg003.ajmc-sch",
-            "publisher": "Weidmann",
-            "publisher-place": "Leipzig",
-            "title": "Sophokles",
-            "URL": "https://archive.org/details/sophokle1v3soph",
-            "volume": "1",
-            "author": [
-                {
-                    "family": "Schneidewin",
-                    "given": "Friedrich Wilhelm"
-                }
-            ],
-            "issued": {
-                "date-parts": [
-                    [
-                        "1853"
-                    ]
-                ]
-            }
-        },
-        {
-            "id": "wecklein_tragodien_1894",
-            "type": "book",
-            "event-place": "München",
-            "language": "ger, grc",
-            "note": "QID: Q122229107\nPublic Domain Year: 1996\nURN: tlg0011.tlg003.ajmc-wec",
-            "publisher": "Lindauer",
-            "publisher-place": "München",
-            "title": "Die Tragödien des Sophokles / zum Schulgebrauch mit erklärenden Anmerkungen versehen von N. Wecklein",
-            "volume": "4",
-            "author": [
-                {
-                    "family": "Wecklein",
-                    "given": "Nikolaus"
-                }
-            ],
-            "issued": {
-                "date-parts": [
-                    [
-                        "1894"
-                    ]
-                ]
-            }
-        },
-        {
-            "id": "finglass_sophocles_2011",
-            "type": "book",
-            "event-place": "Cambridge",
-            "ISBN": "978-1-107-67671-8",
-            "language": "eng, grc",
-            "note": "QID: Q58627799\nPublic Domain Year: n/a\nURN: tlg0011.tlg003.ajmc-fin",
-            "publisher": "Cambridge University Press",
-            "publisher-place": "Cambridge",
-            "source": "Open WorldCat",
-            "title": "Sophocles: Ajax",
-            "author": [
-                {
-                    "family": "Finglass",
-                    "given": "Patrick John"
-                }
-            ],
-            "issued": {
-                "date-parts": [
-                    [
-                        "2011"
-                    ]
-                ]
-            }
-        },
-        {
-            "id": "demont_aias_2022",
-            "type": "book",
-            "abstract": "Aïas (ou Ajax) est un soldat perdu. À Troie, Ulysse et les Atrides n’ont pas reconnu sa valeur : il a voulu les tuer pour venger son honneur, mais la déesse Athéna l’a rendu fou. Dans le prologue, Athéna montre sa folie à Ulysse terrorisé. Puis Sophocle met en scène son désespoir quand il revient à la raison. Pour restaurer son honneur, il ne voit qu’une solution : le suicide, malgré les objurgations du choeur de ses marins et de Tecmesse, sa compagne. Il en assure la réalisation par une feinte qui les trompe, et se donne la mort, seul, devant le public. Son cadavre est découvert par les siens, qui étaient partis en désordre à sa recherche, et par son demi-frère Teucros, arrivé trop tard. Celui-ci veut l’ensevelir malgré l’interdiction des Atrides. Il obtient l’appui inattendu d’Ulysse : on rend donc son honneur au héros, dont un convoi funèbre, accompagné par son jeune fils, emporte le corps.\n\nCette édition de la pièce de Sophocle propose un texte revu, une traduction nouvelle et un commentaire suivi, qui discute les nombreux problèmes qu’elle pose, en particulier pour sa mise en scène. L’introduction explique pourquoi est choisie ici la graphie Aïas, expose l’arrière-plan homérique et post-homérique du mythe, et l’importance du « héros » pour l’île d’Égine, l’île de Salamine et pour les Athéniens eux-mêmes. Elle analyse le rôle de la noblesse transmise par filiation patrilinéaire, même chez ceux qu’on traite de « bâtards », et la place laissée aux femmes. Cette terrifiante et pitoyable tragédie de l’honneur et de la mort, qui n’est pas, contrairement à d’autres pièces, encombrée par sa postérité, aide à comprendre le « personnage tragique » et « l’effet tragique » selon les Anciens, et pour Sophocle.",
-            "collection-title": "Commentario",
-            "event-place": "Paris",
-            "ISBN": "978-2-251-45277-7",
-            "language": "fra, grc",
-            "note": "QID: Q118954375\nPublic Domain Year: n/a",
-            "publisher": "Les Belles Lettres",
-            "publisher-place": "Paris",
-            "title": "Aïas / Ajax - Sophocle",
-            "URL": "https://www.lesbelleslettres.com/livre/9782251452777/aias-ajax",
-            "author": [
-                {
-                    "family": "Demont",
-                    "given": "Paul"
-                }
-            ],
-            "accessed": {
-                "date-parts": [
-                    [
-                        "2023",
-                        6,
-                        1
-                    ]
-                ]
-            },
-            "issued": {
-                "date-parts": [
-                    [
-                        "2022",
-                        2,
-                        18
-                    ]
-                ]
-            }
-        },
-        {
-            "id": "campbell_sophocles_1881",
-            "type": "book",
-            "event-place": "Oxford",
-            "language": "eng, grc",
-            "note": "QID: Q123679674\nPublic Domain Year: 1978\nURN: tlg0011.tlg003.ajmc-cam",
-            "number-of-pages": "612",
-            "publisher": "Clarendon Press",
-            "publisher-place": "Oxford",
-            "source": "Internet Archive",
-            "title": "Sophocles",
-            "URL": "http://archive.org/details/cu31924087948174",
-            "volume": "2",
-            "author": [
-                {
-                    "family": "Campbell",
-                    "given": "Lewis"
-                }
-            ],
-            "accessed": {
-                "date-parts": [
-                    [
-                        "2020",
-                        12,
-                        30
-                    ]
-                ]
-            },
-            "issued": {
-                "date-parts": [
-                    [
-                        "1881"
-                    ]
-                ]
-            }
-        },
-        {
-            "id": "lobeck_sophoclis_1835",
-            "type": "book",
-            "edition": "2",
-            "event-place": "Leipzig",
-            "language": "lat, grc",
-            "note": "QID: Q123464295\nPublic Domain Year: 1930\nEditions: 1st ed. 1809; 2nd ed. 1835 (Leipzig); 3rd ed. 1866 (Berlin).\nURN: tlg0011.tlg003.ajmc-lob",
-            "publisher": "Weidmann",
-            "publisher-place": "Leipzig",
-            "title": "Sophoclis Aiax",
-            "author": [
-                {
-                    "family": "Lobeck",
-                    "given": "Christian August"
-                }
-            ],
-            "issued": {
-                "date-parts": [
-                    [
-                        "1835"
-                    ]
-                ]
-            }
-        },
-        {
-            "id": "hermann_sophoclis_1851",
-            "type": "book",
-            "edition": "4",
-            "event-place": "Leipzig",
-            "language": "ger, grc",
-            "note": "QID: Q123679676\nPublic Domain Year: 1918\nURN: tlg0011.tlg003.ajmc-her",
-            "publisher": "Ernsto Fleischer",
-            "publisher-place": "Leipzig",
-            "title": "Sophoclis Aiax",
-            "author": [
-                {
-                    "family": "Hermann",
-                    "given": "Gottfried"
-                }
-            ],
-            "issued": {
-                "date-parts": [
-                    [
-                        "1851"
-                    ]
-                ]
-            }
-        },
-        {
-            "id": "tournier_tragedies_1886",
-            "type": "book",
-            "edition": "3",
-            "event-place": "Paris",
-            "language": "fra, grc",
-            "note": "QID: Q123464638\nPublic Domain Year: 1969\nURN: tlg0011.tlg003.ajmc-tou",
-            "publisher": "Librairie Hachette et Cie",
-            "publisher-place": "Paris",
-            "title": "Les tragédies de Sophocle",
-            "author": [
-                {
-                    "family": "Tournier",
-                    "given": "Édouard"
-                }
-            ],
-            "issued": {
-                "date-parts": [
-                    [
-                        "1886"
-                    ]
-                ]
-            }
-        },
-        {
-            "id": "deromilly_sophocle_1976",
-            "type": "book",
-            "call-number": "HA 527/17 875SOPHOC7Aia, BLA 926 875SOPHOC7Aia, 875.SOPH",
-            "collection-title": "Erasme. Collection de textes grecs commentés 17",
-            "event-place": "Paris",
-            "language": "fra, grc",
-            "note": "QID: Q118976611\nPublic Domain Year: 2080\nURN: tlg0011.tlg003.ajmc-rom",
-            "publisher": "Presses universitaires de France",
-            "publisher-place": "Paris",
-            "title": "Sophocle, Ajax",
-            "author": [
-                {
-                    "family": "Romilly",
-                    "given": "Jacqueline",
-                    "non-dropping-particle": "de"
-                }
-            ],
-            "issued": {
-                "date-parts": [
-                    [
-                        "1976"
-                    ]
-                ]
-            }
-        },
-        {
-            "id": "garvie_sophocles_1998",
-            "type": "book",
-            "event-place": "Warminster",
-            "ISBN": "978-0-85668-659-7",
-            "language": "eng, grc",
-            "note": "QID: Q123517585\nPublic Domain Year: n/a\nURN: tlg0011.tlg003.ajmc-gar",
-            "publisher": "Aris & Phillips",
-            "publisher-place": "Warminster",
-            "title": "Sophocles: Ajax",
-            "author": [
-                {
-                    "family": "Garvie",
-                    "given": "Alex F."
-                }
-            ],
-            "issued": {
-                "date-parts": [
-                    [
-                        "1998"
-                    ]
-                ]
-            }
-        },
-        {
-            "id": "untersteiner_sofocle_1934",
-            "type": "book",
-            "event-place": "Milano",
-            "language": "ita, grc",
-            "note": "QID: Q123464159\nPublic Domain Year: 2051\nURN: tlg0011.tlg003.ajmc-unt",
-            "publisher": "Carlo Signorelli Editore",
-            "publisher-place": "Milano",
-            "title": "Sofocle. Aiace",
-            "author": [
-                {
-                    "family": "Untersteiner",
-                    "given": "Mario"
-                }
-            ],
-            "issued": {
-                "date-parts": [
-                    [
-                        "1934"
-                    ]
-                ]
-            }
-        },
-        {
-            "id": "schneidewin_sophokles_1913",
-            "type": "book",
-            "event-place": "Berlin",
-            "language": "ita",
-            "note": "QID: Q123916470\nPublic Domain Year: 1962\nURN: tlg0011.tlg003.ajmc-snr",
-            "publisher-place": "Berlin",
-            "title": "Sophokles",
-            "author": [
-                {
-                    "family": "Schneidewin",
-                    "given": "F. W."
-                },
-                {
-                    "family": "Nauck",
-                    "given": "A."
-                },
-                {
-                    "family": "Radermacher",
-                    "given": "L."
-                }
-            ],
-            "issued": {
-                "date-parts": [
-                    [
-                        "1913"
-                    ]
-                ]
-            }
-        },
-        {
-            "id": "paduano_tragedie_1982",
-            "type": "book",
-            "event-place": "Torino",
-            "language": "ita, grc",
-            "note": "QID: Q123679678\nPublic Domain Year: n/a\nURN: tlg0011.tlg003.ajmc-pad",
-            "publisher": "UTET",
-            "publisher-place": "Torino",
-            "title": "Tragedie e Frammenti di Sofocle",
-            "author": [
-                {
-                    "family": "Paduano",
-                    "given": "Guido"
-                }
-            ],
-            "issued": {
-                "date-parts": [
-                    [
-                        "1982"
-                    ]
-                ]
-            }
-        },
-        {
-            "id": "stanford_sophocles_1979",
-            "type": "book",
-            "event-place": "New York, NY, USA",
-            "language": "eng, grc",
-            "note": "original-date: 1963\nQID: Q123679677\nPublic Domain Year: 2054\nURN: tlg0011.tlg003.ajmc-sta",
-            "publisher": "Arno Press",
-            "publisher-place": "New York, NY, USA",
-            "title": "Sophocles Ajax",
-            "author": [
-                {
-                    "family": "Stanford",
-                    "given": "William Bedell"
-                }
-            ],
-            "issued": {
-                "date-parts": [
-                    [
-                        "1979"
-                    ]
-                ]
-            }
-        },
-        {
-            "id": "colonna_sophoclis_1975",
-            "type": "book",
-            "collection-title": "Corpus Scriptorum Graecorum Paravianum",
-            "event-place": "Torino",
-            "language": "ita",
-            "note": "QID: Q123916472\nPublic Domain Year: 2069\nURN: tlg0011.tlg003.ajmc-col",
-            "publisher": "Paravia",
-            "publisher-place": "Torino",
-            "title": "Sophoclis fabulae: Aiax - Electra",
-            "volume": "1",
-            "author": [
-                {
-                    "family": "Colonna",
-                    "given": "Aristides"
-                }
-            ],
-            "issued": {
-                "date-parts": [
-                    [
-                        "1975"
-                    ]
-                ]
-            }
-        }
-    ]
-}]
+const bibliographies = [
+	{
+		name: 'ajmc',
+		items: [
+			{
+				id: 'jebb_sophocles_1896',
+				type: 'book',
+				abstract: 'Book digitized by Google and uploaded to the Internet Archive by user tpb.',
+				'event-place': 'London',
+				language: 'eng, grc',
+				note: 'QID: Q123679675\nPublic Domain Year: 1975\nURN: tlg0011.tlg003.ajmc-jeb',
+				'number-of-pages': '354',
+				publisher: 'Cambridge University Press',
+				'publisher-place': 'London',
+				source: 'Internet Archive',
+				title: 'Sophocles: The Plays and Fragments',
+				URL: 'http://archive.org/details/sophoclesplaysa05campgoog',
+				author: [
+					{
+						family: 'Jebb',
+						given: 'Richard Claverhouse'
+					}
+				],
+				accessed: {
+					'date-parts': [['2020', 11, 9]]
+				},
+				issued: {
+					'date-parts': [['1896']]
+				}
+			},
+			{
+				id: 'ferrari_aiace_1974',
+				type: 'book',
+				'event-place': 'Torino, Italie',
+				language: 'ita, grc',
+				note: 'QID: Q122238857\nPublic Domain Year: 2093\nURN: tlg0011.tlg003.ajmc-fer',
+				publisher: 'Loescher Editore',
+				'publisher-place': 'Torino, Italie',
+				title: "L'Aiace",
+				author: [
+					{
+						family: 'Ferrari',
+						given: 'Franco'
+					}
+				],
+				issued: {
+					'date-parts': [['1974']]
+				}
+			},
+			{
+				id: 'kamerbeek_plays_1963a',
+				type: 'book',
+				edition: '2',
+				'event-place': 'Leiden',
+				language: 'eng, grc',
+				note: 'QID: Q122238739\nPublic Domain Year: 2068\nURN: tlg0011.tlg003.ajmc-kam',
+				publisher: 'E.J. Brill',
+				'publisher-place': 'Leiden',
+				title: 'The Plays of Sophocles: Commentaries',
+				'title-short': 'The Plays of Sophocles',
+				author: [
+					{
+						family: 'Kamerbeek',
+						given: 'Jan Coenraad'
+					}
+				],
+				issued: {
+					'date-parts': [['1963']]
+				}
+			},
+			{
+				id: 'schneidewin_sophokles_1853',
+				type: 'book',
+				'event-place': 'Leipzig',
+				language: 'ger, grc',
+				note: 'QID: Q123679673\nPublic Domain Year: 1926\nURN: tlg0011.tlg003.ajmc-sch',
+				publisher: 'Weidmann',
+				'publisher-place': 'Leipzig',
+				title: 'Sophokles',
+				URL: 'https://archive.org/details/sophokle1v3soph',
+				volume: '1',
+				author: [
+					{
+						family: 'Schneidewin',
+						given: 'Friedrich Wilhelm'
+					}
+				],
+				issued: {
+					'date-parts': [['1853']]
+				}
+			},
+			{
+				id: 'wecklein_tragodien_1894',
+				type: 'book',
+				'event-place': 'München',
+				language: 'ger, grc',
+				note: 'QID: Q122229107\nPublic Domain Year: 1996\nURN: tlg0011.tlg003.ajmc-wec',
+				publisher: 'Lindauer',
+				'publisher-place': 'München',
+				title:
+					'Die Tragödien des Sophokles / zum Schulgebrauch mit erklärenden Anmerkungen versehen von N. Wecklein',
+				volume: '4',
+				author: [
+					{
+						family: 'Wecklein',
+						given: 'Nikolaus'
+					}
+				],
+				issued: {
+					'date-parts': [['1894']]
+				}
+			},
+			{
+				id: 'finglass_sophocles_2011',
+				type: 'book',
+				'event-place': 'Cambridge',
+				ISBN: '978-1-107-67671-8',
+				language: 'eng, grc',
+				note: 'QID: Q58627799\nPublic Domain Year: n/a\nURN: tlg0011.tlg003.ajmc-fin',
+				publisher: 'Cambridge University Press',
+				'publisher-place': 'Cambridge',
+				source: 'Open WorldCat',
+				title: 'Sophocles: Ajax',
+				author: [
+					{
+						family: 'Finglass',
+						given: 'Patrick John'
+					}
+				],
+				issued: {
+					'date-parts': [['2011']]
+				}
+			},
+			{
+				id: 'demont_aias_2022',
+				type: 'book',
+				abstract:
+					'Aïas (ou Ajax) est un soldat perdu. À Troie, Ulysse et les Atrides n’ont pas reconnu sa valeur : il a voulu les tuer pour venger son honneur, mais la déesse Athéna l’a rendu fou. Dans le prologue, Athéna montre sa folie à Ulysse terrorisé. Puis Sophocle met en scène son désespoir quand il revient à la raison. Pour restaurer son honneur, il ne voit qu’une solution : le suicide, malgré les objurgations du choeur de ses marins et de Tecmesse, sa compagne. Il en assure la réalisation par une feinte qui les trompe, et se donne la mort, seul, devant le public. Son cadavre est découvert par les siens, qui étaient partis en désordre à sa recherche, et par son demi-frère Teucros, arrivé trop tard. Celui-ci veut l’ensevelir malgré l’interdiction des Atrides. Il obtient l’appui inattendu d’Ulysse : on rend donc son honneur au héros, dont un convoi funèbre, accompagné par son jeune fils, emporte le corps.\n\nCette édition de la pièce de Sophocle propose un texte revu, une traduction nouvelle et un commentaire suivi, qui discute les nombreux problèmes qu’elle pose, en particulier pour sa mise en scène. L’introduction explique pourquoi est choisie ici la graphie Aïas, expose l’arrière-plan homérique et post-homérique du mythe, et l’importance du « héros » pour l’île d’Égine, l’île de Salamine et pour les Athéniens eux-mêmes. Elle analyse le rôle de la noblesse transmise par filiation patrilinéaire, même chez ceux qu’on traite de « bâtards », et la place laissée aux femmes. Cette terrifiante et pitoyable tragédie de l’honneur et de la mort, qui n’est pas, contrairement à d’autres pièces, encombrée par sa postérité, aide à comprendre le « personnage tragique » et « l’effet tragique » selon les Anciens, et pour Sophocle.',
+				'collection-title': 'Commentario',
+				'event-place': 'Paris',
+				ISBN: '978-2-251-45277-7',
+				language: 'fra, grc',
+				note: 'QID: Q118954375\nPublic Domain Year: n/a',
+				publisher: 'Les Belles Lettres',
+				'publisher-place': 'Paris',
+				title: 'Aïas / Ajax - Sophocle',
+				URL: 'https://www.lesbelleslettres.com/livre/9782251452777/aias-ajax',
+				author: [
+					{
+						family: 'Demont',
+						given: 'Paul'
+					}
+				],
+				accessed: {
+					'date-parts': [['2023', 6, 1]]
+				},
+				issued: {
+					'date-parts': [['2022', 2, 18]]
+				}
+			},
+			{
+				id: 'campbell_sophocles_1881',
+				type: 'book',
+				'event-place': 'Oxford',
+				language: 'eng, grc',
+				note: 'QID: Q123679674\nPublic Domain Year: 1978\nURN: tlg0011.tlg003.ajmc-cam',
+				'number-of-pages': '612',
+				publisher: 'Clarendon Press',
+				'publisher-place': 'Oxford',
+				source: 'Internet Archive',
+				title: 'Sophocles',
+				URL: 'http://archive.org/details/cu31924087948174',
+				volume: '2',
+				author: [
+					{
+						family: 'Campbell',
+						given: 'Lewis'
+					}
+				],
+				accessed: {
+					'date-parts': [['2020', 12, 30]]
+				},
+				issued: {
+					'date-parts': [['1881']]
+				}
+			},
+			{
+				id: 'lobeck_sophoclis_1835',
+				type: 'book',
+				edition: '2',
+				'event-place': 'Leipzig',
+				language: 'lat, grc',
+				note: 'QID: Q123464295\nPublic Domain Year: 1930\nEditions: 1st ed. 1809; 2nd ed. 1835 (Leipzig); 3rd ed. 1866 (Berlin).\nURN: tlg0011.tlg003.ajmc-lob',
+				publisher: 'Weidmann',
+				'publisher-place': 'Leipzig',
+				title: 'Sophoclis Aiax',
+				author: [
+					{
+						family: 'Lobeck',
+						given: 'Christian August'
+					}
+				],
+				issued: {
+					'date-parts': [['1835']]
+				}
+			},
+			{
+				id: 'hermann_sophoclis_1851',
+				type: 'book',
+				edition: '4',
+				'event-place': 'Leipzig',
+				language: 'ger, grc',
+				note: 'QID: Q123679676\nPublic Domain Year: 1918\nURN: tlg0011.tlg003.ajmc-her',
+				publisher: 'Ernsto Fleischer',
+				'publisher-place': 'Leipzig',
+				title: 'Sophoclis Aiax',
+				author: [
+					{
+						family: 'Hermann',
+						given: 'Gottfried'
+					}
+				],
+				issued: {
+					'date-parts': [['1851']]
+				}
+			},
+			{
+				id: 'tournier_tragedies_1886',
+				type: 'book',
+				edition: '3',
+				'event-place': 'Paris',
+				language: 'fra, grc',
+				note: 'QID: Q123464638\nPublic Domain Year: 1969\nURN: tlg0011.tlg003.ajmc-tou',
+				publisher: 'Librairie Hachette et Cie',
+				'publisher-place': 'Paris',
+				title: 'Les tragédies de Sophocle',
+				author: [
+					{
+						family: 'Tournier',
+						given: 'Édouard'
+					}
+				],
+				issued: {
+					'date-parts': [['1886']]
+				}
+			},
+			{
+				id: 'deromilly_sophocle_1976',
+				type: 'book',
+				'call-number': 'HA 527/17 875SOPHOC7Aia, BLA 926 875SOPHOC7Aia, 875.SOPH',
+				'collection-title': 'Erasme. Collection de textes grecs commentés 17',
+				'event-place': 'Paris',
+				language: 'fra, grc',
+				note: 'QID: Q118976611\nPublic Domain Year: 2080\nURN: tlg0011.tlg003.ajmc-rom',
+				publisher: 'Presses universitaires de France',
+				'publisher-place': 'Paris',
+				title: 'Sophocle, Ajax',
+				author: [
+					{
+						family: 'Romilly',
+						given: 'Jacqueline',
+						'non-dropping-particle': 'de'
+					}
+				],
+				issued: {
+					'date-parts': [['1976']]
+				}
+			},
+			{
+				id: 'garvie_sophocles_1998',
+				type: 'book',
+				'event-place': 'Warminster',
+				ISBN: '978-0-85668-659-7',
+				language: 'eng, grc',
+				note: 'QID: Q123517585\nPublic Domain Year: n/a\nURN: tlg0011.tlg003.ajmc-gar',
+				publisher: 'Aris & Phillips',
+				'publisher-place': 'Warminster',
+				title: 'Sophocles: Ajax',
+				author: [
+					{
+						family: 'Garvie',
+						given: 'Alex F.'
+					}
+				],
+				issued: {
+					'date-parts': [['1998']]
+				}
+			},
+			{
+				id: 'untersteiner_sofocle_1934',
+				type: 'book',
+				'event-place': 'Milano',
+				language: 'ita, grc',
+				note: 'QID: Q123464159\nPublic Domain Year: 2051\nURN: tlg0011.tlg003.ajmc-unt',
+				publisher: 'Carlo Signorelli Editore',
+				'publisher-place': 'Milano',
+				title: 'Sofocle. Aiace',
+				author: [
+					{
+						family: 'Untersteiner',
+						given: 'Mario'
+					}
+				],
+				issued: {
+					'date-parts': [['1934']]
+				}
+			},
+			{
+				id: 'schneidewin_sophokles_1913',
+				type: 'book',
+				'event-place': 'Berlin',
+				language: 'ita',
+				note: 'QID: Q123916470\nPublic Domain Year: 1962\nURN: tlg0011.tlg003.ajmc-snr',
+				'publisher-place': 'Berlin',
+				title: 'Sophokles',
+				author: [
+					{
+						family: 'Schneidewin',
+						given: 'F. W.'
+					},
+					{
+						family: 'Nauck',
+						given: 'A.'
+					},
+					{
+						family: 'Radermacher',
+						given: 'L.'
+					}
+				],
+				issued: {
+					'date-parts': [['1913']]
+				}
+			},
+			{
+				id: 'paduano_tragedie_1982',
+				type: 'book',
+				'event-place': 'Torino',
+				language: 'ita, grc',
+				note: 'QID: Q123679678\nPublic Domain Year: n/a\nURN: tlg0011.tlg003.ajmc-pad',
+				publisher: 'UTET',
+				'publisher-place': 'Torino',
+				title: 'Tragedie e Frammenti di Sofocle',
+				author: [
+					{
+						family: 'Paduano',
+						given: 'Guido'
+					}
+				],
+				issued: {
+					'date-parts': [['1982']]
+				}
+			},
+			{
+				id: 'stanford_sophocles_1979',
+				type: 'book',
+				'event-place': 'New York, NY, USA',
+				language: 'eng, grc',
+				note: 'original-date: 1963\nQID: Q123679677\nPublic Domain Year: 2054\nURN: tlg0011.tlg003.ajmc-sta',
+				publisher: 'Arno Press',
+				'publisher-place': 'New York, NY, USA',
+				title: 'Sophocles Ajax',
+				author: [
+					{
+						family: 'Stanford',
+						given: 'William Bedell'
+					}
+				],
+				issued: {
+					'date-parts': [['1979']]
+				}
+			},
+			{
+				id: 'colonna_sophoclis_1975',
+				type: 'book',
+				'collection-title': 'Corpus Scriptorum Graecorum Paravianum',
+				'event-place': 'Torino',
+				language: 'ita',
+				note: 'QID: Q123916472\nPublic Domain Year: 2069\nURN: tlg0011.tlg003.ajmc-col',
+				publisher: 'Paravia',
+				'publisher-place': 'Torino',
+				title: 'Sophoclis fabulae: Aiax - Electra',
+				volume: '1',
+				author: [
+					{
+						family: 'Colonna',
+						given: 'Aristides'
+					}
+				],
+				issued: {
+					'date-parts': [['1975']]
+				}
+			}
+		]
+	}
+];
 
 export const DefaultBibliography: Story = {
-    args: {
-        bibliographies
-    }
+	args: {
+		bibliographies
+	}
 };
 
 const chicagoStyleCsl = `
@@ -1204,12 +1117,12 @@ const chicagoStyleCsl = `
     </layout>
   </bibliography>
 </style>
-`
+`;
 
 export const ChicagoStyleBibliography: Story = {
-    args: {
-        bibliographies,
-        csls: [{ name: 'chicago-author-date', template: chicagoStyleCsl }],
-        template: 'chicago-author-date'
-    }
+	args: {
+		bibliographies,
+		csls: [{ name: 'chicago-author-date', template: chicagoStyleCsl }],
+		template: 'chicago-author-date'
+	}
 };
