@@ -1,0 +1,1967 @@
+[
+    {
+        "id": "Q118954375",
+        "author": "Paul Demont",
+        "pubdate": "2022-02-18T00:00:00Z",
+        "title": "Aïas / Ajax - Sophocle",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q122238739",
+        "author": "Jan Coenraad Kamerbeek",
+        "pubdate": "1953-01-01T00:00:00Z",
+        "title": "The Plays of Sophocles: Commentaries",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q122238857",
+        "author": "Franco Ferrari",
+        "pubdate": "1974-01-01T00:00:00Z",
+        "title": "L'Aiace",
+        "citedBy": [
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702058"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Maurice Bowra"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1944-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Sophoclean tragedy"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702059"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Vittorio De Falco"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1958-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "Studi sul teatro greco"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702060"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Hans Diller"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1950-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "de",
+                    "type": "literal",
+                    "value": "Göttliches und menschliches Wissen bei Sophokles"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702061"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Victor Ehrenberg"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1954-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Sophocles and Pericles"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702062"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "H. D. F. Kitto"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1961-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Greek tragedy"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702063"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Bernard Knox"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1964-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "The heroic temper. Studies in Sophoclean tragedy"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702064"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Albin Lesky"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1972-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "de",
+                    "type": "literal",
+                    "value": "Die tragische Dichtung der Hellenen"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702065"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Antonio Maddalena"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1963-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "Sofocle"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702066"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Gennaro Perrotta"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1935-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "Sofocle"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702067"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Max Pohlenz"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1954-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "de",
+                    "type": "literal",
+                    "value": "Die griechische Tragödie"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702068"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Karl Reinhardt"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1947-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "de",
+                    "type": "literal",
+                    "value": "Sophokles"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702069"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Fritz Schachermeyr"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1960-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "de",
+                    "type": "literal",
+                    "value": "Sophokles und die perikleische Politik"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702070"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Kurt von Fritz"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1962-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "de",
+                    "type": "literal",
+                    "value": "Antike und moderne Tragödie"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702071"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "T. B. L. Webster"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1956-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Greek Theatre Production"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702072"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Sinclair MacLardy Adams"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1955-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "The Ajax of Sophocles"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702073"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Ignacio Errandonea"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1958-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "fr",
+                    "type": "literal",
+                    "value": "Les quatre monologues d’Ajax et leur signification dramatique"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702074"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Bernard Knox"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1961-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "The Ajax of Sophocles"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702075"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Lydia Massa Positano"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1946-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'unità dell’Aiace di Sofocle"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702076"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Martin Sicherl"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1970-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "de",
+                    "type": "literal",
+                    "value": "Die Tragik des Aias"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702077"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Michael Simpson"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1969-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Sophocles Ajax: his madness and transformation"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702078"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Alexander Turyn"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1952-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Studies in the Manuscript Tradition of the Tragedies of Sophocles"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702079"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "John Jackson"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1955-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "la",
+                    "type": "literal",
+                    "value": "Marginalia scaenica"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702080"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Amy Marjorie Dale"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1968-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "The lyric metres of greek drama"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702081"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Bruno Gentili"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1951-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "La metrica dei Greci"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702082"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Paul Maas"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1962-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "und",
+                    "type": "literal",
+                    "value": "Greek metre"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702083"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Leif Bergson"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1956-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "fr",
+                    "type": "literal",
+                    "value": "L’épithète ornementale dans Eschyle, Sophocle et Euripide"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702084"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Frank Russell Earp"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1944-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "The style of Sophocles"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702085"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Holger Friis Johansen"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1959-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "General reflection in tragic rhesis"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702086"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "A. A. Long"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1968-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Language and Thought in Sophocles: a Study of Abstract Nouns and Poetic Technique"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702087"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Harold William Miller"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1944-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Medical Terminology in Tragedy"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702088"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Philip Theodore Stevens"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1945-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Colloquial Expressions in Aeschylus and Sophocles"
+                }
+            },
+            {
+                "cited": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q123702089"
+                },
+                "cited_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Alphonse Dain"
+                },
+                "cited_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1958-01-01T00:00:00Z"
+                },
+                "cited_title": {
+                    "xml:lang": "fr",
+                    "type": "literal",
+                    "value": "Sophocle"
+                }
+            }
+        ],
+        "citing": []
+    },
+    {
+        "id": "Q123464638",
+        "author": "Édouard Tournier",
+        "pubdate": "1886-01-01T00:00:00Z",
+        "title": "Les tragédies de Sophocle",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123679673",
+        "author": "Friedrich Wilhelm Schneidewin",
+        "pubdate": "1853-01-01T00:00:00Z",
+        "title": "Sophokles",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123679674",
+        "author": "Lewis Campbell",
+        "pubdate": "1881-01-01T00:00:00Z",
+        "title": "Sophocles",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123679676",
+        "author": "Johann Gottfried Jakob Hermann",
+        "pubdate": "1851-01-01T00:00:00Z",
+        "title": "Sophoclis Aiax",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123679677",
+        "author": "William Bedell Stanford",
+        "pubdate": "1979-01-01T00:00:00Z",
+        "title": "Sophocles Ajax",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123679678",
+        "author": "Guido Paduano",
+        "pubdate": "1982-01-01T00:00:00Z",
+        "title": "Tragedie e frammenti di Sofocle",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123702058",
+        "author": "Maurice Bowra",
+        "pubdate": "1944-01-01T00:00:00Z",
+        "title": "Sophoclean tragedy",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702059",
+        "author": "Vittorio De Falco",
+        "pubdate": "1958-01-01T00:00:00Z",
+        "title": "Studi sul teatro greco",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702060",
+        "author": "Hans Diller",
+        "pubdate": "1950-01-01T00:00:00Z",
+        "title": "Göttliches und menschliches Wissen bei Sophokles",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702061",
+        "author": "Victor Ehrenberg",
+        "pubdate": "1954-01-01T00:00:00Z",
+        "title": "Sophocles and Pericles",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702062",
+        "author": "H. D. F. Kitto",
+        "pubdate": "1961-01-01T00:00:00Z",
+        "title": "Greek tragedy",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702063",
+        "author": "Bernard Knox",
+        "pubdate": "1964-01-01T00:00:00Z",
+        "title": "The heroic temper. Studies in Sophoclean tragedy",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702064",
+        "author": "Albin Lesky",
+        "pubdate": "1972-01-01T00:00:00Z",
+        "title": "Die tragische Dichtung der Hellenen",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702065",
+        "author": "Antonio Maddalena",
+        "pubdate": "1963-01-01T00:00:00Z",
+        "title": "Sofocle",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702066",
+        "author": "Gennaro Perrotta",
+        "pubdate": "1935-01-01T00:00:00Z",
+        "title": "Sofocle",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702067",
+        "author": "Max Pohlenz",
+        "pubdate": "1954-01-01T00:00:00Z",
+        "title": "Die griechische Tragödie",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702068",
+        "author": "Karl Reinhardt",
+        "pubdate": "1947-01-01T00:00:00Z",
+        "title": "Sophokles",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702069",
+        "author": "Fritz Schachermeyr",
+        "pubdate": "1960-01-01T00:00:00Z",
+        "title": "Sophokles und die perikleische Politik",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702070",
+        "author": "Kurt von Fritz",
+        "pubdate": "1962-01-01T00:00:00Z",
+        "title": "Antike und moderne Tragödie",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702072",
+        "author": "Sinclair MacLardy Adams",
+        "pubdate": "1955-01-01T00:00:00Z",
+        "title": "The Ajax of Sophocles",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702073",
+        "author": "Ignacio Errandonea",
+        "pubdate": "1958-01-01T00:00:00Z",
+        "title": "Les quatre monologues d’Ajax et leur signification dramatique",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702074",
+        "author": "Bernard Knox",
+        "pubdate": "1961-01-01T00:00:00Z",
+        "title": "The Ajax of Sophocles",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702075",
+        "author": "Lydia Massa Positano",
+        "pubdate": "1946-01-01T00:00:00Z",
+        "title": "L'unità dell’Aiace di Sofocle",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702076",
+        "author": "Martin Sicherl",
+        "pubdate": "1970-01-01T00:00:00Z",
+        "title": "Die Tragik des Aias",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702077",
+        "author": "Michael Simpson",
+        "pubdate": "1969-01-01T00:00:00Z",
+        "title": "Sophocles Ajax: his madness and transformation",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702078",
+        "author": "Alexander Turyn",
+        "pubdate": "1952-01-01T00:00:00Z",
+        "title": "Studies in the Manuscript Tradition of the Tragedies of Sophocles",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702079",
+        "author": "John Jackson",
+        "pubdate": "1955-01-01T00:00:00Z",
+        "title": "Marginalia scaenica",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702080",
+        "author": "Amy Marjorie Dale",
+        "pubdate": "1968-01-01T00:00:00Z",
+        "title": "The lyric metres of greek drama",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702081",
+        "author": "Bruno Gentili",
+        "pubdate": "1951-01-01T00:00:00Z",
+        "title": "La metrica dei Greci",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702082",
+        "author": "Paul Maas",
+        "pubdate": "1962-01-01T00:00:00Z",
+        "title": "Greek metre",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702083",
+        "author": "Leif Bergson",
+        "pubdate": "1956-01-01T00:00:00Z",
+        "title": "L’épithète ornementale dans Eschyle, Sophocle et Euripide",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702084",
+        "author": "Frank Russell Earp",
+        "pubdate": "1944-01-01T00:00:00Z",
+        "title": "The style of Sophocles",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702085",
+        "author": "Holger Friis Johansen",
+        "pubdate": "1959-01-01T00:00:00Z",
+        "title": "General reflection in tragic rhesis",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702087",
+        "author": "Harold William Miller",
+        "pubdate": "1944-01-01T00:00:00Z",
+        "title": "Medical Terminology in Tragedy",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702088",
+        "author": "Philip Theodore Stevens",
+        "pubdate": "1945-01-01T00:00:00Z",
+        "title": "Colloquial Expressions in Aeschylus and Sophocles",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702089",
+        "author": "Alphonse Dain",
+        "pubdate": "1958-01-01T00:00:00Z",
+        "title": "Sophocle",
+        "citedBy": [],
+        "citing": [
+            {
+                "citing": {
+                    "type": "uri",
+                    "value": "http://www.wikidata.org/entity/Q122238857"
+                },
+                "citing_authorLabel": {
+                    "xml:lang": "en",
+                    "type": "literal",
+                    "value": "Franco Ferrari"
+                },
+                "citing_pubdate": {
+                    "datatype": "http://www.w3.org/2001/XMLSchema#dateTime",
+                    "type": "literal",
+                    "value": "1974-01-01T00:00:00Z"
+                },
+                "citing_title": {
+                    "xml:lang": "it",
+                    "type": "literal",
+                    "value": "L'Aiace"
+                }
+            }
+        ]
+    },
+    {
+        "id": "Q123702090",
+        "author": "Alfred Chilton Pearson",
+        "pubdate": "1924-01-01T00:00:00Z",
+        "title": "Sophoclis fabulae",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123744617",
+        "author": "Marina Coray",
+        "pubdate": "1993-01-01T00:00:00Z",
+        "title": "Wissen und Erkennen bei Sophokles",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123744628",
+        "author": "Mark I. Davies",
+        "pubdate": "1973-01-01T00:00:00Z",
+        "title": "Ajax and Tekmessa: A Cup by the Brygos Painter in the Bareiss Collection",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123744697",
+        "author": "Jennifer R. March",
+        "pubdate": "1991-01-01T00:00:00Z",
+        "title": "Sophocles’ Ajax: the death and burial of a hero",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123744719",
+        "author": "David Seale",
+        "pubdate": "1982-01-01T00:00:00Z",
+        "title": "Vision and Stagecraft in Sophocles",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748854",
+        "author": "Sinclair MacLardy Adams",
+        "pubdate": "1957-01-01T00:00:00Z",
+        "title": "Sophocles the playwright",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748863",
+        "author": "Richard John Cunliffe",
+        "pubdate": "1924-01-01T00:00:00Z",
+        "title": "A Lexicon of the Homeric Dialect",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748871",
+        "author": "Vittorio De Falco",
+        "pubdate": "1928-01-01T00:00:00Z",
+        "title": "ita",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748873",
+        "author": "Robert F. Goheen",
+        "pubdate": "1951-01-01T00:00:00Z",
+        "title": "The Imagery of Sophocles’ Antigone",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748874",
+        "author": "William Chase Greene",
+        "pubdate": "1944-01-01T00:00:00Z",
+        "title": "Moira: Fate, Good, and Evil in Greek Thought",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748875",
+        "author": "W. K. C. Guthrie",
+        "pubdate": "1947-01-01T00:00:00Z",
+        "title": "Odysseus in the 'Ajax'",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748878",
+        "author": "Jan Coenraad Kamerbeek",
+        "pubdate": "1934-01-01T00:00:00Z",
+        "title": "Studien over Sophocles",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748881",
+        "author": "Albin Lesky",
+        "pubdate": "1950-01-01T00:00:00Z",
+        "title": "Geschichte der griechischen Literatur",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748883",
+        "author": "Georges Méautis",
+        "pubdate": "1957-01-01T00:00:00Z",
+        "title": "Sophocle : essai sur le heros tragique",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748886",
+        "author": "Johannes Cornelis Opstelten",
+        "pubdate": "1952-01-01T00:00:00Z",
+        "title": "Sophocles and Greek Pessimism",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748887",
+        "author": "Denys Page",
+        "pubdate": "1934-01-01T00:00:00Z",
+        "title": "Actors’ Interpolations in Greek Tragedy",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748888",
+        "author": "Denys Page",
+        "pubdate": "1959-01-01T00:00:00Z",
+        "title": "History and the Homeric Iliad",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748896",
+        "author": "Arthur Wallace Pickard-Cambridge",
+        "pubdate": "1946-01-01T00:00:00Z",
+        "title": "The theatre of Dionysus",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748897",
+        "author": "Arthur Wallace Pickard-Cambridge",
+        "pubdate": "1953-01-01T00:00:00Z",
+        "title": "The dramatic festivals of Athens",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748898",
+        "author": "Ludwig Preller",
+        "pubdate": "1894-01-01T00:00:00Z",
+        "title": "Griechische Mythologie",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748899",
+        "author": "Peter von der Mühll",
+        "pubdate": "1930-01-01T00:00:00Z",
+        "title": "Der grosse Aias",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748901",
+        "author": "Leif Bergson",
+        "pubdate": "1953-01-01T00:00:00Z",
+        "title": "The Omitted Augment in the Messengers’ Speeches of Greek Tragedy",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748902",
+        "author": "Leif Bergson",
+        "pubdate": "1959-01-01T00:00:00Z",
+        "title": "Episches in den ῥήσεις ἀγγελικαί’",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748903",
+        "author": "Gudmund Björck",
+        "pubdate": "1950-01-01T00:00:00Z",
+        "title": "Das Alpha impurum und die tragische Kunstsprache",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748908",
+        "author": "Alfred Chilton Pearson",
+        "pubdate": "1922-01-01T00:00:00Z",
+        "title": "Critical notes on Sophocles",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748909",
+        "author": "Chandler Rathfon Post",
+        "pubdate": "1912-01-01T00:00:00Z",
+        "title": "The Dramatic Art of Sophocles",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748914",
+        "author": "John Tresidder Sheppard",
+        "pubdate": "1947-01-01T00:00:00Z",
+        "title": "The wisdom of Sophocles",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748916",
+        "author": "John Tresidder Sheppard",
+        "pubdate": "1927-01-01T00:00:00Z",
+        "title": "Aeschylus and sophocles, their work and influence",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748919",
+        "author": "Bruno Snell",
+        "pubdate": "1953-01-01T00:00:00Z",
+        "title": "The Discovery of the Mind",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748920",
+        "author": "Bruno Snell",
+        "pubdate": "1955-01-01T00:00:00Z",
+        "title": "Lexikon des frühgriechischen Epos",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748920",
+        "author": "Hans Joachim Mette",
+        "pubdate": "1955-01-01T00:00:00Z",
+        "title": "Lexikon des frühgriechischen Epos",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748921",
+        "author": "William Bedell Stanford",
+        "pubdate": "1964-01-01T00:00:00Z",
+        "title": "The ulysses theme",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748929",
+        "author": "Jacob Wackernagel",
+        "pubdate": "1926-01-01T00:00:00Z",
+        "title": "Vorlesungen über Syntax",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748932",
+        "author": "Heinrich Weinstock",
+        "pubdate": "1948-01-01T00:00:00Z",
+        "title": "Sophokles",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748933",
+        "author": "Cedric H. Whitman",
+        "pubdate": "1958-01-01T00:00:00Z",
+        "title": "Homer and the Heroic Tradition",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123748934",
+        "author": "Ulrich von Wilamowitz-Moellendorff",
+        "pubdate": "1921-01-01T00:00:00Z",
+        "title": "Griechische Verskunst",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123916470",
+        "author": "Friedrich Wilhelm Schneidewin",
+        "pubdate": "1913-01-01T00:00:00Z",
+        "title": "Sophokles",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123916470",
+        "author": "Ludwig Radermacher",
+        "pubdate": "1913-01-01T00:00:00Z",
+        "title": "Sophokles",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123916470",
+        "author": "August Nauck",
+        "pubdate": "1913-01-01T00:00:00Z",
+        "title": "Sophokles",
+        "citedBy": [],
+        "citing": []
+    },
+    {
+        "id": "Q123916472",
+        "author": "Aristide Colonna",
+        "pubdate": "1975-01-01T00:00:00Z",
+        "title": "Sophoclis fabulae: Aiax - Electra",
+        "citedBy": [],
+        "citing": []
+    }
+]

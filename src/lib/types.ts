@@ -132,6 +132,20 @@ export type PassageInfo = {
 	textContainers: DeserializedTextContainer[];
 };
 
+export type WikidataEntry = {
+	id: string;
+	author: string;
+	pubdate: string;
+	title: string;
+	citedBy: Array<{ id: string; author: string; pubdate: string; title: string }>;
+	citing: Array<{
+		id: string;
+		author: string;
+		pubdate: string;
+		title: string;
+	}>;
+};
+
 export type Word = {
 	commentURNs: (string | undefined)[];
 	offset: number;

@@ -1,5 +1,9 @@
+import fs from 'fs';
+import process from 'process';
+import { fileURLToPath } from 'url';
+
 const USER_AGENT =
-	'Kodon/0.1 (https://github.com/ajaxMultiCommentary/kodon) kodon-mini-comp-lib/0.1';
+	'Kodon/0.2 (https://github.com/ajaxMultiCommentary/kodon) kodon-mini-comp-lib/0.2';
 
 export type WikidataJSONResponse = {
 	results: {
@@ -8,6 +12,7 @@ export type WikidataJSONResponse = {
 };
 
 export type RawWikidataEntity = {
+	authorLabel: { 'xml:lang': string; type: 'literal'; value: string };
 	item: { type: string; value: string };
 	pubdate: { datatype: string; type: string; value: string };
 	title: {
@@ -36,6 +41,7 @@ export type RawWikidataEntity = {
 
 export class WikidataEntity {
 	id: string;
+	author: string;
 	pubdate: string;
 	title: string;
 
@@ -43,12 +49,19 @@ export class WikidataEntity {
 		const uri = item.item.value;
 		const itemID = uri.split('/').at(-1);
 
-		console.assert(typeof itemID === 'string');
+		console.assert(typeof itemID === 'string', '`itemID` must be a string.');
 
 		this.id = itemID as string;
+		this.author = item.authorLabel.value;
 		this.pubdate = item.pubdate.value;
 		this.title = item.title.value;
 	}
+}
+
+function wait(milliseconds: number) {
+	return new Promise((resolve) => {
+		setTimeout(resolve, milliseconds);
+	});
 }
 
 export async function getWikidataCitationsForCollection(collectionID: string) {
@@ -58,11 +71,21 @@ export async function getWikidataCitationsForCollection(collectionID: string) {
 		items.map(async (i) => {
 			const item = new WikidataEntity(i as RawWikidataEntity);
 
+			console.log(`Getting information for ${item.title} ${item.id}`);
+
 			const citedBy = await getWikidataCitedBy(item.id);
+
+			await wait(1000);
+
 			const citing = await getWikidataCiting(item.id);
 
+			await wait(1000);
+
 			return {
-				...item,
+				id: item.id,
+				author: item.author,
+				pubdate: item.pubdate,
+				title: item.title,
 				citedBy,
 				citing
 			};
@@ -105,6 +128,10 @@ async function _request(query: string): Promise<WikidataJSONResponse> {
 				})
 			}
 		);
+
+		if (res.status === 429) {
+			console.error(await res.text());
+		}
 
 		return (await res.json()) as WikidataJSONResponse;
 	} catch (e) {
@@ -159,3 +186,20 @@ function _wikidataCollectionQuery(collectionID: string): string {
 // const body = await getWikidataCitationsForCollection('Q123783872');
 // // const body = await getWikidataCitedBy('Q122238857');
 // console.log(body);
+
+async function main() {
+	const collectionID = process.argv[2];
+	const outfile = process.argv[3] || 'wikidata_citations.json';
+
+	console.assert(collectionID, 'You must supply a Wikidata collectionID.');
+
+	const citations = await getWikidataCitationsForCollection(collectionID);
+
+	console.log(citations);
+
+	fs.writeFileSync(outfile, JSON.stringify(citations), 'utf-8');
+}
+
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+	main();
+}

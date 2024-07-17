@@ -12,7 +12,136 @@ type Story = StoryObj<typeof meta>;
 
 const bibliographies = [
 	{
-		name: 'ajmc',
+		name: 'Ajax Multi-Commentary',
+		items: [
+			{
+				id: 'garvie_sophocles_1998',
+				type: 'book',
+				'event-place': 'Warminster',
+				ISBN: '978-0-85668-659-7',
+				language: 'eng, grc',
+				note: 'QID: Q123517585\nPublic Domain Year: n/a\nURN: tlg0011.tlg003.ajmc-gar',
+				publisher: 'Aris & Phillips',
+				'publisher-place': 'Warminster',
+				title: 'Sophocles: Ajax',
+				author: [
+					{
+						family: 'Garvie',
+						given: 'Alex F.'
+					}
+				],
+				issued: {
+					'date-parts': [['1998']]
+				}
+			},
+			{
+				id: 'untersteiner_sofocle_1934',
+				type: 'book',
+				'event-place': 'Milano',
+				language: 'ita, grc',
+				note: 'QID: Q123464159\nPublic Domain Year: 2051\nURN: tlg0011.tlg003.ajmc-unt',
+				publisher: 'Carlo Signorelli Editore',
+				'publisher-place': 'Milano',
+				title: 'Sofocle. Aiace',
+				author: [
+					{
+						family: 'Untersteiner',
+						given: 'Mario'
+					}
+				],
+				issued: {
+					'date-parts': [['1934']]
+				}
+			},
+			{
+				id: 'schneidewin_sophokles_1913',
+				type: 'book',
+				'event-place': 'Berlin',
+				language: 'ita',
+				note: 'QID: Q123916470\nPublic Domain Year: 1962\nURN: tlg0011.tlg003.ajmc-snr',
+				'publisher-place': 'Berlin',
+				title: 'Sophokles',
+				author: [
+					{
+						family: 'Schneidewin',
+						given: 'F. W.'
+					},
+					{
+						family: 'Nauck',
+						given: 'A.'
+					},
+					{
+						family: 'Radermacher',
+						given: 'L.'
+					}
+				],
+				issued: {
+					'date-parts': [['1913']]
+				}
+			},
+			{
+				id: 'paduano_tragedie_1982',
+				type: 'book',
+				'event-place': 'Torino',
+				language: 'ita, grc',
+				note: 'QID: Q123679678\nPublic Domain Year: n/a\nURN: tlg0011.tlg003.ajmc-pad',
+				publisher: 'UTET',
+				'publisher-place': 'Torino',
+				title: 'Tragedie e Frammenti di Sofocle',
+				author: [
+					{
+						family: 'Paduano',
+						given: 'Guido'
+					}
+				],
+				issued: {
+					'date-parts': [['1982']]
+				}
+			},
+			{
+				id: 'stanford_sophocles_1979',
+				type: 'book',
+				'event-place': 'New York, NY, USA',
+				language: 'eng, grc',
+				note: 'original-date: 1963\nQID: Q123679677\nPublic Domain Year: 2054\nURN: tlg0011.tlg003.ajmc-sta',
+				publisher: 'Arno Press',
+				'publisher-place': 'New York, NY, USA',
+				title: 'Sophocles Ajax',
+				author: [
+					{
+						family: 'Stanford',
+						given: 'William Bedell'
+					}
+				],
+				issued: {
+					'date-parts': [['1979']]
+				}
+			},
+			{
+				id: 'colonna_sophoclis_1975',
+				type: 'book',
+				'collection-title': 'Corpus Scriptorum Graecorum Paravianum',
+				'event-place': 'Torino',
+				language: 'ita',
+				note: 'QID: Q123916472\nPublic Domain Year: 2069\nURN: tlg0011.tlg003.ajmc-col',
+				publisher: 'Paravia',
+				'publisher-place': 'Torino',
+				title: 'Sophoclis fabulae: Aiax - Electra',
+				volume: '1',
+				author: [
+					{
+						family: 'Colonna',
+						given: 'Aristides'
+					}
+				],
+				issued: {
+					'date-parts': [['1975']]
+				}
+			}
+		]
+	},
+	{
+		name: 'Ajax Meta-Commentary',
 		items: [
 			{
 				id: 'jebb_sophocles_1896',
@@ -276,130 +405,6 @@ const bibliographies = [
 				],
 				issued: {
 					'date-parts': [['1976']]
-				}
-			},
-			{
-				id: 'garvie_sophocles_1998',
-				type: 'book',
-				'event-place': 'Warminster',
-				ISBN: '978-0-85668-659-7',
-				language: 'eng, grc',
-				note: 'QID: Q123517585\nPublic Domain Year: n/a\nURN: tlg0011.tlg003.ajmc-gar',
-				publisher: 'Aris & Phillips',
-				'publisher-place': 'Warminster',
-				title: 'Sophocles: Ajax',
-				author: [
-					{
-						family: 'Garvie',
-						given: 'Alex F.'
-					}
-				],
-				issued: {
-					'date-parts': [['1998']]
-				}
-			},
-			{
-				id: 'untersteiner_sofocle_1934',
-				type: 'book',
-				'event-place': 'Milano',
-				language: 'ita, grc',
-				note: 'QID: Q123464159\nPublic Domain Year: 2051\nURN: tlg0011.tlg003.ajmc-unt',
-				publisher: 'Carlo Signorelli Editore',
-				'publisher-place': 'Milano',
-				title: 'Sofocle. Aiace',
-				author: [
-					{
-						family: 'Untersteiner',
-						given: 'Mario'
-					}
-				],
-				issued: {
-					'date-parts': [['1934']]
-				}
-			},
-			{
-				id: 'schneidewin_sophokles_1913',
-				type: 'book',
-				'event-place': 'Berlin',
-				language: 'ita',
-				note: 'QID: Q123916470\nPublic Domain Year: 1962\nURN: tlg0011.tlg003.ajmc-snr',
-				'publisher-place': 'Berlin',
-				title: 'Sophokles',
-				author: [
-					{
-						family: 'Schneidewin',
-						given: 'F. W.'
-					},
-					{
-						family: 'Nauck',
-						given: 'A.'
-					},
-					{
-						family: 'Radermacher',
-						given: 'L.'
-					}
-				],
-				issued: {
-					'date-parts': [['1913']]
-				}
-			},
-			{
-				id: 'paduano_tragedie_1982',
-				type: 'book',
-				'event-place': 'Torino',
-				language: 'ita, grc',
-				note: 'QID: Q123679678\nPublic Domain Year: n/a\nURN: tlg0011.tlg003.ajmc-pad',
-				publisher: 'UTET',
-				'publisher-place': 'Torino',
-				title: 'Tragedie e Frammenti di Sofocle',
-				author: [
-					{
-						family: 'Paduano',
-						given: 'Guido'
-					}
-				],
-				issued: {
-					'date-parts': [['1982']]
-				}
-			},
-			{
-				id: 'stanford_sophocles_1979',
-				type: 'book',
-				'event-place': 'New York, NY, USA',
-				language: 'eng, grc',
-				note: 'original-date: 1963\nQID: Q123679677\nPublic Domain Year: 2054\nURN: tlg0011.tlg003.ajmc-sta',
-				publisher: 'Arno Press',
-				'publisher-place': 'New York, NY, USA',
-				title: 'Sophocles Ajax',
-				author: [
-					{
-						family: 'Stanford',
-						given: 'William Bedell'
-					}
-				],
-				issued: {
-					'date-parts': [['1979']]
-				}
-			},
-			{
-				id: 'colonna_sophoclis_1975',
-				type: 'book',
-				'collection-title': 'Corpus Scriptorum Graecorum Paravianum',
-				'event-place': 'Torino',
-				language: 'ita',
-				note: 'QID: Q123916472\nPublic Domain Year: 2069\nURN: tlg0011.tlg003.ajmc-col',
-				publisher: 'Paravia',
-				'publisher-place': 'Torino',
-				title: 'Sophoclis fabulae: Aiax - Electra',
-				volume: '1',
-				author: [
-					{
-						family: 'Colonna',
-						given: 'Aristides'
-					}
-				],
-				issued: {
-					'date-parts': [['1975']]
 				}
 			}
 		]

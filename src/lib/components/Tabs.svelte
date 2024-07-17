@@ -11,18 +11,19 @@
 	$: activeItem = items[activeTabIndex];
 </script>
 
-<div></div>
-<div role="tablist" class="tabs tabs-lifted">
-	{#each items as item, index}
-		<a
-			href="?tabindex={index}"
-			role="tab"
-			class="tab"
-			class:tab-active={index === activeTabIndex}
-			on:click={handleClick(index)}>{item.name}</a
-		>
-	{/each}
-	<div class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+<div>
+	<div role="tablist" class="tabs tabs-bordered">
+		{#each items as item, index}
+			<a
+				href="?tabindex={index}"
+				role="tab"
+				class="tab"
+				class:tab-active={index === activeTabIndex}
+				on:click={handleClick(index)}>{item.name}</a
+			>
+		{/each}
+	</div>
+	<div class="mt-4">
 		{@html activeItem.content}
 	</div>
 </div>
