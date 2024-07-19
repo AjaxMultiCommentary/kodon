@@ -1,5 +1,6 @@
 <script>import { Cite, plugins } from "@citation-js/core";
 import "@citation-js/plugin-csl";
+import Tabs from "./Tabs.svelte";
 export let bibliographies;
 export let csls = [];
 export let lang = "en-US";
@@ -15,7 +16,7 @@ $:
     const cite = new Cite(bib.items);
     return {
       name: bib.name,
-      output: cite.format("bibliography", {
+      content: cite.format("bibliography", {
         format: "html",
         lang,
         template
@@ -25,10 +26,7 @@ $:
 </script>
 
 <article class="bibliographies prose text-pretty">
-	{#each formattedBibliographies as formattedBibliography}
-		<h1>{formattedBibliography.name}</h1>
-		{@html formattedBibliography.output}
-	{/each}
+	<Tabs items={formattedBibliographies} />
 </article>
 
 <style>

@@ -15,26 +15,19 @@ type Story = StoryObj<typeof meta>;
 export const DefaultBibliography: Story = {
 	args: {
 		citations: data.map((citation: any) => {
-			const citedBy = citation.citedBy.map((cited: any) => {
-				return {
-					id: cited.cited.value.split('/').at(-1),
-					author: cited.cited_authorLabel.value,
-					pubdate: cited.cited_pubdate.value,
-					title: cited.cited_title.value
-				};
-			});
 			const citing = citation.citing.map((citing: any) => {
 				return {
 					id: citing.citing.value.split('/').at(-1),
 					author: citing.citing_authorLabel.value,
+					place: citing.citing_placeLabel?.value,
 					pubdate: citing.citing_pubdate.value,
+					publisher: citing.citing_publisherLabel?.value,
 					title: citing.citing_title.value
 				};
 			});
 
 			return {
 				...citation,
-				citedBy,
 				citing
 			};
 		})

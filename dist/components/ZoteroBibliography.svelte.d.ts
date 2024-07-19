@@ -15,9 +15,9 @@ declare const __propDef: {
     exports?: {} | undefined;
     bindings?: string | undefined;
 };
-export type BibliographyProps = typeof __propDef.props;
-export type BibliographyEvents = typeof __propDef.events;
-export type BibliographySlots = typeof __propDef.slots;
-export default class Bibliography extends SvelteComponent<BibliographyProps, BibliographyEvents, BibliographySlots> {
+export type ZoteroBibliographyProps = typeof __propDef.props;
+export type ZoteroBibliographyEvents = typeof __propDef.events;
+export type ZoteroBibliographySlots = typeof __propDef.slots;
+export default class ZoteroBibliography extends SvelteComponent<ZoteroBibliographyProps, ZoteroBibliographyEvents, ZoteroBibliographySlots> {
 }
 export {};

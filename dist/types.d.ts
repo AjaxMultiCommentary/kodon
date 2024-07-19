@@ -100,6 +100,20 @@ export type PassageInfo = {
     passages: DeserializedPassageConfig[];
     textContainers: DeserializedTextContainer[];
 };
+export type WikidataEntry = {
+    id: string;
+    author: string;
+    place: string;
+    pubdate: string;
+    publisher: string;
+    title: string;
+    citing: Array<{
+        id: string;
+        author: string;
+        pubdate: string;
+        title: string;
+    }>;
+};
 export type Word = {
     commentURNs: (string | undefined)[];
     offset: number;

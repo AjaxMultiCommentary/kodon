@@ -14,7 +14,9 @@ export type WikidataJSONResponse = {
 export type RawWikidataEntity = {
 	authorLabel: { 'xml:lang': string; type: 'literal'; value: string };
 	item: { type: string; value: string };
+	placeLabel?: { 'xml:lang': string; type: 'literal'; value: string };
 	pubdate: { datatype: string; type: string; value: string };
+	publisherLabel: { 'xml:lang': string; type: 'literal'; value: string };
 	title: {
 		'xml:lang': string;
 		type: string;
@@ -42,7 +44,9 @@ export type RawWikidataEntity = {
 export class WikidataEntity {
 	id: string;
 	author: string;
+	place?: string;
 	pubdate: string;
+	publisher: string;
 	title: string;
 
 	constructor(item: RawWikidataEntity) {
@@ -53,7 +57,9 @@ export class WikidataEntity {
 
 		this.id = itemID as string;
 		this.author = item.authorLabel.value;
+		this.place = item.placeLabel?.value;
 		this.pubdate = item.pubdate.value;
+		this.publisher = item.publisherLabel.value;
 		this.title = item.title.value;
 	}
 }
@@ -73,20 +79,17 @@ export async function getWikidataCitationsForCollection(collectionID: string) {
 
 			console.log(`Getting information for ${item.title} ${item.id}`);
 
-			const citedBy = await getWikidataCitedBy(item.id);
-
 			await wait(1000);
 
 			const citing = await getWikidataCiting(item.id);
 
-			await wait(1000);
-
 			return {
 				id: item.id,
 				author: item.author,
+				place: item.place,
 				pubdate: item.pubdate,
+				publisher: item.publisher,
 				title: item.title,
-				citedBy,
 				citing
 			};
 		})
@@ -131,6 +134,7 @@ async function _request(query: string): Promise<WikidataJSONResponse> {
 
 		if (res.status === 429) {
 			console.error(await res.text());
+			throw new Error('Wikidata rate limit exceeded.');
 		}
 
 		return (await res.json()) as WikidataJSONResponse;
@@ -143,28 +147,28 @@ async function _request(query: string): Promise<WikidataJSONResponse> {
 
 function _wikidataCitedByQuery(itemID: string): string {
 	return `
-  SELECT
-     ?cited ?cited_authorLabel ?cited_title ?cited_pubdate
-  where {
-    # wd:Q122238857 is the Wikidata ID for Ferrari's commentary
-    wd:${itemID} wdt:P2860 ?cited.
-    ?cited wdt:P1476 ?cited_title;
-           wdt:P577 ?cited_pubdate;
-          wdt:P50 ?cited_author.
-
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
-  }`;
+SELECT ?cited ?cited_authorLabel ?cited_title ?cited_pubdate ?cited_publisherLabel ?cited_placeLabel WHERE {
+  wd:${itemID} wdt:P2860 ?cited.
+  ?cited wdt:P1476 ?cited_title;
+    wdt:P577 ?cited_pubdate;
+    wdt:P50 ?cited_author;
+    wdt:P123 ?cited_publisher.
+	OPTIONAL { ?cited wdt:P291 ?cited_place. }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+}`;
 }
 
 function _wikidataCitingQuery(itemID: string): string {
 	return `
   SELECT
-     ?citing ?citing_authorLabel ?citing_title ?citing_pubdate
+     ?citing ?citing_authorLabel ?citing_title ?citing_pubdate ?cited_publisherLabel ?cited_placeLabel
   where {
     ?citing wdt:P2860 wd:${itemID}.
     ?citing wdt:P1476 ?citing_title;
-           wdt:P577 ?citing_pubdate;
-          wdt:P50 ?citing_author.
+        	wdt:P577 ?citing_pubdate;
+        	wdt:P50 ?citing_author;
+		    wdt:P123 ?cited_publisher.
+    		OPTIONAL { ?citing wdt:P291 ?cited_place. }
 
     SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
   }
@@ -173,11 +177,13 @@ function _wikidataCitingQuery(itemID: string): string {
 
 function _wikidataCollectionQuery(collectionID: string): string {
 	return `
-  SELECT ?item ?language ?authorLabel ?title ?pubdate WHERE {
+  SELECT ?item ?language ?authorLabel ?title ?pubdate ?publisherLabel ?placeLabel WHERE {
     ?item wdt:P195 wd:${collectionID};
-      wdt:P577 ?pubdate;
-      wdt:P1476 ?title;
-      wdt:P50 ?author.
+      	wdt:P577 ?pubdate;
+      	wdt:P1476 ?title;
+    	wdt:P50 ?author;
+		wdt:P123 ?publisher.
+    	OPTIONAL { ?item wdt:P291 ?place. }
     SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
   }
   `;

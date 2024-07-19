@@ -135,9 +135,10 @@ export type PassageInfo = {
 export type WikidataEntry = {
 	id: string;
 	author: string;
+	place: string;
 	pubdate: string;
+	publisher: string;
 	title: string;
-	citedBy: Array<{ id: string; author: string; pubdate: string; title: string }>;
 	citing: Array<{
 		id: string;
 		author: string;
