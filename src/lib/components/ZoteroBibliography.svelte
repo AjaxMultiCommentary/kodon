@@ -5,7 +5,6 @@
 	import '@citation-js/plugin-csl';
 
 	import type { Bibliography, CSL } from '$lib/types.js';
-	import Tabs from '$lib/components/Tabs.svelte';
 
 	export let bibliographies: Bibliography[];
 	export let csls: CSL[] = [];
@@ -35,7 +34,10 @@
 </script>
 
 <article class="bibliographies prose text-pretty">
-	<Tabs items={formattedBibliographies} />
+	{#each formattedBibliographies as bibliography}
+		<h1 class="prose prose-h1">{bibliography.name}</h1>
+		<div class="mb-8">{@html bibliography.content}</div>
+	{/each}
 </article>
 
 <style lang="postcss">

@@ -139,10 +139,12 @@ export type WikidataEntry = {
 	pubdate: string;
 	publisher: string;
 	title: string;
-	citing: Array<{
+	citedBy: Array<{
 		id: string;
 		author: string;
+		place: string;
 		pubdate: string;
+		publisher: string;
 		title: string;
 	}>;
 };

@@ -6,7 +6,7 @@ type NonFunctionPropertyNames<T> = {
 type NonFunctionProperties<T> = Pick<T, NonFunctionPropertyNames<T>>;
 export interface Bibliography {
     name: string;
-    items: object[];
+    items: ZoteroItem[];
 }
 export interface CSL {
     name: string;
@@ -107,10 +107,12 @@ export type WikidataEntry = {
     pubdate: string;
     publisher: string;
     title: string;
-    citing: Array<{
+    citedBy: Array<{
         id: string;
         author: string;
+        place: string;
         pubdate: string;
+        publisher: string;
         title: string;
     }>;
 };
@@ -161,5 +163,23 @@ export type Tag = {
 };
 export type Line = {
     n: string;
+};
+export type ZoteroItem = {
+    id: string;
+    type: string;
+    'event-place': string;
+    ISBN: string;
+    language: string;
+    note: string;
+    publisher: string;
+    'publisher-place': string;
+    title: string;
+    author: Array<{
+        family: string;
+        given: string;
+    }>;
+    issued: {
+        'date-parts': Array<Array<string>>;
+    };
 };
 export {};

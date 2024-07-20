@@ -81,7 +81,7 @@ export async function getWikidataCitationsForCollection(collectionID: string) {
 
 			await wait(1000);
 
-			const citing = await getWikidataCiting(item.id);
+			const citedBy = await getWikidataCitedBy(item.id);
 
 			return {
 				id: item.id,
@@ -90,7 +90,7 @@ export async function getWikidataCitationsForCollection(collectionID: string) {
 				pubdate: item.pubdate,
 				publisher: item.publisher,
 				title: item.title,
-				citing
+				citedBy
 			};
 		})
 	);
@@ -147,13 +147,13 @@ async function _request(query: string): Promise<WikidataJSONResponse> {
 
 function _wikidataCitedByQuery(itemID: string): string {
 	return `
-SELECT ?cited ?cited_authorLabel ?cited_title ?cited_pubdate ?cited_publisherLabel ?cited_placeLabel WHERE {
+SELECT ?cited ?authorLabel ?title ?pubdate ?publisherLabel ?placeLabel WHERE {
   wd:${itemID} wdt:P2860 ?cited.
-  ?cited wdt:P1476 ?cited_title;
-    wdt:P577 ?cited_pubdate;
-    wdt:P50 ?cited_author;
-    wdt:P123 ?cited_publisher.
-	OPTIONAL { ?cited wdt:P291 ?cited_place. }
+  ?cited wdt:P1476 ?title;
+    wdt:P577 ?pubdate;
+    wdt:P50 ?author;
+    wdt:P123 ?publisher.
+	OPTIONAL { ?cited wdt:P291 ?place. }
   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
 }`;
 }
@@ -161,14 +161,14 @@ SELECT ?cited ?cited_authorLabel ?cited_title ?cited_pubdate ?cited_publisherLab
 function _wikidataCitingQuery(itemID: string): string {
 	return `
   SELECT
-     ?citing ?citing_authorLabel ?citing_title ?citing_pubdate ?cited_publisherLabel ?cited_placeLabel
+     ?citing ?authorLabel ?title ?pubdate ?publisherLabel ?placeLabel
   where {
     ?citing wdt:P2860 wd:${itemID}.
-    ?citing wdt:P1476 ?citing_title;
-        	wdt:P577 ?citing_pubdate;
-        	wdt:P50 ?citing_author;
-		    wdt:P123 ?cited_publisher.
-    		OPTIONAL { ?citing wdt:P291 ?cited_place. }
+    ?citing wdt:P1476 ?title;
+        	wdt:P577 ?pubdate;
+        	wdt:P50 ?author;
+		    wdt:P123 ?publisher.
+    		OPTIONAL { ?citing wdt:P291 ?place. }
 
     SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
   }

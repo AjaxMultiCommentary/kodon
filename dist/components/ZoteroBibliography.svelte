@@ -1,6 +1,5 @@
 <script>import { Cite, plugins } from "@citation-js/core";
 import "@citation-js/plugin-csl";
-import Tabs from "./Tabs.svelte";
 export let bibliographies;
 export let csls = [];
 export let lang = "en-US";
@@ -26,7 +25,10 @@ $:
 </script>
 
 <article class="bibliographies prose text-pretty">
-	<Tabs items={formattedBibliographies} />
+	{#each formattedBibliographies as bibliography}
+		<h1 class="prose prose-h1">{bibliography.name}</h1>
+		<div class="mb-8">{@html bibliography.content}</div>
+	{/each}
 </article>
 
 <style>

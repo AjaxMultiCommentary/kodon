@@ -48,7 +48,7 @@ export async function getWikidataCitationsForCollection(collectionID) {
         const item = new WikidataEntity(i);
         console.log(`Getting information for ${item.title} ${item.id}`);
         await wait(1000);
-        const citing = await getWikidataCiting(item.id);
+        const citedBy = await getWikidataCitedBy(item.id);
         return {
             id: item.id,
             author: item.author,
@@ -56,7 +56,7 @@ export async function getWikidataCitationsForCollection(collectionID) {
             pubdate: item.pubdate,
             publisher: item.publisher,
             title: item.title,
-            citing
+            citedBy
         };
     }));
     return withCitations;
@@ -98,27 +98,27 @@ async function _request(query) {
 }
 function _wikidataCitedByQuery(itemID) {
     return `
-SELECT ?cited ?cited_authorLabel ?cited_title ?cited_pubdate ?cited_publisherLabel ?cited_placeLabel WHERE {
+SELECT ?cited ?authorLabel ?title ?pubdate ?publisherLabel ?placeLabel WHERE {
   wd:${itemID} wdt:P2860 ?cited.
-  ?cited wdt:P1476 ?cited_title;
-    wdt:P577 ?cited_pubdate;
-    wdt:P50 ?cited_author;
-    wdt:P123 ?cited_publisher.
-	OPTIONAL { ?cited wdt:P291 ?cited_place. }
+  ?cited wdt:P1476 ?title;
+    wdt:P577 ?pubdate;
+    wdt:P50 ?author;
+    wdt:P123 ?publisher.
+	OPTIONAL { ?cited wdt:P291 ?place. }
   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
 }`;
 }
 function _wikidataCitingQuery(itemID) {
     return `
   SELECT
-     ?citing ?citing_authorLabel ?citing_title ?citing_pubdate ?cited_publisherLabel ?cited_placeLabel
+     ?citing ?authorLabel ?title ?pubdate ?publisherLabel ?placeLabel
   where {
     ?citing wdt:P2860 wd:${itemID}.
-    ?citing wdt:P1476 ?citing_title;
-        	wdt:P577 ?citing_pubdate;
-        	wdt:P50 ?citing_author;
-		    wdt:P123 ?cited_publisher.
-    		OPTIONAL { ?citing wdt:P291 ?cited_place. }
+    ?citing wdt:P1476 ?title;
+        	wdt:P577 ?pubdate;
+        	wdt:P50 ?author;
+		    wdt:P123 ?publisher.
+    		OPTIONAL { ?citing wdt:P291 ?place. }
 
     SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
   }
