@@ -167,6 +167,6 @@ async function main() {
     console.log(citations);
     fs.writeFileSync(outfile, JSON.stringify(citations), 'utf-8');
 }
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
-    main();
-}
+// if (process.argv[1] === fileURLToPath(import.meta.url)) {
+// 	main();
+// }
