@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { WikidataEntry } from '$lib/types.js';
-	import { orderBy, uniqBy } from 'lodash';
+	import orderBy from 'lodash/orderBy.js';
+	import uniqBy from 'lodash/uniqBy.js';
 
 	import ArrowUp from '$lib/components/icons/ArrowUp.svelte';
 	import ArrowDown from '$lib/components/icons/ArrowDown.svelte';

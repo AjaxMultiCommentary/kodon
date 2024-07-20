@@ -1,4 +1,5 @@
-<script>import { orderBy, uniqBy } from "lodash";
+<script>import orderBy from "lodash/orderBy.js";
+import uniqBy from "lodash/uniqBy.js";
 import ArrowUp from "./icons/ArrowUp.svelte";
 import ArrowDown from "./icons/ArrowDown.svelte";
 import WikidataBibliographyRow from "./WikidataBibliographyRow.svelte";
