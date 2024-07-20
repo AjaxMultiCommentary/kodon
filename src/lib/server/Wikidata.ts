@@ -119,6 +119,28 @@ export async function getWikidataCollection(collectionID: string) {
 	return req.results.bindings;
 }
 
+export async function loadWikidataCitations(citationsJSON = 'wikidata_citations.json') {
+	const data = await import(citationsJSON);
+
+	return data.map((citation: any) => {
+		const citedBy = citation.citedBy.map((citedBy: any) => {
+			return {
+				id: citedBy.cited.value.split('/').at(-1),
+				author: citedBy.authorLabel.value,
+				place: citedBy.placeLabel?.value,
+				pubdate: citedBy.pubdate.value,
+				publisher: citedBy.publisherLabel?.value,
+				title: citedBy.title.value
+			};
+		});
+
+		return {
+			...citation,
+			citedBy
+		};
+	});
+}
+
 async function _request(query: string): Promise<WikidataJSONResponse> {
 	try {
 		const res = await fetch(

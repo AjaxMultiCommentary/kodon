@@ -76,6 +76,25 @@ export async function getWikidataCollection(collectionID) {
     const req = await _request(query);
     return req.results.bindings;
 }
+export async function loadWikidataCitations(citationsJSON = 'wikidata_citations.json') {
+    const data = await import(citationsJSON);
+    return data.map((citation) => {
+        const citedBy = citation.citedBy.map((citedBy) => {
+            return {
+                id: citedBy.cited.value.split('/').at(-1),
+                author: citedBy.authorLabel.value,
+                place: citedBy.placeLabel?.value,
+                pubdate: citedBy.pubdate.value,
+                publisher: citedBy.publisherLabel?.value,
+                title: citedBy.title.value
+            };
+        });
+        return {
+            ...citation,
+            citedBy
+        };
+    });
+}
 async function _request(query) {
     try {
         const res = await fetch(`https://query.wikidata.org/sparql?query=${encodeURIComponent(query)}`, {

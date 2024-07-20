@@ -71,3 +71,4 @@ export declare function getWikidataCitationsForCollection(collectionID: string):
 export declare function getWikidataCitedBy(itemID: string): Promise<object[]>;
 export declare function getWikidataCiting(itemID: string): Promise<object[]>;
 export declare function getWikidataCollection(collectionID: string): Promise<object[]>;
+export declare function loadWikidataCitations(citationsJSON?: string): Promise<any>;
