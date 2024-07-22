@@ -17,7 +17,7 @@ export const DefaultBibliography: Story = {
 		citations: data.map((citation: any) => {
 			const citedBy = citation.citedBy.map((citedBy: any) => {
 				return {
-					id: citedBy.cited.value.split('/').at(-1),
+					id: citedBy.citing.value.split('/').at(-1),
 					author: citedBy.authorLabel.value,
 					place: citedBy.placeLabel?.value,
 					pubdate: citedBy.pubdate.value,

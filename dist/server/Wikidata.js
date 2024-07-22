@@ -48,7 +48,9 @@ export async function getWikidataCitationsForCollection(collectionID) {
         const item = new WikidataEntity(i);
         console.log(`Getting information for ${item.title} ${item.id}`);
         await wait(1000);
-        const citedBy = await getWikidataCitedBy(item.id);
+        // the naming convention is confusing, but I think we actually want the _citing_
+        // data to read like citedBy?
+        const citedBy = await getWikidataCiting(item.id);
         return {
             id: item.id,
             author: item.author,
@@ -167,6 +169,6 @@ async function main() {
     console.log(citations);
     fs.writeFileSync(outfile, JSON.stringify(citations), 'utf-8');
 }
-// if (process.argv[1] === fileURLToPath(import.meta.url)) {
-// 	main();
-// }
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+    main();
+}
