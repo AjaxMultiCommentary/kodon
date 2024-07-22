@@ -15,20 +15,16 @@ type Story = StoryObj<typeof meta>;
 export const DefaultBibliography: Story = {
 	args: {
 		citations: data.map((citation: any) => {
-			const citedBy = citation.citedBy.map((citedBy: any) => {
-				return {
-					id: citedBy.citing.value.split('/').at(-1),
-					author: citedBy.authorLabel.value,
-					place: citedBy.placeLabel?.value,
-					pubdate: citedBy.pubdate.value,
-					publisher: citedBy.publisherLabel?.value,
-					title: citedBy.title.value
-				};
-			});
+			const citations = citation.citations.value
+				.split(', ')
+				.map((wikidataURL: string) => {
+					return data.find((c) => c.subject.value === wikidataURL);
+				})
+				.filter((x: any) => typeof x !== 'undefined');
 
 			return {
 				...citation,
-				citedBy
+				citations
 			};
 		})
 	}

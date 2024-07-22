@@ -133,20 +133,44 @@ export type PassageInfo = {
 };
 
 export type WikidataEntry = {
-	id: string;
-	author: string;
-	place: string;
-	pubdate: string;
-	publisher: string;
-	title: string;
-	citedBy: Array<{
-		id: string;
-		author: string;
-		place: string;
-		pubdate: string;
-		publisher: string;
-		title: string;
-	}>;
+	authorLabel: {
+		type: 'literal';
+		value: string;
+		'xml:lang': string;
+	};
+	citations: Array<WikidataEntry>;
+	full_text_url?: {
+		type: 'uri';
+		value: string;
+	};
+	internet_archive_id?: {
+		type: 'literal';
+		value: string;
+	};
+	placeLabel?: {
+		type: 'literal';
+		value: string;
+		'xml:lang': string;
+	};
+	pubdate: {
+		datatype: 'http://www.w3.org/2001/XMLSchema#dateTime';
+		type: 'literal';
+		value: string;
+	};
+	publisherLabel: {
+		type: 'literal';
+		value: string;
+		'xml:lang': string;
+	};
+	subject: {
+		type: 'uri';
+		value: string;
+	};
+	title: {
+		type: 'literal';
+		value: string;
+		'xml:lang': 'string';
+	};
 };
 
 export type Word = {

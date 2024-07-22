@@ -1,15 +1,32 @@
 <script>import orderBy from "lodash/orderBy.js";
-import uniqBy from "lodash/uniqBy.js";
 import ArrowUp from "./icons/ArrowUp.svelte";
 import ArrowDown from "./icons/ArrowDown.svelte";
 import WikidataBibliographyRow from "./WikidataBibliographyRow.svelte";
 export let citations;
+$:
+  console.log(citations);
 let sortProperty = "author";
 let sortAscending = true;
 $:
-  sortedCitations = uniqBy(
-    orderBy(citations, [sortProperty], [sortAscending ? "asc" : "desc"]),
-    "id"
+  sortedCitations = orderBy(
+    citations,
+    [
+      (citation) => {
+        if (sortProperty === "author") {
+          return citation.authorLabel.value.split(" ").at(-1);
+        }
+        if (sortProperty === "pubdate") {
+          return new Date(citation.pubdate.value);
+        }
+        if (sortProperty === "publisher") {
+          return citation.publisherLabel.value;
+        }
+        if (sortProperty === "title") {
+          return citation.title.value;
+        }
+      }
+    ],
+    [sortAscending ? "asc" : "desc"]
   );
 </script>
 
@@ -72,20 +89,7 @@ $:
 					{/if}
 				</div></th
 			>
-			<th
-				class="cursor-pointer"
-				on:click={() => {
-					sortProperty = 'place';
-					sortAscending = !sortAscending;
-				}}
-				><div class="flex">
-					Place of Publication {#if sortProperty === 'place'}
-						{#if sortAscending}<ArrowUp className="size-4" />{:else}<ArrowDown
-								className="size-4"
-							/>{/if}
-					{/if}
-				</div></th
-			>
+			<th>Link</th>
 		</tr>
 	</thead>
 	<tbody>
