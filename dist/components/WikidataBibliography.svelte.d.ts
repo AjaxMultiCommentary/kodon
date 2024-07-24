@@ -1,8 +1,8 @@
 import { SvelteComponent } from "svelte";
-import type { WikidataEntry } from '../types.js';
+import type { WikidataRow } from '../types.js';
 declare const __propDef: {
     props: {
-        citations: WikidataEntry[];
+        citations: WikidataRow[];
     };
     events: {
         [evt: string]: CustomEvent<any>;

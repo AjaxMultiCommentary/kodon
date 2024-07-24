@@ -3,8 +3,6 @@ import ArrowUp from "./icons/ArrowUp.svelte";
 import ArrowDown from "./icons/ArrowDown.svelte";
 import WikidataBibliographyRow from "./WikidataBibliographyRow.svelte";
 export let citations;
-$:
-  console.log(citations);
 let sortProperty = "author";
 let sortAscending = true;
 $:
@@ -13,13 +11,13 @@ $:
     [
       (citation) => {
         if (sortProperty === "author") {
-          return citation.authorLabel.value.split(" ").at(-1);
+          return citation.authors?.value.split(", ").at(0)?.split(" ").at(-1);
         }
         if (sortProperty === "pubdate") {
-          return new Date(citation.pubdate.value);
+          return new Date(citation.pubYear.value);
         }
         if (sortProperty === "publisher") {
-          return citation.publisherLabel.value;
+          return citation.publishers.value;
         }
         if (sortProperty === "title") {
           return citation.title.value;

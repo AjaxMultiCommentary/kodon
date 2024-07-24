@@ -17,38 +17,50 @@ let showCitedBy = false;
 				{:else}
 					<ChevronRight className="size-4" />
 				{/if}
-			{/if}{citation.authorLabel.value}
+			{/if}{citation.authors?.value}
 		</div></td
 	>
-	<td>{new Date(citation.pubdate.value).getFullYear()}</td>
+	<td>{new Date(citation.pubYear.value).getFullYear()}</td>
 	<td>{citation.title.value}</td>
 	<td
-		>{citation.publisherLabel.value}
-		{citation.placeLabel?.value ? `(${citation.placeLabel.value})` : ''}</td
+		>{citation.publishers.value}
+		{citation.publicationPlaces?.value ? `(${citation.publicationPlaces.value})` : ''}</td
 	>
 	<td
-		>{#if citation.full_text_url?.value}
-			<a href={citation.full_text_url.value} title="Internet Archive link to resource"
+		>{#if citation.internet_archive_url?.value}
+			<a href={citation.internet_archive_url.value} title="Internet Archive link to resource"
 				><InternetArchive className="size-6" /></a
 			>
-		{:else if citation.internet_archive_id?.value}
-			<a
-				href="//archive.org/details/{citation.internet_archive_id.value}"
-				title="Internet Archive link to resource"><InternetArchive className="size-6" /></a
+		{:else if citation.jstor_url?.value}
+			<a href={citation.jstor_url.value} title="JSTOR link to resource"
+				><InternetArchive className="size-6" /></a
 			>
 		{/if}</td
 	>
 </tr>
 {#if showCitedBy}
 	{#each citation.citations as citedBy}
-		<tr class="bg-slate-200">
-			<td>{citedBy.authorLabel.value}</td>
-			<td>{new Date(citedBy.pubdate.value).getFullYear()}</td>
-			<td>{citedBy.title.value}</td>
-			<td
-				>{citedBy.publisherLabel.value}
-				{citation.placeLabel?.value ? `(${citation.placeLabel.value})` : ''}</td
-			>
-		</tr>
+		{#if citedBy}
+			<tr class="bg-slate-200">
+				<td>{citedBy.authors?.value}</td>
+				<td>{new Date(citedBy.pubYear.value).getFullYear()}</td>
+				<td>{citedBy.title.value}</td>
+				<td
+					>{citedBy.publishers.value}
+					{citedBy.publicationPlaces?.value ? `(${citedBy.publicationPlaces.value})` : ''}</td
+				>
+				<td
+					>{#if citedBy.internet_archive_url?.value}
+						<a href={citedBy.internet_archive_url.value} title="Internet Archive link to resource"
+							><InternetArchive className="size-6" /></a
+						>
+					{:else if citedBy.jstor_url?.value}
+						<a href={citedBy.jstor_url.value} title="JSTOR link to resource"
+							><InternetArchive className="size-6" /></a
+						>
+					{/if}</td
+				>
+			</tr>
+		{/if}
 	{/each}
 {/if}

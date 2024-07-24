@@ -1,14 +1,12 @@
 <script lang="ts">
-	import type { WikidataEntry } from '$lib/types.js';
+	import type { WikidataRow } from '$lib/types.js';
 	import orderBy from 'lodash/orderBy.js';
 
 	import ArrowUp from '$lib/components/icons/ArrowUp.svelte';
 	import ArrowDown from '$lib/components/icons/ArrowDown.svelte';
 	import WikidataBibliographyRow from '$lib/components/WikidataBibliographyRow.svelte';
 
-	export let citations: WikidataEntry[];
-
-	$: console.log(citations);
+	export let citations: WikidataRow[];
 
 	// use one query for each item
 	// "core corpus" tab: show "sub-bibliography" in expandable block for each commentary in commentary.toml
@@ -23,15 +21,15 @@
 		[
 			(citation) => {
 				if (sortProperty === 'author') {
-					return citation.authorLabel.value.split(' ').at(-1);
+					return citation.authors?.value.split(', ').at(0)?.split(' ').at(-1);
 				}
 
 				if (sortProperty === 'pubdate') {
-					return new Date(citation.pubdate.value);
+					return new Date(citation.pubYear.value);
 				}
 
 				if (sortProperty === 'publisher') {
-					return citation.publisherLabel.value;
+					return citation.publishers.value;
 				}
 
 				if (sortProperty === 'title') {

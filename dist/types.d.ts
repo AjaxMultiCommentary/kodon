@@ -100,46 +100,40 @@ export type PassageInfo = {
     passages: DeserializedPassageConfig[];
     textContainers: DeserializedTextContainer[];
 };
-export type WikidataEntry = {
-    authorLabel: {
-        type: 'literal';
-        value: string;
-        'xml:lang': string;
-    };
-    citations: Array<WikidataEntry>;
-    full_text_url?: {
-        type: 'uri';
-        value: string;
-    };
-    internet_archive_id?: {
-        type: 'literal';
-        value: string;
-    };
-    placeLabel?: {
-        type: 'literal';
-        value: string;
-        'xml:lang': string;
-    };
-    pubdate: {
-        datatype: 'http://www.w3.org/2001/XMLSchema#dateTime';
-        type: 'literal';
-        value: string;
-    };
-    publisherLabel: {
-        type: 'literal';
-        value: string;
-        'xml:lang': string;
-    };
-    subject: {
-        type: 'uri';
-        value: string;
-    };
-    title: {
-        type: 'literal';
-        value: string;
-        'xml:lang': 'string';
-    };
+type WikidataYear = {
+    datatype: string;
+    type: string;
+    value: string;
 };
+type WikidataLiteral = {
+    type: string;
+    value: string;
+    'xml:lang'?: string;
+};
+type WikidataURI = {
+    type: string;
+    value: string;
+};
+export interface WikidataEntry {
+    authors?: WikidataLiteral;
+    citedBy: WikidataLiteral;
+    full_text_urls?: WikidataURI;
+    internet_archive_id?: WikidataURI;
+    internet_archive_url?: WikidataURI;
+    item_typeLabel: WikidataLiteral;
+    jstor_url?: WikidataURI;
+    page_range?: WikidataLiteral;
+    pubYear: WikidataYear;
+    published_in_label?: WikidataLiteral;
+    publishers: WikidataLiteral;
+    publicationPlaces?: WikidataLiteral;
+    subject: WikidataURI;
+    title: WikidataLiteral;
+    volume?: WikidataLiteral;
+}
+export interface WikidataRow extends WikidataEntry {
+    citations: Array<WikidataEntry | undefined>;
+}
 export type Word = {
     commentURNs: (string | undefined)[];
     offset: number;
