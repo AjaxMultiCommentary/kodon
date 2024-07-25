@@ -35,8 +35,8 @@
 		{citation.publicationPlaces?.value ? `(${citation.publicationPlaces.value})` : ''}
 		{#if citation.item_typeLabel.value === 'scholarly article'}
 			<span class="italic">{citation.published_in_label?.value}</span>
-			{citation.volume?.value}
-			{citation.issue?.value ? `(${citation.issue.value})` : ''}, pp. {citation.page_range?.value}.
+			{citation.volume?.value}{citation.issue?.value ? ` (${citation.issue.value})` : ''}, pp. {citation
+				.page_range?.value}.
 		{/if}</td
 	>
 	<td>{citation.citations.length}</td>
