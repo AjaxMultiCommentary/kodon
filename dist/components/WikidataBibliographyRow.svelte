@@ -62,9 +62,9 @@ let showCitedBy = false;
 					{citedBy.publicationPlaces?.value ? `(${citedBy.publicationPlaces.value})` : ''}</td
 				>
 				<td>
-					{#if citation.item_typeLabel.value === 'scholarly article'}
-						<span class="italic">{citation.published_in_label?.value}</span>
-						{citation.volume?.value}{citation.issue?.value ? ` (${citation.issue.value})` : ''}, pp. {citation
+					{#if citedBy.item_typeLabel.value === 'scholarly article'}
+						<span class="italic">{citedBy.published_in_label?.value}</span>
+						{citedBy.volume?.value}{citedBy.issue?.value ? ` (${citedBy.issue.value})` : ''}, pp. {citedBy
 							.page_range?.value}.
 					{/if}</td
 				>
