@@ -28,6 +28,8 @@ let showCitedBy = false;
 	<td
 		>{citation.publishers.value}
 		{citation.publicationPlaces?.value ? `(${citation.publicationPlaces.value})` : ''}
+	</td>
+	<td>
 		{#if citation.item_typeLabel.value === 'scholarly article'}
 			<span class="italic">{citation.published_in_label?.value}</span>
 			{citation.volume?.value}{citation.issue?.value ? ` (${citation.issue.value})` : ''}, pp. {citation
@@ -51,12 +53,20 @@ let showCitedBy = false;
 	{#each citation.citations as citedBy}
 		{#if citedBy}
 			<tr class="bg-slate-200">
+				<td><a href={citation.wikidataURL} title="Wikidata page"><Wikidata /></a></td>
 				<td>{citedBy.authors?.value}</td>
 				<td>{new Date(citedBy.pubYear.value).getFullYear()}</td>
 				<td>{citedBy.title.value}</td>
 				<td
 					>{citedBy.publishers.value}
 					{citedBy.publicationPlaces?.value ? `(${citedBy.publicationPlaces.value})` : ''}</td
+				>
+				<td>
+					{#if citation.item_typeLabel.value === 'scholarly article'}
+						<span class="italic">{citation.published_in_label?.value}</span>
+						{citation.volume?.value}{citation.issue?.value ? ` (${citation.issue.value})` : ''}, pp. {citation
+							.page_range?.value}.
+					{/if}</td
 				>
 				<td></td>
 				<td

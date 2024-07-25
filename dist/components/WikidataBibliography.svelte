@@ -22,6 +22,9 @@ $:
         if (sortProperty === "publisher") {
           return citation.publishers.value;
         }
+        if (sortProperty === "published-in") {
+          return citation.published_in_label?.value || citation.publishers.value;
+        }
         if (sortProperty === "title") {
           return citation.title.value;
         }
@@ -85,6 +88,20 @@ $:
 				}}
 				><div class="flex">
 					Publisher {#if sortProperty === 'publisher'}
+						{#if sortAscending}<ArrowUp className="size-4" />{:else}<ArrowDown
+								className="size-4"
+							/>{/if}
+					{/if}
+				</div></th
+			>
+			<th
+				class="cursor-pointer"
+				on:click={() => {
+					sortProperty = 'published-in';
+					sortAscending = !sortAscending;
+				}}
+				><div class="flex">
+					Published In {#if sortProperty === 'published-in'}
 						{#if sortAscending}<ArrowUp className="size-4" />{:else}<ArrowDown
 								className="size-4"
 							/>{/if}

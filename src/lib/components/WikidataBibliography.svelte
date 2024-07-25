@@ -13,7 +13,13 @@
 	// "extended bibliography": show full bibliographic information, and in expandable block show who from the core corpus cites each item
 	// for extended items (Bowra, Falco, etc.): tabulate how many commentaries are citing them
 	// - sort by how many citations
-	let sortProperty: 'author' | 'citationCount' | 'pubdate' | 'title' | 'publisher' = 'author';
+	let sortProperty:
+		| 'author'
+		| 'citationCount'
+		| 'pubdate'
+		| 'title'
+		| 'publisher'
+		| 'published-in' = 'author';
 	let sortAscending = true;
 
 	$: sortedCitations = orderBy(
@@ -34,6 +40,10 @@
 
 				if (sortProperty === 'publisher') {
 					return citation.publishers.value;
+				}
+
+				if (sortProperty === 'published-in') {
+					return citation.published_in_label?.value || citation.publishers.value;
 				}
 
 				if (sortProperty === 'title') {
@@ -110,6 +120,20 @@
 				}}
 				><div class="flex">
 					Publisher {#if sortProperty === 'publisher'}
+						{#if sortAscending}<ArrowUp className="size-4" />{:else}<ArrowDown
+								className="size-4"
+							/>{/if}
+					{/if}
+				</div></th
+			>
+			<th
+				class="cursor-pointer"
+				on:click={() => {
+					sortProperty = 'published-in';
+					sortAscending = !sortAscending;
+				}}
+				><div class="flex">
+					Published In {#if sortProperty === 'published-in'}
 						{#if sortAscending}<ArrowUp className="size-4" />{:else}<ArrowDown
 								className="size-4"
 							/>{/if}
