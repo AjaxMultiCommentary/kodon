@@ -987,6 +987,10 @@
             "type": "literal",
             "value": "93-110"
         },
+        "issue": {
+            "type": "literal",
+            "value": "3"
+        },
         "jstor_url": {
             "type": "uri",
             "value": "https://www.jstor.org/stable/1086326"
@@ -1193,6 +1197,10 @@
         "page_range": {
             "type": "literal",
             "value": "14–37"
+        },
+        "issue": {
+            "type": "literal",
+            "value": "1"
         },
         "jstor_url": {
             "type": "uri",

@@ -25,7 +25,8 @@ export const DefaultBibliography: Story = {
 
 			return {
 				...citation,
-				citations
+				citations,
+				wikidataURL: citation.subject.value
 			};
 		})
 	}

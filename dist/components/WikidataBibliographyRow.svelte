@@ -1,6 +1,8 @@
 <script>import ChevronDown from "./icons/ChevronDown.svelte";
 import ChevronRight from "./icons/ChevronRight.svelte";
 import InternetArchive from "./icons/InternetArchive.svelte";
+import Wikidata from "./icons/Wikidata.svelte";
+import Jstor from "./icons/Jstor.svelte";
 export let citation;
 let showCitedBy = false;
 </script>
@@ -9,6 +11,7 @@ let showCitedBy = false;
 	class:cursor-pointer={citation.citations.length > 0}
 	on:click={() => (showCitedBy = !showCitedBy)}
 >
+	<td><a href={citation.wikidataURL} title="Wikidata page"><Wikidata /></a></td>
 	<td
 		><div class="flex justify-start align-middle">
 			{#if citation.citations.length > 0}
@@ -24,8 +27,14 @@ let showCitedBy = false;
 	<td>{citation.title.value}</td>
 	<td
 		>{citation.publishers.value}
-		{citation.publicationPlaces?.value ? `(${citation.publicationPlaces.value})` : ''}</td
+		{citation.publicationPlaces?.value ? `(${citation.publicationPlaces.value})` : ''}
+		{#if citation.item_typeLabel.value === 'scholarly article'}
+			<span class="italic">{citation.published_in_label?.value}</span>
+			{citation.volume?.value}
+			{citation.issue?.value ? `(${citation.issue.value})` : ''}, pp. {citation.page_range?.value}.
+		{/if}</td
 	>
+	<td>{citation.citations.length}</td>
 	<td
 		>{#if citation.internet_archive_url?.value}
 			<a href={citation.internet_archive_url.value} title="Internet Archive link to resource"
@@ -33,7 +42,7 @@ let showCitedBy = false;
 			>
 		{:else if citation.jstor_url?.value}
 			<a href={citation.jstor_url.value} title="JSTOR link to resource"
-				><InternetArchive className="size-6" /></a
+				><Jstor className="size-6" /></a
 			>
 		{/if}</td
 	>
@@ -49,6 +58,7 @@ let showCitedBy = false;
 					>{citedBy.publishers.value}
 					{citedBy.publicationPlaces?.value ? `(${citedBy.publicationPlaces.value})` : ''}</td
 				>
+				<td></td>
 				<td
 					>{#if citedBy.internet_archive_url?.value}
 						<a href={citedBy.internet_archive_url.value} title="Internet Archive link to resource"
@@ -56,7 +66,7 @@ let showCitedBy = false;
 						>
 					{:else if citedBy.jstor_url?.value}
 						<a href={citedBy.jstor_url.value} title="JSTOR link to resource"
-							><InternetArchive className="size-6" /></a
+							><Jstor className="size-6" /></a
 						>
 					{/if}</td
 				>

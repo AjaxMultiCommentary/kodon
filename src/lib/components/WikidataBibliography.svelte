@@ -13,7 +13,7 @@
 	// "extended bibliography": show full bibliographic information, and in expandable block show who from the core corpus cites each item
 	// for extended items (Bowra, Falco, etc.): tabulate how many commentaries are citing them
 	// - sort by how many citations
-	let sortProperty: 'author' | 'pubdate' | 'title' | 'publisher' = 'author';
+	let sortProperty: 'author' | 'citationCount' | 'pubdate' | 'title' | 'publisher' = 'author';
 	let sortAscending = true;
 
 	$: sortedCitations = orderBy(
@@ -22,6 +22,10 @@
 			(citation) => {
 				if (sortProperty === 'author') {
 					return citation.authors?.value.split(', ').at(0)?.split(' ').at(-1);
+				}
+
+				if (sortProperty === 'citationCount') {
+					return citation.citations.length;
 				}
 
 				if (sortProperty === 'pubdate') {
@@ -55,6 +59,7 @@
 <table class="table table-pin-cols border-base-300">
 	<thead>
 		<tr>
+			<th></th>
 			<th
 				class="cursor-pointer"
 				on:click={() => {
@@ -111,7 +116,21 @@
 					{/if}
 				</div></th
 			>
-			<th>Link</th>
+			<th
+				class="cursor-pointer"
+				on:click={() => {
+					sortProperty = 'citationCount';
+					sortAscending = !sortAscending;
+				}}
+				><div class="flex">
+					Citations {#if sortProperty === 'citationCount'}
+						{#if sortAscending}<ArrowUp className="size-4" />{:else}<ArrowDown
+								className="size-4"
+							/>{/if}
+					{/if}
+				</div></th
+			>
+			<th>Full-Text Link</th>
 		</tr>
 	</thead>
 	<tbody>

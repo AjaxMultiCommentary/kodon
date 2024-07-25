@@ -121,6 +121,7 @@ export interface WikidataEntry {
     internet_archive_id?: WikidataURI;
     internet_archive_url?: WikidataURI;
     item_typeLabel: WikidataLiteral;
+    issue?: WikidataLiteral;
     jstor_url?: WikidataURI;
     page_range?: WikidataLiteral;
     pubYear: WikidataYear;
@@ -133,6 +134,7 @@ export interface WikidataEntry {
 }
 export interface WikidataRow extends WikidataEntry {
     citations: Array<WikidataEntry | undefined>;
+    wikidataURL: string;
 }
 export type Word = {
     commentURNs: (string | undefined)[];
