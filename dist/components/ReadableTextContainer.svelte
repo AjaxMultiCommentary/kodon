@@ -1,63 +1,43 @@
-<script lang="ts">
-	import type { Comment, TextContainer } from '$lib/types.js';
-
-	import _ from 'lodash';
-	import { createEventDispatcher } from 'svelte';
-
-	import CTS_URN from '$lib/cts_urn.js';
-	import {
-		isCommentContainedByTextContainer,
-		tokenTestForCommentContainedByTextContainer,
-		tokenTestForCommentStartingInTextContainer,
-		tokenTestForCommentEndingInTextContainer
-	} from '$lib/functions.js';
-	import Speaker from './Speaker.svelte';
-	import TextToken from './TextToken.svelte';
-
-	const dispatch = createEventDispatcher();
-
-	export let comments: Comment[];
-	export let showHeatmap: boolean;
-	export let textContainer: TextContainer;
-
-	$: ctsUrn = new CTS_URN(textContainer.urn);
-	$: wholeLineComments =
-		comments
-			?.filter((c) => !c.ctsUrn.tokens.some((t: string | undefined) => Boolean(t)))
-			.filter((c) => ctsUrn.hasEqualStart(c.ctsUrn)) || [];
-	$: tokens = textContainer.words.map((w, _index, allWords) => {
-		return {
-			...w,
-			commentURNs: comments
-				?.filter((c) => c.ctsUrn.tokens.some((t: string | undefined) => Boolean(t)))
-				.filter((c) => {
-					const commentUrn = new CTS_URN(c.ctsUrn.__urn);
-
-					// comment only applies to this container
-					if (isCommentContainedByTextContainer(c)) {
-						return tokenTestForCommentContainedByTextContainer(c, w, allWords);
-					}
-
-					// comment starts on this container
-					if (ctsUrn.hasEqualStart(c.ctsUrn)) {
-						return tokenTestForCommentStartingInTextContainer(c, w, allWords);
-					}
-
-					// comment fully contains this container
-					if (commentUrn.contains(ctsUrn)) {
-						return true;
-					}
-
-					// comment ends on this container
-					if (ctsUrn.hasEqualEnd(c.ctsUrn)) {
-						return tokenTestForCommentEndingInTextContainer(c, w, allWords);
-					}
-
-					return false;
-				})
-				.map((c) => c.citable_urn)
-		};
-	});
+<script>import { createEventDispatcher } from "svelte";
+import CTS_URN from "../cts_urn.js";
+import {
+  isCommentContainedByTextContainer,
+  tokenTestForCommentContainedByTextContainer,
+  tokenTestForCommentStartingInTextContainer,
+  tokenTestForCommentEndingInTextContainer
+} from "../functions.js";
+import Speaker from "./Speaker.svelte";
+import TextToken from "./TextToken.svelte";
+const dispatch = createEventDispatcher();
+export let comments;
+export let showHeatmap;
+export let textContainer;
+$:
+  ctsUrn = new CTS_URN(textContainer.urn);
+$:
+  wholeLineComments = comments?.filter((c) => !c.ctsUrn.tokens.some((t) => Boolean(t))).filter((c) => ctsUrn.hasEqualStart(c.ctsUrn)) || [];
+$:
+  tokens = textContainer.words.map((w, _index, allWords) => {
+    return {
+      ...w,
+      commentURNs: comments?.filter((c) => c.ctsUrn.tokens.some((t) => Boolean(t))).filter((c) => {
+        const commentUrn = new CTS_URN(c.ctsUrn.__urn);
+        if (isCommentContainedByTextContainer(c)) {
+          return tokenTestForCommentContainedByTextContainer(c, w, allWords);
+        }
+        if (ctsUrn.hasEqualStart(c.ctsUrn)) {
+          return tokenTestForCommentStartingInTextContainer(c, w, allWords);
+        }
+        if (commentUrn.contains(ctsUrn)) {
+          return true;
+        }
+        if (ctsUrn.hasEqualEnd(c.ctsUrn)) {
+          return tokenTestForCommentEndingInTextContainer(c, w, allWords);
+        }
+        return false;
+      }).map((c) => c.citable_urn)
+    };
+  });
 </script>
 
 <div>
@@ -100,7 +80,7 @@
 	</div>
 </div>
 
-<style lang="postcss">
+<style>
 	.indent-hanging {
 		text-indent: 2.3rem hanging;
 	}

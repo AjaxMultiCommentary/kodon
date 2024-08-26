@@ -3,12 +3,14 @@
 
 	import _ from 'lodash';
 	import { onMount, tick } from 'svelte';
-	import CitableTextContainer from '$lib/components/CitableTextContainer.svelte';
+	import CitableTextContainer from '$lib/components/ReadableTextContainer.svelte';
 	import CollapsibleComment from '$lib/components/CollapsibleComment.svelte';
 	import FilterList from '$lib/components/FilterList.svelte';
 	import Navigation from '$lib/components/Navigation.svelte';
 	import Tooltip from '$lib/components/Tooltip.svelte';
 	import CTS_URN from '$lib/cts_urn.js';
+	import ReadableTextView from './ReadableTextView.svelte';
+	import TabularTextView from './TabularTextView.svelte';
 
 	export let currentURL: URL;
 	export let comments: Comment[];
@@ -20,6 +22,7 @@
 	export let heatmapTooltip: string | undefined;
 	export let filterListTooltip: string | undefined;
 	export let navigationTooltip: string | undefined;
+	export let tableViewTooltip: string | undefined;
 
 	let selectedURN: string | null | undefined = null;
 	let selectionAnchorURN: string | null | undefined = null;
@@ -44,6 +47,7 @@
 	);
 	$: selectedCommentaries = [] as string[];
 	$: showHeatmap = true;
+	$: showTableView = false;
 
 	// TODO: (charles) This needs to happen in the parent component (the
 	// app running the show)
@@ -97,6 +101,10 @@
 	function toggleHeatmap() {
 		showHeatmap = !showHeatmap;
 		selectedURN = null;
+	}
+
+	function toggleTextFormat() {
+		showTableView = !showTableView;
 	}
 
 	function handleEndSelection(e: CustomEvent) {
@@ -170,6 +178,25 @@
 						</label>
 					</div>
 				</form>
+
+				{#if tableViewTooltip}
+					<Tooltip text={tableViewTooltip} />
+				{/if}
+				<form on:submit={toggleTextFormat}>
+					<div class="form-control">
+						<label class="label cursor-pointer">
+							<span class="label-text mr-2">Show table view</span>
+							<input
+								name="table-view-toggle"
+								type="checkbox"
+								class="toggle"
+								on:change={toggleTextFormat}
+								checked={showTableView}
+								value="0"
+							/>
+						</label>
+					</div>
+				</form>
 			</div>
 		</div>
 		<section class="col-span-2">
@@ -190,21 +217,18 @@
 			<FilterList options={commentaryOptions} on:change={handleCommentaryFiltersChange} />
 		</section>
 		<section class="col-span-5 overflow-y-scroll">
-			{#each textContainers as textContainer}
-				<CitableTextContainer
-					{textContainer}
-					comments={selectedCommentaries.length > 0
-						? (textContainer.comments || []).filter((c) =>
-								selectedCommentaries.includes(c.commentaryAttributes?.pid || '')
-							)
-						: textContainer.comments || []}
-					on:highlightComments={handleHighlightComments}
-					on:handleEndSelection={handleEndSelection}
-					on:startSelection={handleStartSelection}
-					on:endSelection={handleEndSelection}
+			{#if showTableView}
+				<TabularTextView {selectedCommentaries} {textContainers} />
+			{:else}
+				<ReadableTextView
+					{selectedCommentaries}
 					{showHeatmap}
+					{textContainers}
+					{handleHighlightComments}
+					{handleEndSelection}
+					{handleStartSelection}
 				/>
-			{/each}
+			{/if}
 		</section>
 		<section class="overflow-y-scroll col-span-3 max-h-screen">
 			{#each filteredComments as comment}

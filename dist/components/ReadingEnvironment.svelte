@@ -1,11 +1,13 @@
 <script>import _ from "lodash";
 import { onMount, tick } from "svelte";
-import CitableTextContainer from "./CitableTextContainer.svelte";
+import CitableTextContainer from "./ReadableTextContainer.svelte";
 import CollapsibleComment from "./CollapsibleComment.svelte";
 import FilterList from "./FilterList.svelte";
 import Navigation from "./Navigation.svelte";
 import Tooltip from "./Tooltip.svelte";
 import CTS_URN from "../cts_urn.js";
+import ReadableTextView from "./ReadableTextView.svelte";
+import TabularTextView from "./TabularTextView.svelte";
 export let currentURL;
 export let comments;
 export let currentPassage;
@@ -15,6 +17,7 @@ export let textContainers;
 export let heatmapTooltip;
 export let filterListTooltip;
 export let navigationTooltip;
+export let tableViewTooltip;
 let selectedURN = null;
 let selectionAnchorURN = null;
 let selectionFocusURN = null;
@@ -37,6 +40,8 @@ $:
   selectedCommentaries = [];
 $:
   showHeatmap = true;
+$:
+  showTableView = false;
 onMount(() => {
   const commentToHighlight = currentURL.searchParams.get("gloss");
   if (commentToHighlight) {
@@ -76,6 +81,9 @@ async function highlightComments(commentsToHighlight) {
 function toggleHeatmap() {
   showHeatmap = !showHeatmap;
   selectedURN = null;
+}
+function toggleTextFormat() {
+  showTableView = !showTableView;
 }
 function handleEndSelection(e) {
   if (showHeatmap) {
@@ -140,6 +148,25 @@ function handleStartSelection(e) {
 						</label>
 					</div>
 				</form>
+
+				{#if tableViewTooltip}
+					<Tooltip text={tableViewTooltip} />
+				{/if}
+				<form on:submit={toggleTextFormat}>
+					<div class="form-control">
+						<label class="label cursor-pointer">
+							<span class="label-text mr-2">Show table view</span>
+							<input
+								name="table-view-toggle"
+								type="checkbox"
+								class="toggle"
+								on:change={toggleTextFormat}
+								checked={showTableView}
+								value="0"
+							/>
+						</label>
+					</div>
+				</form>
 			</div>
 		</div>
 		<section class="col-span-2">
@@ -160,21 +187,18 @@ function handleStartSelection(e) {
 			<FilterList options={commentaryOptions} on:change={handleCommentaryFiltersChange} />
 		</section>
 		<section class="col-span-5 overflow-y-scroll">
-			{#each textContainers as textContainer}
-				<CitableTextContainer
-					{textContainer}
-					comments={selectedCommentaries.length > 0
-						? (textContainer.comments || []).filter((c) =>
-								selectedCommentaries.includes(c.commentaryAttributes?.pid || '')
-							)
-						: textContainer.comments || []}
-					on:highlightComments={handleHighlightComments}
-					on:handleEndSelection={handleEndSelection}
-					on:startSelection={handleStartSelection}
-					on:endSelection={handleEndSelection}
+			{#if showTableView}
+				<TabularTextView {selectedCommentaries} {textContainers} />
+			{:else}
+				<ReadableTextView
+					{selectedCommentaries}
 					{showHeatmap}
+					{textContainers}
+					{handleHighlightComments}
+					{handleEndSelection}
+					{handleStartSelection}
 				/>
-			{/each}
+			{/if}
 		</section>
 		<section class="overflow-y-scroll col-span-3 max-h-screen">
 			{#each filteredComments as comment}

@@ -251,6 +251,7 @@ export const ReadingEnvironmentStory: Story = {
 	args: {
 		comments: [],
 		currentPassage,
+		currentURL: new URL('http://localhost'),
 		iiifURL: '',
 		metadata: { title: 'Title', description: 'Description' },
 		passages,

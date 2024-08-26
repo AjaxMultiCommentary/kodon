@@ -11,6 +11,7 @@ declare const __propDef: {
         heatmapTooltip: string | undefined;
         filterListTooltip: string | undefined;
         navigationTooltip: string | undefined;
+        tableViewTooltip: string | undefined;
     };
     events: {
         [evt: string]: CustomEvent<any>;
