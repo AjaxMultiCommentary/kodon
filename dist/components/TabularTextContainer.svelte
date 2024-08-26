@@ -35,13 +35,13 @@ $:
 
 {#each tokens as token}
 	<tr>
-		<td>
+		<td class="border-b border-slate-300">
 			{token.urn}
 		</td>
-		<td>
+		<td class="border-b border-slate-300">
 			{token.commentURNs.length}
 		</td>
-		<td>
+		<td class="border-b border-slate-300">
 			{token.commentURNs.join(', ')}
 		</td>
 	</tr>
