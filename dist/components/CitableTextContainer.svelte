@@ -1,48 +1,18 @@
 <script>import _ from "lodash";
 import { createEventDispatcher } from "svelte";
 import CTS_URN from "../cts_urn.js";
+import {
+  isCommentContainedByTextContainer,
+  tokenTestForCommentContainedByTextContainer,
+  tokenTestForCommentStartingInTextContainer,
+  tokenTestForCommentEndingInTextContainer
+} from "../functions.js";
 import Speaker from "./Speaker.svelte";
 import TextToken from "./TextToken.svelte";
 const dispatch = createEventDispatcher();
 export let comments;
 export let showHeatmap;
 export let textContainer;
-function dropTokensUntilStartOfComment(tokens2, comment) {
-  return _.dropWhile(
-    tokens2,
-    (t) => !(t.text.indexOf(_.first(comment.ctsUrn.tokens) || "") > -1 && t.urn_index === _.first(comment.ctsUrn.tokenIndexes))
-  );
-}
-function takeTokensUntilEndOfComment(tokens2, comment) {
-  const exclusive = _.takeWhile(
-    tokens2,
-    (t) => !(t.text.indexOf(_.last(comment.ctsUrn.tokens) || "") > -1 && t.urn_index === _.last(comment.ctsUrn.tokenIndexes))
-  );
-  const excludedToken = tokens2.find(
-    (t) => t.text.indexOf(_.last(comment.ctsUrn.tokens) || "") > -1 && t.urn_index === _.last(comment.ctsUrn.tokenIndexes)
-  ) || [];
-  return exclusive.concat(excludedToken);
-}
-function isCommentContainedByTextContainer(comment) {
-  return comment.ctsUrn.integerCitations.length === 1 || comment.ctsUrn.integerCitations[0].join("") === comment.ctsUrn.integerCitations[1].join("");
-}
-function tokenTestForCommentContainedByTextContainer(comment, token, tokens2) {
-  if (token.urn_index > 0) {
-    const withoutLeadingTokens = dropTokensUntilStartOfComment(tokens2, comment);
-    const availableTokens = takeTokensUntilEndOfComment(withoutLeadingTokens, comment);
-    return availableTokens.find((t) => t.xml_id === token.xml_id);
-  }
-}
-function tokenTestForCommentEndingInTextContainer(comment, token, tokens2) {
-  return takeTokensUntilEndOfComment(tokens2, comment).find(
-    (t) => t.xml_id === token.xml_id
-  );
-}
-function tokenTestForCommentStartingInTextContainer(comment, token, tokens2) {
-  return dropTokensUntilStartOfComment(tokens2, comment).find(
-    (t) => t.xml_id === token.xml_id
-  );
-}
 $:
   ctsUrn = new CTS_URN(textContainer.urn);
 $:

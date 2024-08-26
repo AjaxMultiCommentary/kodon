@@ -1,10 +1,16 @@
 <script lang="ts">
-	import type { Comment, TextContainer, Word } from '$lib/types.js';
+	import type { Comment, TextContainer } from '$lib/types.js';
 
 	import _ from 'lodash';
 	import { createEventDispatcher } from 'svelte';
 
 	import CTS_URN from '$lib/cts_urn.js';
+	import {
+		isCommentContainedByTextContainer,
+		tokenTestForCommentContainedByTextContainer,
+		tokenTestForCommentStartingInTextContainer,
+		tokenTestForCommentEndingInTextContainer
+	} from '$lib/functions.js';
 	import Speaker from './Speaker.svelte';
 	import TextToken from './TextToken.svelte';
 
@@ -13,73 +19,6 @@
 	export let comments: Comment[];
 	export let showHeatmap: boolean;
 	export let textContainer: TextContainer;
-
-	function dropTokensUntilStartOfComment(tokens: Word[], comment: Comment) {
-		return _.dropWhile(
-			tokens,
-			(t: Word) =>
-				!(
-					t.text.indexOf(_.first(comment.ctsUrn.tokens) || '') > -1 &&
-					t.urn_index === _.first(comment.ctsUrn.tokenIndexes)
-				)
-		);
-	}
-
-	function takeTokensUntilEndOfComment(tokens: Word[], comment: Comment) {
-		const exclusive = _.takeWhile(
-			tokens,
-			(t: Word) =>
-				!(
-					t.text.indexOf(_.last(comment.ctsUrn.tokens) || '') > -1 &&
-					t.urn_index === _.last(comment.ctsUrn.tokenIndexes)
-				)
-		);
-
-		const excludedToken =
-			tokens.find(
-				(t) =>
-					t.text.indexOf(_.last(comment.ctsUrn.tokens) || '') > -1 &&
-					t.urn_index === _.last(comment.ctsUrn.tokenIndexes)
-			) || [];
-
-		return exclusive.concat(excludedToken);
-	}
-
-	function isCommentContainedByTextContainer(comment: Comment) {
-		return (
-			comment.ctsUrn.integerCitations.length === 1 ||
-			comment.ctsUrn.integerCitations[0].join('') === comment.ctsUrn.integerCitations[1].join('')
-		);
-	}
-
-	function tokenTestForCommentContainedByTextContainer(
-		comment: Comment,
-		token: Word,
-		tokens: Word[]
-	) {
-		if (token.urn_index > 0) {
-			const withoutLeadingTokens = dropTokensUntilStartOfComment(tokens, comment);
-			const availableTokens = takeTokensUntilEndOfComment(withoutLeadingTokens, comment);
-
-			return availableTokens.find((t: Word) => t.xml_id === token.xml_id);
-		}
-	}
-
-	function tokenTestForCommentEndingInTextContainer(comment: Comment, token: Word, tokens: Word[]) {
-		return takeTokensUntilEndOfComment(tokens, comment).find(
-			(t: Word) => t.xml_id === token.xml_id
-		);
-	}
-
-	function tokenTestForCommentStartingInTextContainer(
-		comment: Comment,
-		token: Word,
-		tokens: Word[]
-	) {
-		return dropTokensUntilStartOfComment(tokens, comment).find(
-			(t: Word) => t.xml_id === token.xml_id
-		);
-	}
 
 	$: ctsUrn = new CTS_URN(textContainer.urn);
 	$: wholeLineComments =
