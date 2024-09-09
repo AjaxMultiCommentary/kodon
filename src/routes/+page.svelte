@@ -45,9 +45,9 @@
 					nodes.
 				</li>
 				<li>
-					subtype ("line" | "paragraph"): Support for additional subtypes is coming soon. For now,
-					if the node is verse, use "line"; otherwise, use "paragraph". (TODO: Type-setting verse
-					within a paragraph.)
+					subtype ("line" | "paragraph" | "quote"): The subtype describes the basic unit of text,
+					often called a "block-level element," which will contain other block-level elements or
+					inline runs of text.
 				</li>
 				<li>
 					location (Array[string]): The full citation for the node in the work. For tragedy, this is
@@ -58,8 +58,10 @@
 					offset can be used to order the text nodes unambiguously.)
 				</li>
 				<li>
-					text (string): The plain, unannotated text at this location. Annotations should be stored
-					in "text_element" objects.
+					text (string | TextContainer[]): The plain, unannotated text at this location <em>or</em>
+					an array of other
+					<pre>TextContainer</pre>
+					objects. Annotations should be stored in "text_element" objects.
 				</li>
 			</ul>
 		</li>
