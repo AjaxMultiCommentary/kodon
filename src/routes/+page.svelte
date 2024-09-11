@@ -54,11 +54,13 @@
 					a one-element array. For a work like a dialogue of Plato, the location can have two or
 					three elements (depending on the dialogue), e.g., ["97", "b"] or ["1", "384", "c"]. Kōdōn
 					includes basic support for the Stephanus and Bekker systems; additional supports are
-					coming soon. (This is part of the reason that we also suggest specifying an offset: the
-					offset can be used to order the text nodes unambiguously.)
+					coming soon. <em
+						>Locations are not reliable ways of ordering text, which is why Kōdōn also requires an
+						offset</em
+					>
 				</li>
 				<li>
-					text (string | TextContainer[]): The plain, unannotated text at this location <em>or</em>
+					text (string): The plain, unannotated text at this location <em>or</em>
 					an array of other
 					<pre>TextContainer</pre>
 					objects. Annotations should be stored in "text_element" objects.

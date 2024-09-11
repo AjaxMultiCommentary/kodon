@@ -114,9 +114,22 @@ defmodule DataSchemas.Version.SaxEventHandler do
     state
   end
 
+  defp handle_element("p", _attributes, state) do
+    state
+  end
+
   defp handle_element("del", attributes, state) do
     element_stack = [
       %{name: "del", start_offset: String.length(state.text), attributes: attributes}
+      | state.element_stack
+    ]
+
+    %{state | element_stack: element_stack}
+  end
+
+  defp handle_element("quote", attributes, state) do
+    element_stack = [
+      %{name: "quote", start_offset: String.length(state.text), attributes: attributes}
       | state.element_stack
     ]
 

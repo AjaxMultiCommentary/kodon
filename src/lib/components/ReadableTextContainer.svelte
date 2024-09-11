@@ -19,6 +19,13 @@
 	export let showHeatmap: boolean;
 	export let textContainer: TextContainer;
 
+	const CONTAINER_ELEMENTS = {
+		quote: 'div',
+		line: 'div',
+		paragraph: 'p'
+	};
+
+	$: containerElement = CONTAINER_ELEMENTS[textContainer.subtype] || 'div';
 	$: ctsUrn = new CTS_URN(textContainer.urn);
 	$: wholeLineComments =
 		comments
@@ -64,11 +71,17 @@
 		<Speaker name={textContainer.speaker} />
 	{/if}
 	<div class="flex justify-between">
-		<div class="max-w-prose indent-hanging" data-urn={ctsUrn.__urn} role="presentation">
+		<svelte:element
+			this={containerElement}
+			class="max-w-prose"
+			class:indent-hanging={textContainer.subtype === 'line'}
+			data-urn={ctsUrn.__urn}
+			role="presentation"
+		>
 			{#each tokens as token (token.xml_id)}
 				<TextToken {showHeatmap} {token} on:highlightComments on:startSelection on:endSelection />
 			{/each}
-		</div>
+		</svelte:element>
 		{#if wholeLineComments.length > 0}
 			<a
 				href={'#'}
@@ -103,6 +116,7 @@
 	.indent-hanging {
 		text-indent: 2.3rem hanging;
 	}
+
 	.comment-box-shadow.comments-1 {
 		background-color: rgb(99, 162, 187, 0.2);
 	}

@@ -198,7 +198,7 @@ export type TextContainer = {
 	offset: number;
 	speaker?: string | null;
 	subtype: 'line' | 'paragraph' | 'quote';
-	text: string | TextContainer[];
+	text: string;
 	type: 'text_container';
 	words: Word[];
 	urn: string;
