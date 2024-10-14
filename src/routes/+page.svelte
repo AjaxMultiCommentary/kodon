@@ -34,20 +34,28 @@
 		<li>
 			type ("text_container" | "text_element"): For citable text nodes, you'll want to use
 			"text_container"; for any annotations that apply to these text containers, such as speaker
-			tags, notes, or editorial markings, use "text_element".
+			tags, notes, or editorial markings, use "text_element". Note that a text_container can contain
+			other text_containers or text_elements --- in other words, text_containers are the block-level
+			layout elements of the library, while text_elements are inlines.
+			<br />
+			This is accomplished by treating location arrays as non-unique (see below), and having `start_offset`
+			and `end_offset` properties on each block. These properties then allows us to determine where blocks
+			are nested and to slice the text into head, body, and tail slices (and multiple slices thereof
+			if needed): head slices appear before nested blocks, body slices are passed to the nested blocks,
+			and tail slices appear after the nested element.
 		</li>
 		<li>
 			type = "text_container"
 			<ul>
 				<li>
-					offset (integer): The location of this textual piece relative to the start of the text.
+					index (integer): The location of this textual piece relative to the start of the text.
 					Generally, it's sufficient to use the index of the node in your array or stream of text
 					nodes.
 				</li>
 				<li>
-					subtype ("line" | "paragraph" | "quote"): The subtype describes the basic unit of text,
-					often called a "block-level element," which will contain other block-level elements or
-					inline runs of text.
+					subtype ("line" | "paragraph" | "quote" | "list"): The subtype describes the basic unit of
+					text, often called a "block-level element," which will contain other block-level elements
+					or inline runs of text.
 				</li>
 				<li>
 					location (Array[string]): The full citation for the node in the work. For tragedy, this is
@@ -57,14 +65,14 @@
 					coming soon. <em
 						>Locations are not reliable ways of ordering text, which is why Kōdōn also requires an
 						offset</em
-					>
+					>. Moreover, because a citation can include multiple block-level elements, there is no
+					guarantee that locations are unique.
 				</li>
 				<li>
-					text (string): The plain, unannotated text at this location <em>or</em>
-					an array of other
-					<pre>TextContainer</pre>
-					objects. Annotations should be stored in "text_element" objects.
+					text (string): The plain, unannotated text at this location in this block-level element.
 				</li>
+				<li>start_offset (integer): The location in the text where this block starts.</li>
+				<li>end_offset (integer): The location in the text where this block ends.</li>
 			</ul>
 		</li>
 		<li>
