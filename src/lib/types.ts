@@ -184,6 +184,7 @@ export type Word = {
 
 export type TextElement = {
 	attributes: any;
+	block_index: number;
 	end_offset: number;
 	line_offset: number;
 	start_offset: number;
@@ -192,11 +193,15 @@ export type TextElement = {
 };
 
 export type TextContainer = {
+	children?: TextContainer[];
 	comments?: Comment[];
 	ctsUrn: CTS_URN;
+	end_offset: number;
+	index: number;
 	location: string[];
 	offset: number;
 	speaker?: string | null;
+	start_offset: number;
 	subtype: 'line' | 'paragraph' | 'quote';
 	text: string;
 	type: 'text_container';
