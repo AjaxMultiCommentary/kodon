@@ -186,7 +186,6 @@ export type TextElement = {
 	attributes: any;
 	block_index: number;
 	end_offset: number;
-	line_offset: number;
 	start_offset: number;
 	subtype: string;
 	type: 'text_element';
@@ -199,13 +198,14 @@ export type TextContainer = {
 	end_offset: number;
 	index: number;
 	location: string[];
-	offset: number;
+	postText?: string;
+	preText?: string;
 	speaker?: string | null;
 	start_offset: number;
-	subtype: 'line' | 'paragraph' | 'quote';
+	subtype: 'l' | 'p' | 'quote';
 	text: string;
 	type: 'text_container';
-	words: Word[];
+	// words: Word[];
 	urn: string;
 	textElements?: TextElement[];
 };

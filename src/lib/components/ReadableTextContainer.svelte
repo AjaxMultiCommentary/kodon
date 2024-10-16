@@ -13,102 +13,92 @@
 	import Speaker from './Speaker.svelte';
 	import TextToken from './TextToken.svelte';
 
-	const dispatch = createEventDispatcher();
-
 	export let comments: Comment[];
 	export let showHeatmap: boolean;
 	export let textContainer: TextContainer;
 
 	const CONTAINER_ELEMENTS = {
 		quote: 'div',
-		line: 'div',
-		paragraph: 'p'
+		l: 'div',
+		p: 'p'
 	};
 
 	$: containerElement = CONTAINER_ELEMENTS[textContainer.subtype] || 'div';
 	$: ctsUrn = new CTS_URN(textContainer.urn);
-	$: wholeLineComments =
-		comments
-			?.filter((c) => !c.ctsUrn.tokens.some((t: string | undefined) => Boolean(t)))
-			.filter((c) => ctsUrn.hasEqualStart(c.ctsUrn)) || [];
-	$: tokens = textContainer.words.map((w, _index, allWords) => {
-		return {
-			...w,
-			commentURNs: comments
-				?.filter((c) => c.ctsUrn.tokens.some((t: string | undefined) => Boolean(t)))
-				.filter((c) => {
-					const commentUrn = new CTS_URN(c.ctsUrn.__urn);
+	$: tokens = textContainer.text
+		.split(/\s/)
+		.map((s, index, all) => {
+			const remaining = all.slice(index);
+			const offset = remaining.indexOf(s) + index;
+			const text = s;
+			const urn_index = all.slice(0, index).filter((a) => a === s).length + 1;
+			const urn = `${textContainer.urn}@${text}[${urn_index}]`;
+			return {
+				commentURNs: [],
+				offset,
+				text,
+				urn_index,
+				xml_id: urn,
+				urn
+			};
+		})
+		.map((w, _index, allWords) => {
+			return {
+				...w,
+				commentURNs: comments
+					?.filter((c) => c.ctsUrn.tokens.some((t: string | undefined) => Boolean(t)))
+					.filter((c) => {
+						const commentUrn = new CTS_URN(c.ctsUrn.__urn);
 
-					// comment only applies to this container
-					if (isCommentContainedByTextContainer(c)) {
-						return tokenTestForCommentContainedByTextContainer(c, w, allWords);
-					}
+						// comment only applies to this container
+						if (isCommentContainedByTextContainer(c)) {
+							return tokenTestForCommentContainedByTextContainer(c, w, allWords);
+						}
 
-					// comment starts on this container
-					if (ctsUrn.hasEqualStart(c.ctsUrn)) {
-						return tokenTestForCommentStartingInTextContainer(c, w, allWords);
-					}
+						// comment starts on this container
+						if (ctsUrn.hasEqualStart(c.ctsUrn)) {
+							return tokenTestForCommentStartingInTextContainer(c, w, allWords);
+						}
 
-					// comment fully contains this container
-					if (commentUrn.contains(ctsUrn)) {
-						return true;
-					}
+						// comment fully contains this container
+						if (commentUrn.contains(ctsUrn)) {
+							return true;
+						}
 
-					// comment ends on this container
-					if (ctsUrn.hasEqualEnd(c.ctsUrn)) {
-						return tokenTestForCommentEndingInTextContainer(c, w, allWords);
-					}
+						// comment ends on this container
+						if (ctsUrn.hasEqualEnd(c.ctsUrn)) {
+							return tokenTestForCommentEndingInTextContainer(c, w, allWords);
+						}
 
-					return false;
-				})
-				.map((c) => c.citable_urn)
-		};
-	});
+						return false;
+					})
+					.map((c) => c.citable_urn)
+			};
+		});
 </script>
 
 <div>
 	{#if textContainer.speaker}
 		<Speaker name={textContainer.speaker} />
 	{/if}
-	<div class="flex justify-between">
+	<div class="container">
 		<svelte:element
 			this={containerElement}
-			class="max-w-prose"
-			class:indent-hanging={textContainer.subtype === 'line'}
+			class="max-w-prose {textContainer.subtype}"
+			class:indent-hanging={textContainer.subtype === 'l'}
 			data-urn={ctsUrn.__urn}
 			role="presentation"
 		>
-			{#each tokens as token (token.xml_id)}
-				<TextToken {showHeatmap} {token} on:highlightComments on:startSelection on:endSelection />
-			{/each}
+			{#if textContainer.children && textContainer.children.length > 0}
+				{#each textContainer.children as child}
+					<svelte:self {showHeatmap} {comments} textContainer={child} />
+				{/each}
+			{:else}
+				{#each tokens as token (token.xml_id)}
+					<TextToken {showHeatmap} {token} on:highlightComments on:startSelection on:endSelection />
+				{/each}
+			{/if}
 		</svelte:element>
-		{#if wholeLineComments.length > 0}
-			<a
-				href={'#'}
-				role="button"
-				class={`base-content hover:opacity-70 cursor-pointer w-12 text-center inline-block comments-${wholeLineComments.length} select-none`}
-				class:comment-box-shadow={showHeatmap}
-				tabindex="0"
-				on:click={() =>
-					dispatch(
-						'highlightComments',
-						wholeLineComments.map((c) => c.citable_urn)
-					)}
-				on:keyup={(event) => {
-					if (event.key === 'Enter') {
-						dispatch(
-							'highlightComments',
-							wholeLineComments.map((c) => c.citable_urn)
-						);
-					}
-				}}
-				data-citation={ctsUrn.citations[0]}>{ctsUrn.citations[0]}</a
-			>
-		{:else}
-			<span class="base-content w-12 text-center inline-block select-none"
-				>{ctsUrn.citations.join('.')}</span
-			>
-		{/if}
 	</div>
 </div>
 
@@ -155,5 +145,13 @@
 
 	.comment-box-shadow.comments-10 {
 		background-color: rgb(67, 121, 142, 1);
+	}
+
+	.quote {
+		padding-top: 1rem;
+	}
+
+	.quote:last-of-type {
+		padding-bottom: 1rem;
 	}
 </style>
