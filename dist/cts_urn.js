@@ -91,7 +91,7 @@ function citationToInteger(citation) {
         }
         return [parseInt(page), columnToInt(column)];
     }
-    return citation.split('.').map(parseInt);
+    return citation.split('.').map((i) => parseInt(i));
 }
 function columnToInt(column) {
     switch (column) {

@@ -14,7 +14,7 @@ export default function loadPassage(config) {
         if (!version) {
             throw new Error(`Edition ${ctsUrn.toString()} not found.`);
         }
-        const passageStart = ctsUrn.integerCitations[0] || [1];
+        const passageStart = ctsUrn.integerCitations[0] || ['1'];
         const passages = config.passages;
         const passageInfo = getPassage(passages, passageStart);
         if (!passageInfo) {
