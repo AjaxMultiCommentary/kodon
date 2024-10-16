@@ -1,8 +1,6 @@
 <script lang="ts">
 	import type { Comment, TextContainer } from '$lib/types.js';
 
-	import { createEventDispatcher } from 'svelte';
-
 	import CTS_URN from '$lib/cts_urn.js';
 	import {
 		isCommentContainedByTextContainer,

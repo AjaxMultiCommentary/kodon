@@ -3,7 +3,6 @@
 
 	import _ from 'lodash';
 	import { onMount, tick } from 'svelte';
-	import CitableTextContainer from '$lib/components/ReadableTextContainer.svelte';
 	import CollapsibleComment from '$lib/components/CollapsibleComment.svelte';
 	import FilterList from '$lib/components/FilterList.svelte';
 	import Navigation from '$lib/components/Navigation.svelte';

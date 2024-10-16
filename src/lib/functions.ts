@@ -13,6 +13,63 @@ export function dropTokensUntilStartOfComment(tokens: Word[], comment: Comment) 
 	);
 }
 
+function makeSpan(text: string = '', urn: string) {
+	return {
+		type: 'text_container',
+		subtype: 'span',
+		text,
+		urn
+	};
+}
+
+export function nestBlocks(blocks: any[], root: any = undefined) {
+	if (!root) return nestBlocks(blocks.slice(1), blocks[0]);
+
+	blocks = blocks.sort((a, b) => a.start_offset - b.start_offset);
+
+	function nestChildren(parent: any) {
+		const urn = parent.urn;
+
+		let children = [];
+
+		for (let i = 0; i < blocks.length; i++) {
+			const child = blocks[i];
+
+			if (child.parentIndex === parent.index) {
+				blocks.splice(i, 1);
+				i--;
+
+				child.children = nestChildren(child);
+
+				if (child.children.length > 0) {
+					const preText = parent.text.slice(0, child.start_offset - parent.start_offset) as string;
+
+					children.push(makeSpan(preText, urn));
+				}
+
+				children.push(child);
+
+				if (child.children.length > 0) {
+					const nextChild = blocks[i + 1];
+
+					const postText = parent.text.slice(
+						child.end_offset - parent.start_offset,
+						nextChild ? nextChild.start_offset - parent.start_offset : parent.end_offset
+					);
+
+					children.push(makeSpan(postText, urn));
+				}
+			}
+		}
+
+		return children;
+	}
+
+	root.children = nestChildren(root);
+
+	return root;
+}
+
 export function takeTokensUntilEndOfComment(tokens: Word[], comment: Comment) {
 	const exclusive = _.takeWhile(
 		tokens,
