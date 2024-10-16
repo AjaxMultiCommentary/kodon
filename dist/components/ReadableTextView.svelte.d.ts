@@ -2,12 +2,12 @@ import { SvelteComponent } from "svelte";
 import type { TextContainer } from '../types.js';
 declare const __propDef: {
     props: {
-        handleHighlightComments: (e: CustomEvent) => void;
-        handleEndSelection: (e: CustomEvent) => void;
-        handleStartSelection: (e: CustomEvent) => void;
         showHeatmap: boolean;
         selectedCommentaries: string[];
         textContainers: TextContainer[];
+        handleHighlightComments: (e: CustomEvent) => void;
+        handleEndSelection: (e: CustomEvent) => void;
+        handleStartSelection: (e: CustomEvent) => void;
     };
     events: {
         [evt: string]: CustomEvent<any>;

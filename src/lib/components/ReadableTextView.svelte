@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Comment, TextContainer } from '$lib/types.js';
 
-	import { isEqual } from 'lodash';
+	import _ from 'lodash';
 
 	import LocationContainer from './LocationContainer.svelte';
 	import { nestBlocks } from '$lib/functions.js';
@@ -18,7 +18,7 @@
 			const lastGroup = groups.at(-1) || {};
 			const lastContainer = lastGroup.containers?.at(-1) || {};
 
-			if (isEqual(lastContainer.location, curr.location)) {
+			if (_.isEqual(lastContainer.location, curr.location)) {
 				groups.at(-1).containers = lastGroup.containers.concat(curr);
 
 				groups.at(-1).comments = lastGroup.comments.concat(curr.comments);

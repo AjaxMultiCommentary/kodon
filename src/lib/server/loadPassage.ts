@@ -118,9 +118,9 @@ export function getTextContainersForPassage(
 	const textContainers = jsonl.filter(
 		(l) => l.type === 'text_container' && passageContainsLocation(l.location, passageInfo)
 	) as TextContainer[];
-	const textContainerOffsets = textContainers.map((tc) => tc.index);
+	const textContainerIndexes = textContainers.map((tc) => tc.index);
 	const textElements = jsonl.filter(
-		(l) => l.type === 'text_element' && textContainerOffsets.includes(l.block_index)
+		(el) => el.type === 'text_element' && textContainerIndexes.includes(el.block_index)
 	) as TextElement[];
 	const personaeLoquentes = textElements
 		.filter((te) => te.subtype === 'speaker')
@@ -136,7 +136,7 @@ export function getTextContainersForPassage(
 
 				return acc;
 			},
-			{ previousSpeaker: null }
+			{ previousSpeaker: null } as { previousSpeaker: null | string } & { [key: number]: string }
 		);
 
 	return textContainers.map((tc) => ({

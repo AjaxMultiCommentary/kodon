@@ -43,11 +43,12 @@ export default class CTS_URN {
                 }
             }
         });
-        this.tokens = tokensWithIndexes.map(x => x && x.token);
-        this.tokenIndexes = tokensWithIndexes.map(x => x && x.index);
+        this.tokens = tokensWithIndexes.map((x) => x && x.token);
+        this.tokenIndexes = tokensWithIndexes.map((x) => x && x.index);
     }
     contains(ctsUrn) {
-        return ((this.integerCitations[0].every((value, index) => value <= ctsUrn.integerCitations[0][index]) && this.integerCitations[this.integerCitations.length - 1].every((value, index) => value >= ctsUrn.integerCitations[ctsUrn.integerCitations.length - 1][index])));
+        return (this.integerCitations[0].every((value, index) => value <= ctsUrn.integerCitations[0][index]) &&
+            this.integerCitations[this.integerCitations.length - 1].every((value, index) => value >= ctsUrn.integerCitations[ctsUrn.integerCitations.length - 1][index]));
     }
     isEqual(ctsUrn) {
         return (this.integerCitations[0].every((value, index) => value === ctsUrn.integerCitations[0][index]) &&

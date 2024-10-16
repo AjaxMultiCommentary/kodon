@@ -80,22 +80,22 @@ export function getCommentsForPassage(allComments, passageInfo) {
 }
 export function getTextContainersForPassage(passageInfo, jsonl) {
     const textContainers = jsonl.filter((l) => l.type === 'text_container' && passageContainsLocation(l.location, passageInfo));
-    const textContainerOffsets = textContainers.map((tc) => tc.offset);
-    const textElements = jsonl.filter((l) => l.type === 'text_element' && textContainerOffsets.includes(l.line_offset));
+    const textContainerIndexes = textContainers.map((tc) => tc.index);
+    const textElements = jsonl.filter((el) => el.type === 'text_element' && textContainerIndexes.includes(el.block_index));
     const personaeLoquentes = textElements
         .filter((te) => te.subtype === 'speaker')
         .reduce((acc, el) => {
         const currentSpeaker = el.attributes.name;
         if (currentSpeaker !== acc.previousSpeaker) {
-            acc[el.line_offset] = currentSpeaker;
+            acc[el.block_index] = currentSpeaker;
             acc.previousSpeaker = currentSpeaker;
         }
         return acc;
     }, { previousSpeaker: null });
     return textContainers.map((tc) => ({
         ...tc,
-        speaker: personaeLoquentes[tc.offset] ? personaeLoquentes[tc.offset] : null,
-        textElements: textElements.filter((elem) => elem.line_offset === tc.offset)
+        speaker: personaeLoquentes[tc.index] ? personaeLoquentes[tc.index] : null,
+        textElements: textElements.filter((elem) => elem.block_index === tc.index)
     }));
 }
 export function getPassage(passages, passageStart) {
