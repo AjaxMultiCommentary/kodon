@@ -91,7 +91,7 @@ export function getCommentsForPassage(allComments: Comment[], passageInfo: Passa
 	return allComments
 		.filter((c) => c && passageInfo.ctsUrn.contains(c.ctsUrn))
 		.sort((cA, cB) => {
-			if (cA?.ctsUrn.integerCitations[0][0] === cB?.ctsUrn.integerCitations[0][0]) {
+			if (cA?.ctsUrn.integerCitations[0].every((v, i) => v === cB?.ctsUrn.integerCitations[0][i])) {
 				if (cA?.ctsUrn.tokens.every((t) => typeof t === 'undefined')) {
 					return -1;
 				}
@@ -103,11 +103,17 @@ export function getCommentsForPassage(allComments: Comment[], passageInfo: Passa
 				return 0;
 			}
 
-			if (cA?.ctsUrn.integerCitations[0][0] < cB?.ctsUrn.integerCitations[0][0]) {
-				return -1;
+			for (let i = 0, l = cA?.ctsUrn.integerCitations[0].length; i < l; i++) {
+				if (cA?.ctsUrn.integerCitations[0][i] < cB?.ctsUrn.integerCitations[0][i]) {
+					return -1;
+				}
+
+				if (cA?.ctsUrn.integerCitations[0][i] > cB?.ctsUrn.integerCitations[0][i]) {
+					return 1;
+				}
 			}
 
-			return 1;
+			return 0;
 		});
 }
 
@@ -116,7 +122,7 @@ export function getTextContainersForPassage(
 	jsonl: (TextContainer | TextElement)[]
 ): TextContainer[] {
 	const textContainers = jsonl.filter(
-		(l) => l.type === 'text_container' && passageContainsLocation(l.location, passageInfo)
+		(block) => block.type === 'text_container' && passageContainsLocation(block.urn, passageInfo)
 	) as TextContainer[];
 	const textContainerIndexes = textContainers.map((tc) => tc.index);
 	const textElements = jsonl.filter(
@@ -160,9 +166,9 @@ export function getPassage(
 // FIXME: There needs to be a generic way of parsing location arrays and mapping them
 // to passage URNs. This method will currently only work for single-level works like
 // tragedy.
-function passageContainsLocation(location: string[], passageInfo: DeserializedPassageConfig) {
-	return (
-		parseInt(location[0]) >= parseInt(passageInfo.ctsUrn.citations[0]) &&
-		parseInt(location[0]) <= parseInt(passageInfo.ctsUrn.citations[1])
-	);
+function passageContainsLocation(urn: string, passageInfo: DeserializedPassageConfig) {
+	const ctsUrn = new CTS_URN(urn);
+	const passageUrn = new CTS_URN(passageInfo.urn);
+
+	return passageUrn.contains(ctsUrn);
 }

@@ -4,25 +4,12 @@
 
 	export let iiifURL: string;
 	export let comment: Comment;
-	export let citationPrefix: string = 'v.';
-	export let citationPrefixPlural: string = 'vv.';
+	export let stringifyCommentCitation: (comment: Comment) => string;
 
 	$: creators = comment.commentaryAttributes?.creators as Author[];
 	$: isHighlighted = comment.isHighlighted;
 	$: isOpen = isHighlighted;
 	$: showIIIFViewer = false;
-
-	function citation(comment: Comment) {
-		const { integerCitations } = comment.ctsUrn;
-
-		if (integerCitations.length === 2) {
-			if (integerCitations[0].join('') !== integerCitations[1].join('')) {
-				return `${citationPrefixPlural} ${integerCitations[0].join('')}-${integerCitations[1].join('')}`;
-			}
-		}
-
-		return `${citationPrefix} ${integerCitations[0].join('')}`;
-	}
 
 	function commentHasIIIF(comment: Comment) {
 		return (comment.image_paths || []).length > 0;
@@ -57,7 +44,8 @@
 	>
 		<h3 class="text-sm font-bold text-primary-content cursor-pointer">
 			<span class="text-sm font-medium text-slate-600"
-				><a data-sveltekit-reload href={`?gloss=${comment.citable_urn}`}>{citation(comment)}</a
+				><a data-sveltekit-reload href={`?gloss=${comment.citable_urn}`}
+					>{stringifyCommentCitation(comment)}</a
 				></span
 			>
 			{creators.map((c) => c.last_name || c.name).join(', ')}

@@ -145,6 +145,10 @@
 		background-color: rgb(67, 121, 142, 1);
 	}
 
+	.div {
+		padding-bottom: 1rem;
+	}
+
 	.quote {
 		padding-top: 1rem;
 	}

@@ -14,7 +14,7 @@ export default function loadPassage(config) {
         if (!version) {
             throw new Error(`Edition ${ctsUrn.toString()} not found.`);
         }
-        const passageStart = ctsUrn.integerCitations[0] || ['1'];
+        const passageStart = ctsUrn.integerCitations[0] || [1];
         const passages = config.passages;
         const passageInfo = getPassage(passages, passageStart);
         if (!passageInfo) {
@@ -63,7 +63,7 @@ export function getCommentsForPassage(allComments, passageInfo) {
     return allComments
         .filter((c) => c && passageInfo.ctsUrn.contains(c.ctsUrn))
         .sort((cA, cB) => {
-        if (cA?.ctsUrn.integerCitations[0][0] === cB?.ctsUrn.integerCitations[0][0]) {
+        if (cA?.ctsUrn.integerCitations[0].every((v, i) => v === cB?.ctsUrn.integerCitations[0][i])) {
             if (cA?.ctsUrn.tokens.every((t) => typeof t === 'undefined')) {
                 return -1;
             }
@@ -72,14 +72,19 @@ export function getCommentsForPassage(allComments, passageInfo) {
             }
             return 0;
         }
-        if (cA?.ctsUrn.integerCitations[0][0] < cB?.ctsUrn.integerCitations[0][0]) {
-            return -1;
+        for (let i = 0, l = cA?.ctsUrn.integerCitations[0].length; i < l; i++) {
+            if (cA?.ctsUrn.integerCitations[0][i] < cB?.ctsUrn.integerCitations[0][i]) {
+                return -1;
+            }
+            if (cA?.ctsUrn.integerCitations[0][i] > cB?.ctsUrn.integerCitations[0][i]) {
+                return 1;
+            }
         }
-        return 1;
+        return 0;
     });
 }
 export function getTextContainersForPassage(passageInfo, jsonl) {
-    const textContainers = jsonl.filter((l) => l.type === 'text_container' && passageContainsLocation(l.location, passageInfo));
+    const textContainers = jsonl.filter((block) => block.type === 'text_container' && passageContainsLocation(block.urn, passageInfo));
     const textContainerIndexes = textContainers.map((tc) => tc.index);
     const textElements = jsonl.filter((el) => el.type === 'text_element' && textContainerIndexes.includes(el.block_index));
     const personaeLoquentes = textElements
@@ -105,7 +110,8 @@ export function getPassage(passages, passageStart) {
 // FIXME: There needs to be a generic way of parsing location arrays and mapping them
 // to passage URNs. This method will currently only work for single-level works like
 // tragedy.
-function passageContainsLocation(location, passageInfo) {
-    return (parseInt(location[0]) >= parseInt(passageInfo.ctsUrn.citations[0]) &&
-        parseInt(location[0]) <= parseInt(passageInfo.ctsUrn.citations[1]));
+function passageContainsLocation(urn, passageInfo) {
+    const ctsUrn = new CTS_URN(urn);
+    const passageUrn = new CTS_URN(passageInfo.urn);
+    return passageUrn.contains(ctsUrn);
 }

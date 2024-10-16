@@ -9,6 +9,18 @@ import ReadableTextView from "./ReadableTextView.svelte";
 import TabularTextView from "./TabularTextView.svelte";
 export let currentURL;
 export let comments;
+export let citationPrefix = "v.";
+export let citationPrefixPlural = "vv.";
+export let showCommentaryFilters = true;
+export let stringifyCommentCitation = (comment) => {
+  const { integerCitations } = comment.ctsUrn;
+  if (integerCitations.length === 2) {
+    if (integerCitations[0].join("") !== integerCitations[1].join("")) {
+      return `${citationPrefixPlural} ${integerCitations[0].join("")}-${integerCitations[1].join("")}`;
+    }
+  }
+  return `${citationPrefix} ${integerCitations[0].join("")}`;
+};
 export let currentPassage;
 export let iiifURL;
 export let passages;
@@ -176,14 +188,16 @@ function handleStartSelection(e) {
 				{/if}
 			</div>
 			<Navigation {passages} currentPassageUrn={currentPassage.urn} />
-			<div class="py-2" />
-			<div class="flex justify-between items-center mb-2">
-				<h3 class="prose prose-h3 font-semibold text-sm">Filter Comments</h3>
-				{#if filterListTooltip}
-					<Tooltip text={filterListTooltip} />
-				{/if}
-			</div>
-			<FilterList options={commentaryOptions} on:change={handleCommentaryFiltersChange} />
+			{#if showCommentaryFilters}
+				<div class="py-2" />
+				<div class="flex justify-between items-center mb-2">
+					<h3 class="prose prose-h3 font-semibold text-sm">Filter Comments</h3>
+					{#if filterListTooltip}
+						<Tooltip text={filterListTooltip} />
+					{/if}
+				</div>
+				<FilterList options={commentaryOptions} on:change={handleCommentaryFiltersChange} />
+			{/if}
 		</section>
 		<section class="col-span-5 overflow-y-scroll">
 			{#if showTableView}
@@ -201,7 +215,7 @@ function handleStartSelection(e) {
 		</section>
 		<section class="overflow-y-scroll col-span-3 max-h-screen">
 			{#each filteredComments as comment}
-				<CollapsibleComment {iiifURL} {comment} />
+				<CollapsibleComment {iiifURL} {comment} {stringifyCommentCitation} />
 			{/each}
 		</section>
 	</div>

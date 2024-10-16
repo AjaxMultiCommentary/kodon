@@ -1,8 +1,7 @@
 <script>import IIIFViewer from "./IIIFViewer.svelte";
 export let iiifURL;
 export let comment;
-export let citationPrefix = "v.";
-export let citationPrefixPlural = "vv.";
+export let stringifyCommentCitation;
 $:
   creators = comment.commentaryAttributes?.creators;
 $:
@@ -11,15 +10,6 @@ $:
   isOpen = isHighlighted;
 $:
   showIIIFViewer = false;
-function citation(comment2) {
-  const { integerCitations } = comment2.ctsUrn;
-  if (integerCitations.length === 2) {
-    if (integerCitations[0].join("") !== integerCitations[1].join("")) {
-      return `${citationPrefixPlural} ${integerCitations[0].join("")}-${integerCitations[1].join("")}`;
-    }
-  }
-  return `${citationPrefix} ${integerCitations[0].join("")}`;
-}
 function commentHasIIIF(comment2) {
   return (comment2.image_paths || []).length > 0;
 }
@@ -51,7 +41,8 @@ function toggleDetails(_e) {
 	>
 		<h3 class="text-sm font-bold text-primary-content cursor-pointer">
 			<span class="text-sm font-medium text-slate-600"
-				><a data-sveltekit-reload href={`?gloss=${comment.citable_urn}`}>{citation(comment)}</a
+				><a data-sveltekit-reload href={`?gloss=${comment.citable_urn}`}
+					>{stringifyCommentCitation(comment)}</a
 				></span
 			>
 			{creators.map((c) => c.last_name || c.name).join(', ')}

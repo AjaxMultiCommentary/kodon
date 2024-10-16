@@ -4,6 +4,10 @@ declare const __propDef: {
     props: {
         currentURL: URL;
         comments: Comment[];
+        citationPrefix?: string | undefined;
+        citationPrefixPlural?: string | undefined;
+        showCommentaryFilters?: boolean | undefined;
+        stringifyCommentCitation?: ((comment: Comment) => string) | undefined;
         currentPassage: PassageConfig;
         iiifURL: string;
         passages: PassageConfig[];
