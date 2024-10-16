@@ -87,7 +87,6 @@ async function main() {
     const outfile = process.argv[3] || 'wikidata_citations.json';
     console.assert(collectionID, 'You must supply a Wikidata collectionID.');
     const citations = await getWikidataCitationsForCollection(collectionID);
-    console.log(citations);
     fs.writeFileSync(outfile, JSON.stringify(citations), 'utf-8');
 }
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

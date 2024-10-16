@@ -125,6 +125,7 @@ export function getTextContainersForPassage(
 		(block) => block.type === 'text_container' && passageContainsLocation(block.urn, passageInfo)
 	) as TextContainer[];
 	const textContainerIndexes = textContainers.map((tc) => tc.index);
+
 	const textElements = jsonl.filter(
 		(el) => el.type === 'text_element' && textContainerIndexes.includes(el.block_index)
 	) as TextElement[];

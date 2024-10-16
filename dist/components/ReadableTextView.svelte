@@ -22,7 +22,16 @@ $:
     comments: selectedCommentaries.length > 0 ? (group.comments || []).filter(
       (c) => selectedCommentaries.includes(c.commentaryAttributes?.pid || "")
     ) : group.comments || [],
-    container: nestBlocks(group.containers)
+    container: nestBlocks(
+      group.containers.map((block) => ({
+        ...block,
+        // we already know they have the same location,
+        // so we can just check the offsets here
+        parentIndex: group.containers.findLast(
+          (b) => b.index !== block.index && block.start_offset >= b.start_offset && block.end_offset <= b.end_offset
+        )?.index
+      }))
+    )
   }));
 </script>
 

@@ -151,6 +151,7 @@
 
 	.quote {
 		padding-top: 1rem;
+		text-indent: 2rem;
 	}
 
 	.quote:last-of-type {

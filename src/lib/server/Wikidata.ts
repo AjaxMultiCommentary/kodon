@@ -111,8 +111,6 @@ async function main() {
 
 	const citations = await getWikidataCitationsForCollection(collectionID);
 
-	console.log(citations);
-
 	fs.writeFileSync(outfile, JSON.stringify(citations), 'utf-8');
 }
 
