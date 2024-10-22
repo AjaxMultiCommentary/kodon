@@ -7,8 +7,6 @@ declare const __propDef: {
         locationContainer: TextContainer;
     };
     events: {
-        highlightComments: CustomEvent<any>;
-    } & {
         [evt: string]: CustomEvent<any>;
     };
     slots: {};

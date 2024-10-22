@@ -2,7 +2,7 @@
 	import type { Comment, PassageConfig, TextContainer } from '$lib/types.js';
 
 	import _ from 'lodash';
-	import { onMount, tick } from 'svelte';
+	import { onMount, setContext, tick } from 'svelte';
 	import CollapsibleComment from '$lib/components/CollapsibleComment.svelte';
 	import FilterList from '$lib/components/FilterList.svelte';
 	import Navigation from '$lib/components/Navigation.svelte';
@@ -72,12 +72,11 @@
 		}
 	});
 
+	setContext('comments', { highlightComments });
+	setContext('token-selection', { handleEndSelection, handleStartSelection });
+
 	function handleCommentaryFiltersChange(e: CustomEvent) {
 		selectedCommentaries = e.detail.selectedOptions;
-	}
-
-	function handleHighlightComments(e: CustomEvent) {
-		highlightComments(e.detail);
 	}
 
 	async function highlightComments(commentsToHighlight: string[]) {
@@ -235,14 +234,7 @@
 			{#if showTableView}
 				<TabularTextView {selectedCommentaries} {textContainers} />
 			{:else}
-				<ReadableTextView
-					{selectedCommentaries}
-					{showHeatmap}
-					{textContainers}
-					{handleHighlightComments}
-					{handleEndSelection}
-					{handleStartSelection}
-				/>
+				<ReadableTextView {selectedCommentaries} {showHeatmap} {textContainers} />
 			{/if}
 		</section>
 		<section class="overflow-y-scroll col-span-3 max-h-screen">

@@ -1,5 +1,5 @@
 <script>import _ from "lodash";
-import { onMount, tick } from "svelte";
+import { onMount, setContext, tick } from "svelte";
 import CollapsibleComment from "./CollapsibleComment.svelte";
 import FilterList from "./FilterList.svelte";
 import Navigation from "./Navigation.svelte";
@@ -59,11 +59,10 @@ onMount(() => {
     highlightComments([commentToHighlight]);
   }
 });
+setContext("comments", { highlightComments });
+setContext("token-selection", { handleEndSelection, handleStartSelection });
 function handleCommentaryFiltersChange(e) {
   selectedCommentaries = e.detail.selectedOptions;
-}
-function handleHighlightComments(e) {
-  highlightComments(e.detail);
 }
 async function highlightComments(commentsToHighlight) {
   let foundComment;
@@ -203,14 +202,7 @@ function handleStartSelection(e) {
 			{#if showTableView}
 				<TabularTextView {selectedCommentaries} {textContainers} />
 			{:else}
-				<ReadableTextView
-					{selectedCommentaries}
-					{showHeatmap}
-					{textContainers}
-					{handleHighlightComments}
-					{handleEndSelection}
-					{handleStartSelection}
-				/>
+				<ReadableTextView {selectedCommentaries} {showHeatmap} {textContainers} />
 			{/if}
 		</section>
 		<section class="overflow-y-scroll col-span-3 max-h-screen">

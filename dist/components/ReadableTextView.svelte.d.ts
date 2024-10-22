@@ -5,9 +5,6 @@ declare const __propDef: {
         showHeatmap: boolean;
         selectedCommentaries: string[];
         textContainers: TextContainer[];
-        handleHighlightComments: (e: CustomEvent) => void;
-        handleEndSelection: (e: CustomEvent) => void;
-        handleStartSelection: (e: CustomEvent) => void;
     };
     events: {
         [evt: string]: CustomEvent<any>;

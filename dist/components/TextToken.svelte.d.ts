@@ -10,10 +10,6 @@ declare const __propDef: {
              */ token: Word;
     };
     events: {
-        highlightComments: CustomEvent<any>;
-        startSelection: CustomEvent<any>;
-        endSelection: CustomEvent<any>;
-    } & {
         [evt: string]: CustomEvent<any>;
     };
     slots: {};

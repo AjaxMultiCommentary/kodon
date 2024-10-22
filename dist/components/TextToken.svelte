@@ -1,7 +1,8 @@
-<script>import { createEventDispatcher } from "svelte";
+<script>import { getContext } from "svelte";
 export let showHeatmap = true;
 export let token;
-const dispatch = createEventDispatcher();
+const { highlightComments } = getContext("comments");
+const { handleEndSelection, handleStartSelection } = getContext("token-selection");
 function tokenTitleText(t) {
   const commentsLength = t.commentURNs.length || 0;
   return `${commentsLength} ${commentsLength === 1 ? "gloss" : "glosses"} on this lemma`;
@@ -17,14 +18,14 @@ function tokenTitleText(t) {
 	role="button"
 	tabindex="0"
 	title={tokenTitleText(token)}
-	on:click={() => dispatch('highlightComments', token.commentURNs)}
+	on:click={() => highlightComments(token.commentURNs)}
 	on:keyup={(event) => {
 		if (event.key === 'Enter') {
-			dispatch('highlightComments', token.commentURNs);
+			highlightComments(token.commentURNs);
 		}
 	}}
-	on:mousedown={() => dispatch('startSelection', token.urn)}
-	on:mouseup={() => dispatch('endSelection', token.urn)}
+	on:mousedown={() => handleStartSelection(token.urn)}
+	on:mouseup={() => handleEndSelection(token.urn)}
 	>{token.text}{' '}
 </span>
 

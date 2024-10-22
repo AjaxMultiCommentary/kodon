@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Word } from '$lib/types.js';
 
-	import { createEventDispatcher } from 'svelte';
+	import { getContext } from 'svelte';
 
 	/**
 	 * Should the heatmap for comment density be displayed?
@@ -13,7 +13,11 @@
 	 */
 	export let token: Word;
 
-	const dispatch = createEventDispatcher();
+	// @ts-expect-error need to add typing to getContext calls
+	const { highlightComments } = getContext('comments');
+
+	// @ts-expect-error need to add typing to getContext calls
+	const { handleEndSelection, handleStartSelection } = getContext('token-selection');
 
 	function tokenTitleText(t: Word) {
 		const commentsLength = t.commentURNs.length || 0;
@@ -31,14 +35,14 @@
 	role="button"
 	tabindex="0"
 	title={tokenTitleText(token)}
-	on:click={() => dispatch('highlightComments', token.commentURNs)}
+	on:click={() => highlightComments(token.commentURNs)}
 	on:keyup={(event) => {
 		if (event.key === 'Enter') {
-			dispatch('highlightComments', token.commentURNs);
+			highlightComments(token.commentURNs);
 		}
 	}}
-	on:mousedown={() => dispatch('startSelection', token.urn)}
-	on:mouseup={() => dispatch('endSelection', token.urn)}
+	on:mousedown={() => handleStartSelection(token.urn)}
+	on:mouseup={() => handleEndSelection(token.urn)}
 	>{token.text}{' '}
 </span>
 

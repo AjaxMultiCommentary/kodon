@@ -9,9 +9,6 @@
 	export let showHeatmap: boolean;
 	export let selectedCommentaries: string[];
 	export let textContainers: TextContainer[];
-	export let handleHighlightComments: (e: CustomEvent) => void;
-	export let handleEndSelection: (e: CustomEvent) => void;
-	export let handleStartSelection: (e: CustomEvent) => void;
 
 	$: textContainerGroups = textContainers
 		.reduce((groups: any, curr: TextContainer) => {
@@ -54,13 +51,5 @@
 </script>
 
 {#each textContainerGroups as group}
-	<LocationContainer
-		locationContainer={group.container}
-		comments={group.comments}
-		on:highlightComments={handleHighlightComments}
-		on:handleEndSelection={handleEndSelection}
-		on:startSelection={handleStartSelection}
-		on:endSelection={handleEndSelection}
-		{showHeatmap}
-	/>
+	<LocationContainer locationContainer={group.container} comments={group.comments} {showHeatmap} />
 {/each}

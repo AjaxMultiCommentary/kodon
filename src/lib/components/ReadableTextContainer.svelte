@@ -8,7 +8,6 @@
 		tokenTestForCommentStartingInTextContainer,
 		tokenTestForCommentEndingInTextContainer
 	} from '$lib/functions.js';
-	import Speaker from './Speaker.svelte';
 	import TextToken from './TextToken.svelte';
 
 	export let comments: Comment[];
@@ -75,29 +74,24 @@
 		});
 </script>
 
-<div>
-	{#if textContainer.speaker}
-		<Speaker name={textContainer.speaker} />
-	{/if}
-	<div class="container">
-		<svelte:element
-			this={containerElement}
-			class="max-w-prose {textContainer.subtype}"
-			class:indent-hanging={textContainer.subtype === 'l'}
-			data-urn={ctsUrn.__urn}
-			role="presentation"
-		>
-			{#if textContainer.children && textContainer.children.length > 0}
-				{#each textContainer.children as child}
-					<svelte:self {showHeatmap} {comments} textContainer={child} />
-				{/each}
-			{:else}
-				{#each tokens as token (token.xml_id)}
-					<TextToken {showHeatmap} {token} on:highlightComments on:startSelection on:endSelection />
-				{/each}
-			{/if}
-		</svelte:element>
-	</div>
+<div class="container">
+	<svelte:element
+		this={containerElement}
+		class="max-w-prose {textContainer.subtype}"
+		class:indent-hanging={textContainer.subtype === 'l'}
+		data-urn={ctsUrn.__urn}
+		role="presentation"
+	>
+		{#if textContainer.children && textContainer.children.length > 0}
+			{#each textContainer.children as child}
+				<svelte:self {showHeatmap} {comments} textContainer={child} />
+			{/each}
+		{:else}
+			{#each tokens as token (token.xml_id)}
+				<TextToken {showHeatmap} {token} />
+			{/each}
+		{/if}
+	</svelte:element>
 </div>
 
 <style lang="postcss">

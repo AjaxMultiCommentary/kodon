@@ -4,9 +4,6 @@ import { nestBlocks } from "../functions.js";
 export let showHeatmap;
 export let selectedCommentaries;
 export let textContainers;
-export let handleHighlightComments;
-export let handleEndSelection;
-export let handleStartSelection;
 $:
   textContainerGroups = textContainers.reduce((groups, curr) => {
     const lastGroup = groups.at(-1) || {};
@@ -36,13 +33,5 @@ $:
 </script>
 
 {#each textContainerGroups as group}
-	<LocationContainer
-		locationContainer={group.container}
-		comments={group.comments}
-		on:highlightComments={handleHighlightComments}
-		on:handleEndSelection={handleEndSelection}
-		on:startSelection={handleStartSelection}
-		on:endSelection={handleEndSelection}
-		{showHeatmap}
-	/>
+	<LocationContainer locationContainer={group.container} comments={group.comments} {showHeatmap} />
 {/each}
