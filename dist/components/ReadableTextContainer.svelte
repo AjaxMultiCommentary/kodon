@@ -81,46 +81,6 @@ $:
 		text-indent: 2.3rem hanging;
 	}
 
-	.comment-box-shadow.comments-1 {
-		background-color: rgb(99, 162, 187, 0.2);
-	}
-
-	.comment-box-shadow.comments-2 {
-		background-color: rgba(99, 162, 187, 0.4);
-	}
-
-	.comment-box-shadow.comments-3 {
-		background-color: rgba(99, 162, 187, 0.6);
-	}
-
-	.comment-box-shadow.comments-4 {
-		background-color: rgba(99, 162, 187, 0.8);
-	}
-
-	.comment-box-shadow.comments-5 {
-		background-color: rgba(99, 162, 187, 0.9);
-	}
-
-	.comment-box-shadow.comments-6 {
-		background-color: rgba(99, 162, 187, 1);
-	}
-
-	.comment-box-shadow.comments-7 {
-		background-color: rgba(67, 121, 142, 0.8);
-	}
-
-	.comment-box-shadow.comments-8 {
-		background-color: rgba(67, 121, 142, 0.9);
-	}
-
-	.comment-box-shadow.comments-9 {
-		background-color: rgba(67, 121, 142, 1);
-	}
-
-	.comment-box-shadow.comments-10 {
-		background-color: rgb(67, 121, 142, 1);
-	}
-
 	.div {
 		padding-bottom: 1rem;
 	}
