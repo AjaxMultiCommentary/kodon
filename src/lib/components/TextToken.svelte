@@ -41,8 +41,12 @@
 			highlightComments(token.commentURNs);
 		}
 	}}
-	on:mousedown={() => handleStartSelection(token.urn)}
-	on:mouseup={() => handleEndSelection(token.urn)}
+	on:mousedown={() => {
+		handleStartSelection(token.urn);
+	}}
+	on:mouseup={() => {
+		handleEndSelection(token.urn);
+	}}
 	>{token.text}{' '}
 </span>
 

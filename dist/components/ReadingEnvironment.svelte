@@ -95,16 +95,15 @@ function toggleHeatmap() {
 function toggleTextFormat() {
   showTableView = !showTableView;
 }
-function handleEndSelection(e) {
+function handleEndSelection(selectionURN) {
   if (showHeatmap) {
     selectionFocusURN = null;
     return;
   }
-  if (typeof e.detail === "string") {
-    selectionFocusURN = e.detail;
-  }
+  selectionFocusURN = selectionURN;
   if (!selectionAnchorURN)
     return;
+  console.log("END SELECTION 3");
   if (selectionAnchorURN === selectionFocusURN) {
     selectedURN = selectionAnchorURN;
     return;
@@ -120,14 +119,12 @@ function handleEndSelection(e) {
     selectedURN = `${selectionAnchorURN}-${selectionFocusURN}`;
   }
 }
-function handleStartSelection(e) {
+function handleStartSelection(selectionURN) {
   if (showHeatmap) {
     selectionAnchorURN = null;
     return;
   }
-  if (typeof e.detail === "string") {
-    selectionAnchorURN = e.detail;
-  }
+  selectionAnchorURN = selectionURN;
 }
 </script>
 

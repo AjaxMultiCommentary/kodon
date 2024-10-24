@@ -119,17 +119,16 @@
 		showTableView = !showTableView;
 	}
 
-	function handleEndSelection(e: CustomEvent) {
+	function handleEndSelection(selectionURN: string) {
 		if (showHeatmap) {
 			selectionFocusURN = null;
 			return;
 		}
 
-		if (typeof e.detail === 'string') {
-			selectionFocusURN = e.detail;
-		}
+		selectionFocusURN = selectionURN;
 
 		if (!selectionAnchorURN) return;
+		console.log('END SELECTION 3');
 
 		if (selectionAnchorURN === selectionFocusURN) {
 			selectedURN = selectionAnchorURN;
@@ -151,15 +150,13 @@
 		}
 	}
 
-	function handleStartSelection(e: CustomEvent) {
+	function handleStartSelection(selectionURN: string) {
 		if (showHeatmap) {
 			selectionAnchorURN = null;
 			return;
 		}
 
-		if (typeof e.detail === 'string') {
-			selectionAnchorURN = e.detail;
-		}
+		selectionAnchorURN = selectionURN;
 	}
 </script>
 
