@@ -29,7 +29,13 @@ $:
 					class={`base-content hover:opacity-70 cursor-pointer w-12 text-center inline-block comments-${wholeLocationComments.length} select-none`}
 					class:comment-box-shadow={showHeatmap}
 					tabindex="0"
-					on:click={() => highlightComments(wholeLocationComments.map((c) => c.citable_urn))}
+					on:click={() =>
+						highlightComments(
+							wholeLocationComments.map((c) => {
+								// fall back on c.urn in case citable_urn is not defined
+								return c.citable_urn || c.urn;
+							})
+						)}
 					on:keyup={(event) => {
 						if (event.key === 'Enter') {
 							highlightComments(wholeLocationComments.map((c) => c.citable_urn));
