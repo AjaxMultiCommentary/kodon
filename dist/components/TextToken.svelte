@@ -1,8 +1,9 @@
-<script>import { getContext } from "svelte";
+<script>import { getCommentsContext } from "../contexts/comments.js";
+import { getTokenSelectionContext } from "../contexts/tokenSelection.js";
 export let showHeatmap = true;
 export let token;
-const { highlightComments } = getContext("comments");
-const { handleEndSelection, handleStartSelection } = getContext("token-selection");
+const { highlightComments } = getCommentsContext();
+const { handleEndSelection, handleStartSelection } = getTokenSelectionContext();
 function tokenTitleText(t) {
   const commentsLength = t.commentURNs.length || 0;
   return `${commentsLength} ${commentsLength === 1 ? "gloss" : "glosses"} on this lemma`;

@@ -4,6 +4,8 @@ import CollapsibleComment from "./CollapsibleComment.svelte";
 import FilterList from "./FilterList.svelte";
 import Navigation from "./Navigation.svelte";
 import Tooltip from "./Tooltip.svelte";
+import { setCommentsContext } from "../contexts/comments.js";
+import { setTokenSelectionContext } from "../contexts/tokenSelection.js";
 import CTS_URN from "../cts_urn.js";
 import ReadableTextView from "./ReadableTextView.svelte";
 import TabularTextView from "./TabularTextView.svelte";
@@ -59,8 +61,8 @@ onMount(() => {
     highlightComments([commentToHighlight]);
   }
 });
-setContext("comments", { highlightComments });
-setContext("token-selection", { handleEndSelection, handleStartSelection });
+setCommentsContext({ highlightComments });
+setTokenSelectionContext({ handleEndSelection, handleStartSelection });
 function handleCommentaryFiltersChange(e) {
   selectedCommentaries = e.detail.selectedOptions;
 }

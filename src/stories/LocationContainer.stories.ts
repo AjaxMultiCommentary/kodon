@@ -5,8 +5,11 @@ import CTS_URN from '$lib/cts_urn.js';
 import LocationContainer from '$lib/components/LocationContainer.svelte';
 import { nestBlocks } from '$lib/functions.js';
 
+import decorator from './decorators/contextDecorator.js';
+
 const meta = {
 	component: LocationContainer,
+	decorators: [decorator],
 	tags: ['autodocs'],
 	parameters: {
 		sveltekit_experimental: {

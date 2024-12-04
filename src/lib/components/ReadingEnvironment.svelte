@@ -7,6 +7,8 @@
 	import FilterList from '$lib/components/FilterList.svelte';
 	import Navigation from '$lib/components/Navigation.svelte';
 	import Tooltip from '$lib/components/Tooltip.svelte';
+	import { setCommentsContext } from '$lib/contexts/comments.js';
+	import { setTokenSelectionContext } from '$lib/contexts/tokenSelection.js';
 	import CTS_URN from '$lib/cts_urn.js';
 	import ReadableTextView from './ReadableTextView.svelte';
 	import TabularTextView from './TabularTextView.svelte';
@@ -72,14 +74,14 @@
 		}
 	});
 
-	setContext('comments', { highlightComments });
-	setContext('token-selection', { handleEndSelection, handleStartSelection });
+	setCommentsContext({ highlightComments });
+	setTokenSelectionContext({ handleEndSelection, handleStartSelection });
 
 	function handleCommentaryFiltersChange(e: CustomEvent) {
 		selectedCommentaries = e.detail.selectedOptions;
 	}
 
-	async function highlightComments(commentsToHighlight: string[]) {
+	async function highlightComments(commentsToHighlight: (string | undefined)[]) {
 		let foundComment: Comment | undefined;
 
 		comments = comments.map((comment: Comment) => {

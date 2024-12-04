@@ -140,9 +140,10 @@ export type Word = {
     commentURNs: (string | undefined)[];
     offset: number;
     text: string;
-    xml_id: string;
+    textElements?: (TextElement | undefined)[];
     urn_index: number;
     urn: string;
+    xml_id: string;
 };
 export type TextElement = {
     attributes: any;

@@ -1,9 +1,8 @@
 <script lang="ts">
 	import type { Comment, TextContainer } from '$lib/types.js';
 
-	import { getContext } from 'svelte';
-
 	import CTS_URN from '$lib/cts_urn.js';
+	import { getCommentsContext } from '$lib/contexts/comments.js';
 	import ReadableTextContainer from './ReadableTextContainer.svelte';
 	import Speaker from './Speaker.svelte';
 
@@ -11,8 +10,7 @@
 	export let showHeatmap: boolean;
 	export let locationContainer: TextContainer;
 
-	// @ts-expect-error need to declare types for context
-	const { highlightComments } = getContext('comments');
+	const { highlightComments } = getCommentsContext();
 
 	$: children = (
 		(locationContainer.children || []).length > 0 ? locationContainer.children : [locationContainer]

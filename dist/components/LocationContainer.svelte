@@ -1,11 +1,11 @@
-<script>import { getContext } from "svelte";
-import CTS_URN from "../cts_urn.js";
+<script>import CTS_URN from "../cts_urn.js";
+import { getCommentsContext } from "../contexts/comments.js";
 import ReadableTextContainer from "./ReadableTextContainer.svelte";
 import Speaker from "./Speaker.svelte";
 export let comments;
 export let showHeatmap;
 export let locationContainer;
-const { highlightComments } = getContext("comments");
+const { highlightComments } = getCommentsContext();
 $:
   children = (locationContainer.children || []).length > 0 ? locationContainer.children : [locationContainer];
 $:

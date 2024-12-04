@@ -413,6 +413,7 @@ const bibliographies = [
 
 export const DefaultBibliography: Story = {
 	args: {
+		// @ts-expect-error
 		bibliographies
 	}
 };
@@ -1126,6 +1127,7 @@ const chicagoStyleCsl = `
 
 export const ChicagoStyleBibliography: Story = {
 	args: {
+		// @ts-expect-error
 		bibliographies,
 		csls: [{ name: 'chicago-author-date', template: chicagoStyleCsl }],
 		template: 'chicago-author-date'

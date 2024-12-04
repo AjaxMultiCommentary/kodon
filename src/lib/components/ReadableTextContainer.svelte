@@ -1,5 +1,7 @@
 <script lang="ts">
-	import type { Comment, TextContainer } from '$lib/types.js';
+	import type { Comment, TextContainer, TextElement, Word } from '$lib/types.js';
+
+	import isEqual from 'lodash/isEqual.js';
 
 	import CTS_URN from '$lib/cts_urn.js';
 	import {
@@ -8,7 +10,7 @@
 		tokenTestForCommentStartingInTextContainer,
 		tokenTestForCommentEndingInTextContainer
 	} from '$lib/functions.js';
-	import TextToken from './TextToken.svelte';
+	import TextRun from './TextRun.svelte';
 
 	export let comments: Comment[];
 	export let showHeatmap: boolean;
@@ -69,9 +71,56 @@
 
 						return false;
 					})
-					.map((c) => c.citable_urn)
+					.map((c) => c.citable_urn),
+				textElements: textContainer.textElements?.filter((te: TextElement) => {
+					return te.start_offset <= w.offset && w.offset <= te.end_offset;
+				})
 			};
 		});
+
+	$: runs = tokens.reduce(
+		(acc: Array<Word[]>, curr: Word) => {
+			const currentRun = acc.pop();
+
+			if (typeof currentRun === 'undefined') {
+				return [[curr]];
+			}
+
+			const lastOfCurrentRun = currentRun.at(-1);
+
+			if (typeof lastOfCurrentRun === 'undefined') {
+				return [...acc, [curr]];
+			}
+
+			const allURNsMatch = lastOfCurrentRun.commentURNs.every(
+				(urn: string | undefined, index: number) => {
+					curr.commentURNs[index] === urn;
+				}
+			);
+
+			const lastOfCurrentRunTextElements = lastOfCurrentRun.textElements || [];
+			const currentTextElements = curr.textElements || [];
+			const allTextElementsMatch =
+				lastOfCurrentRunTextElements?.length === currentTextElements?.length &&
+				lastOfCurrentRunTextElements?.every((te: TextElement | undefined, i: number) => {
+					return (
+						currentTextElements[i]?.start_offset === te?.start_offset &&
+						currentTextElements[i]?.end_offset === te?.end_offset &&
+						currentTextElements[i]?.subtype === te?.subtype &&
+						isEqual(currentTextElements[i]?.attributes, te?.attributes)
+					);
+				});
+
+			if (allURNsMatch && allTextElementsMatch) {
+				currentRun.push(curr);
+
+				return [...acc, currentRun];
+			}
+
+			return [...acc, currentRun, [curr]];
+		},
+		[] as Array<Word[]>
+	);
 </script>
 
 <div class="container">
@@ -87,8 +136,8 @@
 				<svelte:self {showHeatmap} {comments} textContainer={child} />
 			{/each}
 		{:else}
-			{#each tokens as token (token.xml_id)}
-				<TextToken {showHeatmap} {token} />
+			{#each runs as run}
+				<TextRun {showHeatmap} {run} />
 			{/each}
 		{/if}
 	</svelte:element>

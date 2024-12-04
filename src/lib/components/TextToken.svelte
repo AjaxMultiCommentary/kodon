@@ -1,7 +1,8 @@
 <script lang="ts">
 	import type { Word } from '$lib/types.js';
 
-	import { getContext } from 'svelte';
+	import { getCommentsContext } from '$lib/contexts/comments.js';
+	import { getTokenSelectionContext } from '$lib/contexts/tokenSelection.js';
 
 	/**
 	 * Should the heatmap for comment density be displayed?
@@ -13,11 +14,8 @@
 	 */
 	export let token: Word;
 
-	// @ts-expect-error need to add typing to getContext calls
-	const { highlightComments } = getContext('comments');
-
-	// @ts-expect-error need to add typing to getContext calls
-	const { handleEndSelection, handleStartSelection } = getContext('token-selection');
+	const { highlightComments } = getCommentsContext();
+	const { handleEndSelection, handleStartSelection } = getTokenSelectionContext();
 
 	function tokenTitleText(t: Word) {
 		const commentsLength = t.commentURNs.length || 0;
