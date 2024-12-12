@@ -15,6 +15,12 @@ const CONTAINER_ELEMENTS = {
   l: "div",
   p: "p"
 };
+function isTokenWithinTextElementOffsets(w, te) {
+  return te.start_offset <= w.offset && w.offset <= te.end_offset;
+}
+function tokenURNMatchesEntityURN(w, te) {
+  return w.urn === te.attributes.entity_urn;
+}
 $:
   containerElement = CONTAINER_ELEMENTS[textContainer.subtype] || "div";
 $:
@@ -54,7 +60,7 @@ $:
         return false;
       }).map((c) => c.citable_urn),
       textElements: textContainer.textElements?.filter((te) => {
-        return te.start_offset <= w.offset && w.offset <= te.end_offset;
+        return isTokenWithinTextElementOffsets(w, te) || tokenURNMatchesEntityURN(w, te);
       })
     };
   });
@@ -92,7 +98,7 @@ $:
 <div class="container">
 	<svelte:element
 		this={containerElement}
-		class="max-w-prose {textContainer.subtype}"
+		class="max-w-prose leading-6 {textContainer.subtype}"
 		class:indent-hanging={textContainer.subtype === 'l'}
 		data-urn={ctsUrn.__urn}
 		role="presentation"

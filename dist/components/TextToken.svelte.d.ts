@@ -3,9 +3,6 @@ import type { Word } from '../types.js';
 declare const __propDef: {
     props: {
         /**
-             * Should the heatmap for comment density be displayed?
-             */ showHeatmap?: boolean | undefined;
-        /**
              * The token to render here.
              */ token: Word;
     };

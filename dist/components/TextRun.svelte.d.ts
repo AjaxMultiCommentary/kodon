@@ -2,8 +2,12 @@ import { SvelteComponent } from "svelte";
 import type { Word } from '../types.js';
 declare const __propDef: {
     props: {
-        run: Word[];
-        showHeatmap?: boolean | undefined;
+        /**
+             * Should the heatmap for comment density be displayed?
+             */ showHeatmap?: boolean | undefined;
+        /**
+             * A run is an array of Words with the same textElements.
+             */ run: Word[];
     };
     events: {
         [evt: string]: CustomEvent<any>;

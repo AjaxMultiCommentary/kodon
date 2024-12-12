@@ -22,6 +22,14 @@
 		p: 'p'
 	};
 
+	function isTokenWithinTextElementOffsets(w: Word, te: TextElement) {
+		return te.start_offset <= w.offset && w.offset <= te.end_offset;
+	}
+
+	function tokenURNMatchesEntityURN(w: Word, te: TextElement) {
+		return w.urn === te.attributes.entity_urn;
+	}
+
 	$: containerElement = CONTAINER_ELEMENTS[textContainer.subtype] || 'div';
 	$: ctsUrn = new CTS_URN(textContainer.urn);
 	$: tokens = textContainer.text
@@ -73,7 +81,7 @@
 					})
 					.map((c) => c.citable_urn),
 				textElements: textContainer.textElements?.filter((te: TextElement) => {
-					return te.start_offset <= w.offset && w.offset <= te.end_offset;
+					return isTokenWithinTextElementOffsets(w, te) || tokenURNMatchesEntityURN(w, te);
 				})
 			};
 		});
@@ -126,7 +134,7 @@
 <div class="container">
 	<svelte:element
 		this={containerElement}
-		class="max-w-prose {textContainer.subtype}"
+		class="max-w-prose leading-6 {textContainer.subtype}"
 		class:indent-hanging={textContainer.subtype === 'l'}
 		data-urn={ctsUrn.__urn}
 		role="presentation"
