@@ -36,7 +36,7 @@
 <span
 	id={spanId}
 	class={`comments-${Math.min(commentCount, 10)} 
-		${hasNamedEntity ? 'bg-secondary/30 p-1 rounded' : ''}
+		${hasNamedEntity ? 'bg-secondary/30 pl-1 py-1 rounded' : ''}
 	`}
 	class:comment-box-shadow={showHeatmap}
 	class:cursor-pointer={commentCount > 0}
