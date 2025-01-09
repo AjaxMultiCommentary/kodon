@@ -36,7 +36,7 @@
 <span
 	id={spanId}
 	class={`comments-${Math.min(commentCount, 10)} 
-		${hasNamedEntity ? 'bg-secondary/30 p-1 rounded-l' : ''}
+		${hasNamedEntity ? 'bg-secondary/30 p-1 rounded' : ''}
 	`}
 	class:comment-box-shadow={showHeatmap}
 	class:cursor-pointer={commentCount > 0}
@@ -56,7 +56,7 @@
 	{#if namedEntity}
 		<a
 			href={namedEntity.attributes.entity_link}
-			class="bg-secondary font-semibold leading-6 p-1 rounded text-sm text-white"
+			class="bg-secondary font-semibold leading-6 p-1 rounded-r text-sm text-white"
 			target="_blank"
 			title={namedEntity.attributes.entity_link}
 		>
