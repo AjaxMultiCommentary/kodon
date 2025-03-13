@@ -1,12 +1,10 @@
 <script lang="ts">
-	import type { Word } from '$lib/types.js';
-
 	import { getTokenSelectionContext } from '$lib/contexts/tokenSelection.js';
 
 	/**
 	 * The token to render here.
 	 */
-	export let token: Word;
+	export let token: { text: string; urn: string; xml_id: string };
 
 	const { handleEndSelection, handleStartSelection } = getTokenSelectionContext();
 </script>

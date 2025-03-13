@@ -22,42 +22,43 @@
 			.filter((c) => ctsUrn.hasEqualStart(c.ctsUrn)) || [];
 </script>
 
-<div>
-	{#each children as child}
-		{#if child.speaker}
-			<Speaker name={child.speaker} />
-		{/if}
-		<div class="flex justify-between">
-			<ReadableTextContainer {showHeatmap} {comments} textContainer={child} />
-
-			{#if wholeLocationComments.length > 0}
-				<a
-					href={'#'}
-					role="button"
-					class={`base-content hover:opacity-70 cursor-pointer w-12 text-center inline-block comments-${wholeLocationComments.length} select-none`}
-					class:comment-box-shadow={showHeatmap}
-					tabindex="0"
-					on:click={() =>
-						highlightComments(
-							wholeLocationComments.map((c) => {
-								// fall back on c.urn in case citable_urn is not defined
-								return c.citable_urn || c.urn;
-							})
-						)}
-					on:keyup={(event) => {
-						if (event.key === 'Enter') {
-							highlightComments(wholeLocationComments.map((c) => c.citable_urn));
-						}
-					}}
-					data-citation={ctsUrn.citations[0]}>{ctsUrn.citations[0]}</a
-				>
-			{:else}
-				<span class="base-content w-12 text-center inline-block select-none"
-					>{ctsUrn.citations.join('.')}</span
-				>
+<div class="flex justify-between">
+	<div>
+		{#each children as child}
+			{#if child.speaker}
+				<Speaker name={child.speaker} />
 			{/if}
-		</div>
-	{/each}
+			<ReadableTextContainer {showHeatmap} {comments} textContainer={child} />
+		{/each}
+	</div>
+	<div>
+		{#if wholeLocationComments.length > 0}
+			<a
+				href={'#'}
+				role="button"
+				class={`base-content hover:opacity-70 cursor-pointer w-12 text-center inline-block comments-${wholeLocationComments.length} select-none`}
+				class:comment-box-shadow={showHeatmap}
+				tabindex="0"
+				on:click={() =>
+					highlightComments(
+						wholeLocationComments.map((c) => {
+							// fall back on c.urn in case citable_urn is not defined
+							return c.citable_urn || c.urn;
+						})
+					)}
+				on:keyup={(event) => {
+					if (event.key === 'Enter') {
+						highlightComments(wholeLocationComments.map((c) => c.citable_urn));
+					}
+				}}
+				data-citation={ctsUrn.citations[0]}>{ctsUrn.citations[0]}</a
+			>
+		{:else}
+			<span class="base-content w-12 text-center inline-block select-none"
+				>{ctsUrn.citations.join('.')}</span
+			>
+		{/if}
+	</div>
 </div>
 
 <style lang="postcss">

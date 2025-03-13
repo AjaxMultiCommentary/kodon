@@ -24,7 +24,7 @@
 
 	const { highlightComments } = getCommentsContext();
 
-	$: commentCount = run.reduce((acc, curr) => acc + curr.commentURNs.length, 0);
+	$: commentCount = commentURNs.length || 0;
 	$: commentURNs = [...new Set(run.flatMap((t) => t.commentURNs))];
 	$: spanId = run[0].xml_id;
 	$: textElements = run.flatMap((t) => t.textElements);
