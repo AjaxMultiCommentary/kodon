@@ -25,7 +25,7 @@
 </script>
 
 <div
-	class="border-2 collapse collapse-arrow rounded-sm mb-2"
+	class="border-2 collapse collapse-arrow rounded-xs mb-2"
 	class:border-secondary={isOpen && isHighlighted}
 	class:collapse-open={isOpen}
 	id={comment.citable_urn}
@@ -82,9 +82,5 @@
 <style lang="postcss">
 	.comment-body :global(a) {
 		@apply underline;
-	}
-
-	.comment-body :global(a:hover) {
-		@apply font-bold;
 	}
 </style>
