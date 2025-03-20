@@ -13,26 +13,25 @@ export const createWord = ({
 } = {}) => {
 	const guaranteedText = text || faker.lorem.word();
 
-	console.log(comments_count);
 	return {
 		commentURNs: [...Array(comments_count).keys()].map(
 			(n) => `urn:cts:greekLit:tlg0011.tlg003.kodon-storybook:${n}`
 		),
 		offset: faker.number.int({ max: 1000 }),
 		text: guaranteedText,
-		textElements: createTextElements(3),
+		textElements: createTextElements({ howMany: 3 }),
 		urn_index,
 		urn: `urn:cts:greekLit:tlg0011.tlg003.kodon-tests:${line_number}@${guaranteedText}[${urn_index}]`,
 		xml_id: `word_index_${word_index}`
 	} as Word;
 };
 
-export const createWords = (n: number = 1, nComments = 0) => {
-	const stringWords = faker.lorem.words(n).split(' ');
+export const createWords = ({ howMany = 1, howManyComments = 0 } = {}) => {
+	const stringWords = faker.lorem.words(howMany).split(' ');
 
 	return stringWords.map((s, i) =>
 		createWord({
-			comments_count: nComments,
+			comments_count: howManyComments,
 			line_number: faker.number.int({ min: 0, max: 2000 }),
 			text: s,
 			word_index: i

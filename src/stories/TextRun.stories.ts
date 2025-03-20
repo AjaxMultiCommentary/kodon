@@ -13,7 +13,7 @@ const meta = {
 
 export default meta;
 
-const textRunData = createWords(5);
+const textRunData = createWords({ howMany: 5 });
 
 type Story = StoryObj<typeof meta>;
 
@@ -25,6 +25,6 @@ export const BasicTextRun: Story = {
 
 export const TextRunWithComments: Story = {
 	args: {
-		run: createWords(5, 2)
+		run: createWords({ howMany: 5, howManyComments: 2 })
 	}
 };

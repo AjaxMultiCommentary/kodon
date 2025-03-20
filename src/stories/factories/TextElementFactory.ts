@@ -17,6 +17,6 @@ export const createTextElement = ({ attributes = {}, block_index = 0, subtype = 
 	} as TextElement;
 };
 
-export const createTextElements = (n = 1) => {
-	return Array(n).map((x) => createTextElement({ block_index: x }));
+export const createTextElements = ({ howMany = 1 } = {}) => {
+	return Array(howMany).map((x) => createTextElement({ block_index: x }));
 };
