@@ -1,9 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
-	daisyui: {
-		themes: ['corporate']
-	},
 	theme: {
 		extend: {
 			fontFamily: {
@@ -12,5 +9,5 @@ export default {
 			}
 		}
 	},
-	plugins: [require('@tailwindcss/typography'), require('daisyui')]
+	plugins: [require('@tailwindcss/typography')]
 };
