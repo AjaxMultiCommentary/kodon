@@ -22,43 +22,49 @@
 			.filter((c) => ctsUrn.hasEqualStart(c.ctsUrn)) || [];
 </script>
 
-<div class="flex justify-between">
-	<div>
-		{#each children as child}
-			{#if child.speaker}
-				<Speaker name={child.speaker} />
+<div class="collapse rounded-sm">
+	<input type="checkbox" />
+	<div
+		class="rounded-sm bg-base-100 border border-base-300 p-4 shadow-sm collapse-title flex justify-between"
+	>
+		<div>
+			{#each children as child}
+				{#if child.speaker}
+					<Speaker name={child.speaker} />
+				{/if}
+				<ReadableTextContainer {showHeatmap} {comments} textContainer={child} />
+			{/each}
+		</div>
+		<div>
+			{#if wholeLocationComments.length > 0}
+				<a
+					href={'#'}
+					role="button"
+					class={`base-content hover:opacity-70 cursor-pointer w-12 text-center inline-block comments-${wholeLocationComments.length} select-none`}
+					class:comment-box-shadow={showHeatmap}
+					tabindex="0"
+					on:click={() =>
+						highlightComments(
+							wholeLocationComments.map((c) => {
+								// fall back on c.urn in case citable_urn is not defined
+								return c.citable_urn || c.urn;
+							})
+						)}
+					on:keyup={(event) => {
+						if (event.key === 'Enter') {
+							highlightComments(wholeLocationComments.map((c) => c.citable_urn));
+						}
+					}}
+					data-citation={ctsUrn.citations[0]}>{ctsUrn.citations[0]}</a
+				>
+			{:else}
+				<span class="base-content w-12 text-center inline-block select-none"
+					>{ctsUrn.citations.join('.')}</span
+				>
 			{/if}
-			<ReadableTextContainer {showHeatmap} {comments} textContainer={child} />
-		{/each}
+		</div>
 	</div>
-	<div>
-		{#if wholeLocationComments.length > 0}
-			<a
-				href={'#'}
-				role="button"
-				class={`base-content hover:opacity-70 cursor-pointer w-12 text-center inline-block comments-${wholeLocationComments.length} select-none`}
-				class:comment-box-shadow={showHeatmap}
-				tabindex="0"
-				on:click={() =>
-					highlightComments(
-						wholeLocationComments.map((c) => {
-							// fall back on c.urn in case citable_urn is not defined
-							return c.citable_urn || c.urn;
-						})
-					)}
-				on:keyup={(event) => {
-					if (event.key === 'Enter') {
-						highlightComments(wholeLocationComments.map((c) => c.citable_urn));
-					}
-				}}
-				data-citation={ctsUrn.citations[0]}>{ctsUrn.citations[0]}</a
-			>
-		{:else}
-			<span class="base-content w-12 text-center inline-block select-none"
-				>{ctsUrn.citations.join('.')}</span
-			>
-		{/if}
-	</div>
+	<div class="collapse-content bg-base-200 inset-shadow-sm pt-4 rounded-b-sm">Comments</div>
 </div>
 
 <style lang="postcss">

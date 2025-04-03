@@ -15,10 +15,11 @@ import { base } from '$app/paths';
 
 import CTS_URN from '$lib/cts_urn.js';
 import MarkdownParser from './MarkdownParser.js';
-import { parseCommentaries } from '$lib/server/parseCommentaries.js';
+ import readCommentariesFromFS from './readCommentariesFromFS.js';
+import { getCommentsForPassage, parseCommentary } from '$lib/functions.js';
 
 export default function loadPassage(config: CommentaryConfig): (urn: string) => PassageInfo {
-	const ALL_COMMENTS = parseCommentaries(config.commentaries_directory);
+	const ALL_COMMENTS = readCommentariesFromFS(config.commentaries_directory, parseCommentary);
 	const markdownParser = new MarkdownParser(
 		config.bibliographies_directory,
 		`${base}/bibliography/`
@@ -51,10 +52,7 @@ export default function loadPassage(config: CommentaryConfig): (urn: string) => 
 			.map((l) => JSON.parse(l));
 
 		const textContainers = getTextContainersForPassage(passageInfo, jsonl) as TextContainer[];
-		const comments = getCommentsForPassage(ALL_COMMENTS, {
-			...passageInfo,
-			ctsUrn: new CTS_URN(passageInfo.ctsUrn.__urn)
-		}) as Comment[];
+		const comments = getCommentsForPassage(ALL_COMMENTS, new CTS_URN(passageInfo.ctsUrn.__urn)) as Comment[];
 
 		return {
 			comments: comments.map((c) => ({
@@ -85,36 +83,6 @@ export default function loadPassage(config: CommentaryConfig): (urn: string) => 
 			}))
 		};
 	};
-}
-
-export function getCommentsForPassage(allComments: Comment[], passageInfo: PassageConfig) {
-	return allComments
-		.filter((c) => c && passageInfo.ctsUrn.contains(c.ctsUrn))
-		.sort((cA, cB) => {
-			if (cA?.ctsUrn.integerCitations[0].every((v, i) => v === cB?.ctsUrn.integerCitations[0][i])) {
-				if (cA?.ctsUrn.tokens.every((t) => typeof t === 'undefined')) {
-					return -1;
-				}
-
-				if (cB?.ctsUrn.tokens.every((t) => typeof t === 'undefined')) {
-					return 1;
-				}
-
-				return 0;
-			}
-
-			for (let i = 0, l = cA?.ctsUrn.integerCitations[0].length; i < l; i++) {
-				if (cA?.ctsUrn.integerCitations[0][i] < cB?.ctsUrn.integerCitations[0][i]) {
-					return -1;
-				}
-
-				if (cA?.ctsUrn.integerCitations[0][i] > cB?.ctsUrn.integerCitations[0][i]) {
-					return 1;
-				}
-			}
-
-			return 0;
-		});
 }
 
 export function getTextContainersForPassage(
