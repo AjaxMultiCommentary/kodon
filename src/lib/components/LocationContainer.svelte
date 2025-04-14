@@ -6,20 +6,27 @@
 	import ReadableTextContainer from './ReadableTextContainer.svelte';
 	import Speaker from './Speaker.svelte';
 
-	export let comments: Comment[];
-	export let showHeatmap: boolean;
-	export let locationContainer: TextContainer;
+	interface Props {
+		comments: Comment[];
+		showHeatmap: boolean;
+		locationContainer: TextContainer;
+	}
+
+	let { comments, showHeatmap, locationContainer }: Props = $props();
 
 	const { highlightComments } = getCommentsContext();
 
-	$: children = (
-		(locationContainer.children || []).length > 0 ? locationContainer.children : [locationContainer]
-	) as TextContainer[];
-	$: ctsUrn = new CTS_URN(locationContainer.urn);
-	$: wholeLocationComments =
+	let children = $derived(
+		((locationContainer.children || []).length > 0
+			? locationContainer.children
+			: [locationContainer]) as TextContainer[]
+	);
+	let ctsUrn = $derived(new CTS_URN(locationContainer.urn));
+	let wholeLocationComments = $derived(
 		comments
 			?.filter((c) => !c.ctsUrn.tokens.some((t: string | undefined) => Boolean(t)))
-			.filter((c) => ctsUrn.hasEqualStart(c.ctsUrn)) || [];
+			.filter((c) => ctsUrn.hasEqualStart(c.ctsUrn)) || []
+	);
 </script>
 
 <div class="collapse rounded-sm">
@@ -43,14 +50,14 @@
 					class={`base-content hover:opacity-70 cursor-pointer w-12 text-center inline-block comments-${wholeLocationComments.length} select-none`}
 					class:comment-box-shadow={showHeatmap}
 					tabindex="0"
-					on:click={() =>
+					onclick={() =>
 						highlightComments(
 							wholeLocationComments.map((c) => {
 								// fall back on c.urn in case citable_urn is not defined
 								return c.citable_urn || c.urn;
 							})
 						)}
-					on:keyup={(event) => {
+					onkeyup={(event) => {
 						if (event.key === 'Enter') {
 							highlightComments(wholeLocationComments.map((c) => c.citable_urn));
 						}

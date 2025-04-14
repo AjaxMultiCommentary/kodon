@@ -206,7 +206,7 @@ export type TextContainer = {
 	subtype: 'l' | 'p' | 'quote';
 	text: string;
 	type: 'text_container';
-	// words: Word[];
+	words: Word[];
 	urn: string;
 	textElements?: TextElement[];
 };

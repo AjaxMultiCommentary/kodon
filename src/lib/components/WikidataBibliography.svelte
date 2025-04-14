@@ -6,7 +6,11 @@
 	import ArrowDown from '$lib/components/icons/ArrowDown.svelte';
 	import WikidataBibliographyRow from '$lib/components/WikidataBibliographyRow.svelte';
 
-	export let citations: WikidataRow[];
+	interface Props {
+		citations: WikidataRow[];
+	}
+
+	let { citations }: Props = $props();
 
 	// use one query for each item
 	// "core corpus" tab: show "sub-bibliography" in expandable block for each commentary in commentary.toml
@@ -19,39 +23,41 @@
 		| 'pubdate'
 		| 'title'
 		| 'publisher'
-		| 'published-in' = 'author';
-	let sortAscending = true;
+		| 'published-in' = $state('author');
+	let sortAscending = $state(true);
 
-	$: sortedCitations = orderBy(
-		citations,
-		[
-			(citation) => {
-				if (sortProperty === 'author') {
-					return citation.authors?.value.split(', ').at(0)?.split(' ').at(-1);
-				}
+	let sortedCitations = $derived(
+		orderBy(
+			citations,
+			[
+				(citation) => {
+					if (sortProperty === 'author') {
+						return citation.authors?.value.split(', ').at(0)?.split(' ').at(-1);
+					}
 
-				if (sortProperty === 'citationCount') {
-					return citation.citations.length;
-				}
+					if (sortProperty === 'citationCount') {
+						return citation.citations.length;
+					}
 
-				if (sortProperty === 'pubdate') {
-					return new Date(citation.pubYear.value);
-				}
+					if (sortProperty === 'pubdate') {
+						return new Date(citation.pubYear.value);
+					}
 
-				if (sortProperty === 'publisher') {
-					return citation.publishers.value;
-				}
+					if (sortProperty === 'publisher') {
+						return citation.publishers.value;
+					}
 
-				if (sortProperty === 'published-in') {
-					return citation.published_in_label?.value || citation.publishers.value;
-				}
+					if (sortProperty === 'published-in') {
+						return citation.published_in_label?.value || citation.publishers.value;
+					}
 
-				if (sortProperty === 'title') {
-					return citation.title.value;
+					if (sortProperty === 'title') {
+						return citation.title.value;
+					}
 				}
-			}
-		],
-		[sortAscending ? 'asc' : 'desc']
+			],
+			[sortAscending ? 'asc' : 'desc']
+		)
 	);
 
 	// TODO add citation count!
@@ -72,7 +78,7 @@
 			<th></th>
 			<th
 				class="cursor-pointer"
-				on:click={() => {
+				onclick={() => {
 					sortProperty = 'author';
 					sortAscending = !sortAscending;
 				}}
@@ -86,7 +92,7 @@
 			>
 			<th
 				class="cursor-pointer"
-				on:click={() => {
+				onclick={() => {
 					sortProperty = 'pubdate';
 					sortAscending = !sortAscending;
 				}}
@@ -100,7 +106,7 @@
 			>
 			<th
 				class="cursor-pointer"
-				on:click={() => {
+				onclick={() => {
 					sortProperty = 'title';
 					sortAscending = !sortAscending;
 				}}
@@ -114,7 +120,7 @@
 			>
 			<th
 				class="cursor-pointer"
-				on:click={() => {
+				onclick={() => {
 					sortProperty = 'publisher';
 					sortAscending = !sortAscending;
 				}}
@@ -128,7 +134,7 @@
 			>
 			<th
 				class="cursor-pointer"
-				on:click={() => {
+				onclick={() => {
 					sortProperty = 'published-in';
 					sortAscending = !sortAscending;
 				}}
@@ -142,7 +148,7 @@
 			>
 			<th
 				class="cursor-pointer"
-				on:click={() => {
+				onclick={() => {
 					sortProperty = 'citationCount';
 					sortAscending = !sortAscending;
 				}}

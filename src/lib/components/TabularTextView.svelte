@@ -2,8 +2,12 @@
 	import type { TextContainer } from '$lib/types.js';
 	import TabularTextContainer from './TabularTextContainer.svelte';
 
-	export let selectedCommentaries: string[];
-	export let textContainers: TextContainer[];
+	interface Props {
+		selectedCommentaries: string[];
+		textContainers: TextContainer[];
+	}
+
+	let { selectedCommentaries, textContainers }: Props = $props();
 </script>
 
 <table class="table-fixed">

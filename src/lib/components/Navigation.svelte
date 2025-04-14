@@ -4,8 +4,12 @@
 	import { base } from '$app/paths';
 	import { marked } from 'marked';
 
-	export let passages: PassageConfig[];
-	export let currentPassageUrn: string;
+	interface Props {
+		passages: PassageConfig[];
+		currentPassageUrn: string;
+	}
+
+	let { passages, currentPassageUrn }: Props = $props();
 </script>
 
 <section class="col-span-1">

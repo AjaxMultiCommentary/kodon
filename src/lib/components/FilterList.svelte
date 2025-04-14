@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
-
-	const dispatch = createEventDispatcher();
+	import type { ChangeEventHandler } from 'svelte/elements';
 
 	type Option = {
 		extra?: string | number;
@@ -9,20 +7,22 @@
 		pid: string;
 	};
 
-	export let inputName = 'filter-list';
-	export let options: Option[] = [];
+	interface Props {
+		inputName?: string;
+		options?: Option[];
+		handleOptionsChange: (options: string[]) => void;
+	}
 
-	let searchValue = '';
-	let selectedOptions: string[] = [];
+	let { inputName = 'filter-list', options = [], handleOptionsChange }: Props = $props();
 
-	$: availableOptions =
+	let searchValue = $state('');
+	let selectedOptions: string[] = $state([]);
+
+	let availableOptions = $derived(
 		searchValue === ''
 			? options
-			: options.filter((o) => o.label.toLowerCase().includes(searchValue.toLowerCase()));
-
-	function handleOptionsChange() {
-		dispatch('change', { selectedOptions });
-	}
+			: options.filter((o) => o.label.toLowerCase().includes(searchValue.toLowerCase()))
+	);
 </script>
 
 <div>
@@ -43,7 +43,7 @@
 					type="checkbox"
 					value={option.pid}
 					bind:group={selectedOptions}
-					on:change={handleOptionsChange}
+					onchange={() => handleOptionsChange(selectedOptions)}
 				/>
 				{option.label}
 				{#if option.extra}

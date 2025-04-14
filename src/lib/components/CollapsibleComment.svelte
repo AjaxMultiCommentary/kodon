@@ -2,14 +2,18 @@
 	import type { Author, Comment } from '$lib/types.js';
 	import IIIFViewer from './IIIFViewer.svelte';
 
-	export let iiifURL: string;
-	export let comment: Comment;
-	export let stringifyCommentCitation: (comment: Comment) => string;
+	interface Props {
+		iiifURL: string;
+		comment: Comment;
+		stringifyCommentCitation: (comment: Comment) => string;
+	}
 
-	$: creators = comment.commentaryAttributes?.creators as Author[];
-	$: isHighlighted = comment.isHighlighted;
-	$: isOpen = isHighlighted;
-	$: showIIIFViewer = false;
+	let { iiifURL, comment, stringifyCommentCitation }: Props = $props();
+
+	let creators = $derived(comment.commentaryAttributes?.creators as Author[]);
+	let isHighlighted = $derived(comment.isHighlighted);
+	let isOpen = $derived(isHighlighted);
+	let showIIIFViewer = $state(false);
 
 	function commentHasIIIF(comment: Comment) {
 		return (comment.image_paths || []).length > 0;
@@ -34,8 +38,8 @@
 		class="collapse-title"
 		role="button"
 		tabindex="0"
-		on:click={toggleDetails}
-		on:keyup={(event) => {
+		onclick={toggleDetails}
+		onkeyup={(event) => {
 			if (event.key === 'Enter') {
 				event.stopPropagation();
 				toggleDetails(event);
@@ -69,7 +73,7 @@
 					<button
 						type="button"
 						class="btn btn-xs btn-outline btn-secondary"
-						on:click={() => (showIIIFViewer = true)}
+						onclick={() => (showIIIFViewer = true)}
 					>
 						Show page image
 					</button>

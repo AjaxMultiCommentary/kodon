@@ -3,12 +3,16 @@
 		name: string;
 		content: any;
 	};
-	export let items: Item[] = [];
-	export let activeTabIndex = 0;
+	interface Props {
+		items?: Item[];
+		activeTabIndex?: number;
+	}
+
+	let { items = [], activeTabIndex = $bindable(0) }: Props = $props();
 
 	const handleClick = (tabValue: number) => () => (activeTabIndex = tabValue);
 
-	$: activeItem = items[activeTabIndex];
+	let activeItem = $derived(items[activeTabIndex]);
 </script>
 
 <div>
@@ -19,7 +23,7 @@
 				role="tab"
 				class="tab"
 				class:tab-active={index === activeTabIndex}
-				on:click={handleClick(index)}>{item.name}</a
+				onclick={handleClick(index)}>{item.name}</a
 			>
 		{/each}
 	</div>

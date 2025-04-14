@@ -12,25 +12,30 @@
 
 	import TextToken from './TextToken.svelte';
 
-	/**
-	 * Should the heatmap for comment density be displayed?
-	 */
-	export let showHeatmap: boolean = true;
+	interface Props {
+		/**
+		 * Should the heatmap for comment density be displayed?
+		 */
+		showHeatmap?: boolean;
+		/**
+		 * A run is an array of Words with the same textElements.
+		 */
+		run: Word[];
+	}
 
-	/**
-	 * A run is an array of Words with the same textElements.
-	 */
-	export let run: Word[];
+	let { showHeatmap = true, run }: Props = $props();
 
 	const { highlightComments } = getCommentsContext();
 
-	$: commentCount = commentURNs.length || 0;
-	$: commentURNs = [...new Set(run.flatMap((t) => t.commentURNs))];
-	$: spanId = run[0].xml_id;
-	$: textElements = run.flatMap((t) => t.textElements);
-	$: titleText = `${commentCount} ${commentCount === 1 ? 'gloss' : 'glosses'} on this lemma`;
-	$: namedEntity = textElements.find((te) => te?.subtype === 'named_entity');
-	$: hasNamedEntity = Boolean(namedEntity);
+	let commentURNs = $derived([...new Set(run.flatMap((t) => t.commentURNs))]);
+	let commentCount = $derived(commentURNs.length || 0);
+	let spanId = $derived(run[0].xml_id);
+	let textElements = $derived(run.flatMap((t) => t.textElements));
+	let titleText = $derived(
+		`${commentCount} ${commentCount === 1 ? 'gloss' : 'glosses'} on this lemma`
+	);
+	let namedEntity = $derived(textElements.find((te) => te?.subtype === 'named_entity'));
+	let hasNamedEntity = $derived(Boolean(namedEntity));
 </script>
 
 <span
@@ -43,8 +48,8 @@
 	title={titleText}
 	role="button"
 	tabindex="0"
-	on:click={() => highlightComments(commentURNs)}
-	on:keyup={(event) => {
+	onclick={() => highlightComments(commentURNs)}
+	onkeyup={(event) => {
 		if (event.key === 'Enter') {
 			highlightComments(commentURNs);
 		}

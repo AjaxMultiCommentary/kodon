@@ -3,8 +3,12 @@
 
 	import DraggableComment from '$lib/components/DraggableComment.svelte';
 
-	export let comments: Comment[];
-	export let stringifyCommentCitation: (comment: Comment) => string;
+	interface Props {
+		comments: Comment[];
+		stringifyCommentCitation: (comment: Comment) => string;
+	}
+
+	let { comments, stringifyCommentCitation }: Props = $props();
 </script>
 
 <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

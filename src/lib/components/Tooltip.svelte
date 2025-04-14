@@ -1,6 +1,10 @@
 <script lang="ts">
-	export let iconClass: string = 'h-5 w-5';
-	export let text: string;
+	interface Props {
+		iconClass?: string;
+		text: string;
+	}
+
+	let { iconClass = 'h-5 w-5', text }: Props = $props();
 </script>
 
 <div class="pros text-justify tooltip tooltip-neutral" data-tip={text}>

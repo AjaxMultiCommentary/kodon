@@ -9,43 +9,49 @@
 		tokenTestForCommentEndingInTextContainer
 	} from '$lib/functions.js';
 
-	export let comments: Comment[];
-	export let textContainer: TextContainer;
+	interface Props {
+		comments: Comment[];
+		textContainer: TextContainer;
+	}
 
-	$: ctsUrn = new CTS_URN(textContainer.urn);
-	$: tokens = textContainer.words.map((w, _index, allWords) => {
-		return {
-			...w,
-			commentURNs: comments
-				?.filter((c) => c.ctsUrn.tokens.some((t: string | undefined) => Boolean(t)))
-				.filter((c) => {
-					const commentUrn = new CTS_URN(c.ctsUrn.__urn);
+	let { comments, textContainer }: Props = $props();
 
-					// comment only applies to this container
-					if (isCommentContainedByTextContainer(c)) {
-						return tokenTestForCommentContainedByTextContainer(c, w, allWords);
-					}
+	let ctsUrn = $derived(new CTS_URN(textContainer.urn));
+	let tokens = $derived(
+		textContainer.words.map((w, _index, allWords) => {
+			return {
+				...w,
+				commentURNs: comments
+					?.filter((c) => c.ctsUrn.tokens.some((t: string | undefined) => Boolean(t)))
+					.filter((c) => {
+						const commentUrn = new CTS_URN(c.ctsUrn.__urn);
 
-					// comment starts on this container
-					if (ctsUrn.hasEqualStart(c.ctsUrn)) {
-						return tokenTestForCommentStartingInTextContainer(c, w, allWords);
-					}
+						// comment only applies to this container
+						if (isCommentContainedByTextContainer(c)) {
+							return tokenTestForCommentContainedByTextContainer(c, w, allWords);
+						}
 
-					// comment fully contains this container
-					if (commentUrn.contains(ctsUrn)) {
-						return true;
-					}
+						// comment starts on this container
+						if (ctsUrn.hasEqualStart(c.ctsUrn)) {
+							return tokenTestForCommentStartingInTextContainer(c, w, allWords);
+						}
 
-					// comment ends on this container
-					if (ctsUrn.hasEqualEnd(c.ctsUrn)) {
-						return tokenTestForCommentEndingInTextContainer(c, w, allWords);
-					}
+						// comment fully contains this container
+						if (commentUrn.contains(ctsUrn)) {
+							return true;
+						}
 
-					return false;
-				})
-				.map((c) => c.citable_urn)
-		};
-	});
+						// comment ends on this container
+						if (ctsUrn.hasEqualEnd(c.ctsUrn)) {
+							return tokenTestForCommentEndingInTextContainer(c, w, allWords);
+						}
+
+						return false;
+					})
+					.map((c) => c.citable_urn)
+			};
+		})
+	);
 </script>
 
 {#each tokens as token}

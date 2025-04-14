@@ -4,10 +4,14 @@
 
 	import { onMount } from 'svelte';
 
-	export let url: string;
-	export let comment: Comment;
+	interface Props {
+		url: string;
+		comment: Comment;
+	}
 
-	let iiifElement: HTMLDivElement;
+	let { url, comment }: Props = $props();
+
+	let iiifElement: HTMLDivElement | undefined = $state();
 	let viewer: Viewer;
 
 	onMount(() => {
@@ -75,7 +79,7 @@
 	bind:this={iiifElement}
 	id={`iiif_comment_viewer-${comment.citable_urn}`}
 	class="openseadragon-iiif-viewer"
-/>
+></div>
 
 <style lang="postcss">
 	/* OpenSeadragon requires that its

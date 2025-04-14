@@ -1,10 +1,14 @@
 <script lang="ts">
 	import { getTokenSelectionContext } from '$lib/contexts/tokenSelection.js';
 
-	/**
-	 * The token to render here.
-	 */
-	export let token: { text: string; urn: string; xml_id: string };
+	interface Props {
+		/**
+		 * The token to render here.
+		 */
+		token: { text: string; urn: string; xml_id: string };
+	}
+
+	let { token }: Props = $props();
 
 	const { handleEndSelection, handleStartSelection } = getTokenSelectionContext();
 </script>
@@ -14,10 +18,10 @@
 	data-urn={token.urn}
 	role="button"
 	tabindex="0"
-	on:mousedown={() => {
+	onmousedown={() => {
 		handleStartSelection(token.urn);
 	}}
-	on:mouseup={() => {
+	onmouseup={() => {
 		handleEndSelection(token.urn);
 	}}
 	>{token.text}

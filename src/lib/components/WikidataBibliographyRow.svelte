@@ -7,14 +7,18 @@
 	import Wikidata from '$lib/components/icons/Wikidata.svelte';
 	import Jstor from '$lib/components/icons/Jstor.svelte';
 
-	export let citation: WikidataRow;
+	interface Props {
+		citation: WikidataRow;
+	}
 
-	let showCitedBy = false;
+	let { citation }: Props = $props();
+
+	let showCitedBy = $state(false);
 </script>
 
 <tr
 	class:cursor-pointer={citation.citations.length > 0}
-	on:click={() => (showCitedBy = !showCitedBy)}
+	onclick={() => (showCitedBy = !showCitedBy)}
 >
 	<td><a href={citation.wikidataURL} title="Wikidata page"><Wikidata /></a></td>
 	<td

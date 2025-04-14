@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	// @ts-expect-error @citation-js doesn't have proper types'
 	import { Cite, plugins } from '@citation-js/core';
 
@@ -6,31 +8,37 @@
 
 	import type { Bibliography, CSL } from '$lib/types.js';
 
-	export let bibliographies: Bibliography[];
-	export let csls: CSL[] = [];
-	export let lang: 'en-US' | 'es-ES' | 'de-DE' | 'fr-FR' | 'nl-NL' = 'en-US';
-	export let template: string = 'harvard1';
+	interface Props {
+		bibliographies: Bibliography[];
+		csls?: CSL[];
+		lang?: 'en-US' | 'es-ES' | 'de-DE' | 'fr-FR' | 'nl-NL';
+		template?: string;
+	}
+
+	let { bibliographies, csls = [], lang = 'en-US', template = 'harvard1' }: Props = $props();
 
 	const citationCSLConfig = plugins.config.get('@csl');
 
-	$: {
+	run(() => {
 		csls.forEach((csl) => {
 			citationCSLConfig.templates.add(csl.name, csl.template);
 		});
-	}
-
-	$: formattedBibliographies = bibliographies.map((bib) => {
-		const cite = new Cite(bib.items);
-
-		return {
-			name: bib.name,
-			content: cite.format('bibliography', {
-				format: 'html',
-				lang,
-				template
-			})
-		};
 	});
+
+	let formattedBibliographies = $derived(
+		bibliographies.map((bib) => {
+			const cite = new Cite(bib.items);
+
+			return {
+				name: bib.name,
+				content: cite.format('bibliography', {
+					format: 'html',
+					lang,
+					template
+				})
+			};
+		})
+	);
 </script>
 
 <article class="bibliographies prose text-pretty">

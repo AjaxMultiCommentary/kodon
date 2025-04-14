@@ -4,10 +4,13 @@
 	// import Expand from '@lucide/svelte/icons/expand';
 	import { draggable } from '@neodrag/svelte';
 
-	export let comment: Comment;
-	export let stringifyCommentCitation: (comment: Comment) => string;
+	interface Props {
+		comment: Comment;
+		stringifyCommentCitation: (comment: Comment) => string;
+	}
 
-	$: isExpanded = false;
+	let { comment, stringifyCommentCitation }: Props = $props();
+	let isExpanded = $state(false);
 </script>
 
 <div use:draggable class="col-span-1 bg-gray-50 divide-gray-200 rounded-sm shadow p-3">

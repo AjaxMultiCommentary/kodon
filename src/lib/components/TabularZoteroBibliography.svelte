@@ -1,3 +1,5 @@
+<!-- @migration-task Error while migrating Svelte code: `<th>` cannot be a child of `<thead>`. `<thead>` only allows these children: `<tr>`, `<style>`, `<script>`, `<template>`. The browser will 'repair' the HTML (by moving, removing, or inserting elements) which breaks Svelte's assumptions about the structure of your components.
+https://svelte.dev/e/node_invalid_placement -->
 <script lang="ts">
 	import type { Bibliography, CSL, ZoteroItem } from '$lib/types.js';
 
@@ -76,88 +78,90 @@
 <article>
 	{#each sortedBibliographies as bibliography}
 		<h2 class="prose prose-h2 font-semibold">{bibliography.name}</h2>
-		<thead>
-			<th
-				class="cursor-pointer"
-				on:click={() => {
-					sortProperty = 'author';
-					sortAscending = !sortAscending;
-				}}
-				><div class="flex">
-					Author {#if sortProperty === 'author'}
-						{#if sortAscending}<ArrowUp className="size-4" />{:else}<ArrowDown
-								className="size-4"
-							/>{/if}
-					{/if}
-				</div></th
-			>
-			<th
-				class="cursor-pointer"
-				on:click={() => {
-					sortProperty = 'pubdate';
-					sortAscending = !sortAscending;
-				}}
-				><div class="flex">
-					Year of Publication {#if sortProperty === 'pubdate'}
-						{#if sortAscending}<ArrowUp className="size-4" />{:else}<ArrowDown
-								className="size-4"
-							/>{/if}
-					{/if}
-				</div></th
-			>
-			<th
-				class="cursor-pointer"
-				on:click={() => {
-					sortProperty = 'title';
-					sortAscending = !sortAscending;
-				}}
-				><div class="flex">
-					Title {#if sortProperty === 'title'}
-						{#if sortAscending}<ArrowUp className="size-4" />{:else}<ArrowDown
-								className="size-4"
-							/>{/if}
-					{/if}
-				</div></th
-			>
-			<th
-				class="cursor-pointer"
-				on:click={() => {
-					sortProperty = 'publisher';
-					sortAscending = !sortAscending;
-				}}
-				><div class="flex">
-					Publisher {#if sortProperty === 'publisher'}
-						{#if sortAscending}<ArrowUp className="size-4" />{:else}<ArrowDown
-								className="size-4"
-							/>{/if}
-					{/if}
-				</div></th
-			>
-			<th
-				class="cursor-pointer"
-				on:click={() => {
-					sortProperty = 'place';
-					sortAscending = !sortAscending;
-				}}
-				><div class="flex">
-					Place of Publication {#if sortProperty === 'place'}
-						{#if sortAscending}<ArrowUp className="size-4" />{:else}<ArrowDown
-								className="size-4"
-							/>{/if}
-					{/if}
-				</div></th
-			>
-		</thead>
-		<tbody>
-			{#each bibliography.items as item}
-				<tr>
-					<td>{item.author.map((a) => `${a.given} ${a.family}`).join(', ')}</td>
-					<td>{item.issued['date-parts'][0]}</td>
-					<td>{item.title}</td>
-					<td>{item.publisher}</td>
-					<td>{item['publisher-place']}</td>
-				</tr>
-			{/each}
-		</tbody>
+		<table>
+			<thead>
+				<tr
+					class="cursor-pointer"
+					on:click={() => {
+						sortProperty = 'author';
+						sortAscending = !sortAscending;
+					}}
+					><th class="flex">
+						Author {#if sortProperty === 'author'}
+							{#if sortAscending}<ArrowUp className="size-4" />{:else}<ArrowDown
+									className="size-4"
+								/>{/if}
+						{/if}
+					</th></tr
+				>
+				<tr
+					class="cursor-pointer"
+					on:click={() => {
+						sortProperty = 'pubdate';
+						sortAscending = !sortAscending;
+					}}
+					><th class="flex">
+						Year of Publication {#if sortProperty === 'pubdate'}
+							{#if sortAscending}<ArrowUp className="size-4" />{:else}<ArrowDown
+									className="size-4"
+								/>{/if}
+						{/if}
+					</th></tr
+				>
+				<tr
+					class="cursor-pointer"
+					on:click={() => {
+						sortProperty = 'title';
+						sortAscending = !sortAscending;
+					}}
+					><th class="flex">
+						Title {#if sortProperty === 'title'}
+							{#if sortAscending}<ArrowUp className="size-4" />{:else}<ArrowDown
+									className="size-4"
+								/>{/if}
+						{/if}
+					</th></tr
+				>
+				<tr
+					class="cursor-pointer"
+					on:click={() => {
+						sortProperty = 'publisher';
+						sortAscending = !sortAscending;
+					}}
+					><th class="flex">
+						Publisher {#if sortProperty === 'publisher'}
+							{#if sortAscending}<ArrowUp className="size-4" />{:else}<ArrowDown
+									className="size-4"
+								/>{/if}
+						{/if}
+					</th></tr
+				>
+				<tr
+					class="cursor-pointer"
+					on:click={() => {
+						sortProperty = 'place';
+						sortAscending = !sortAscending;
+					}}
+					><th class="flex">
+						Place of Publication {#if sortProperty === 'place'}
+							{#if sortAscending}<ArrowUp className="size-4" />{:else}<ArrowDown
+									className="size-4"
+								/>{/if}
+						{/if}
+					</th></tr
+				>
+			</thead>
+			<tbody>
+				{#each bibliography.items as item}
+					<tr>
+						<td>{item.author.map((a) => `${a.given} ${a.family}`).join(', ')}</td>
+						<td>{item.issued['date-parts'][0]}</td>
+						<td>{item.title}</td>
+						<td>{item.publisher}</td>
+						<td>{item['publisher-place']}</td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
 	{/each}
 </article>
