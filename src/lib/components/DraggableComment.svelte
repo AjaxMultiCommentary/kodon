@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Comment } from '$lib/types.js';
 
-	// import Expand from '@lucide/svelte/icons/expand';
+	import Expand from '@lucide/svelte/icons/expand';
 	import { draggable } from '@neodrag/svelte';
 
 	interface Props {
@@ -13,7 +13,12 @@
 	let isExpanded = $state(false);
 </script>
 
-<div use:draggable class="col-span-1 bg-gray-50 divide-gray-200 rounded-sm shadow p-3">
+<div
+	use:draggable
+	class="bg-gray-50 divide-gray-200 expandable max-h-40 p-3 rounded-sm shadow"
+	aria-expanded={isExpanded}
+	class:absolute={isExpanded}
+>
 	<div class="flex flex-wrap items-center justify-between sm:flex-nowrap">
 		<h3 class="text-sm font-bold cursor-pointer text-slate-800">
 			<span class="text-sm font-medium text-slate-700"
@@ -25,11 +30,23 @@
 			{comment.commentaryAttributes?.publication_date}
 		</h3>
 		<div class="shrink-0">
-			<button type="button" class="relative inline-flex items-center btn-circle">x</button>
+			<div
+				class="relative inline-flex items-center p-0.5 rounded hover:bg-gray-300 hover:inset-shadow-sm hover:inset-shadow-gray-300"
+			>
+				<input
+					type="checkbox"
+					id={`expand-input-${comment.citable_urn}`}
+					class="appearance-none"
+					bind:checked={isExpanded}
+				/>
+				<label for={`expand-input-${comment.citable_urn}`}>
+					<Expand size={16} />
+				</label>
+			</div>
 		</div>
 	</div>
 	{#if comment.lemma}
-		<small class="mt-1 mx-w-2xl text-sm text-slate-700">
+		<small class="mt-1 max-w-2xl text-sm text-slate-700">
 			{comment.transcript || comment.lemma}
 		</small>
 	{/if}
@@ -43,5 +60,15 @@
 <style lang="postcss">
 	.comment-body :global(a) {
 		@apply underline;
+	}
+
+	.expandable {
+		transition: max-height 250ms linear;
+	}
+
+	.expandable[aria-expanded='true'] {
+		max-height: 480px;
+		overflow-y: scroll;
+		z-index: 40;
 	}
 </style>

@@ -11,7 +11,7 @@
 	let { comments, stringifyCommentCitation }: Props = $props();
 </script>
 
-<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+<div class="grid grid-cols-1 gap-4 delay-300 sm:grid-cols-2 lg:grid-cols-3">
 	{#each comments as comment}
 		<DraggableComment {comment} {stringifyCommentCitation} />
 	{/each}
