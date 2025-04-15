@@ -3,14 +3,13 @@ import type { Comment } from '$lib/types.js';
 
 import CTS_URN from '$lib/cts_urn.js';
 import CommentGrid from '$lib/components/CommentGrid.svelte';
-import comments from './stubs/comments.js';
+import comments from './stubs/jebbComments.js';
 import { getCommentsForPassage } from '$lib/functions.js';
 
 const meta = {
 	component: CommentGrid,
 	decorators: [],
-	tags: ['autodocs'],
-
+	tags: ['autodocs']
 } satisfies Meta<CommentGrid>;
 
 export default meta;
@@ -35,10 +34,7 @@ const stringifyCommentCitation: (comment: Comment) => string = (comment: Comment
 export const CommentGridStory: Story = {
 	// @ts-ignore
 	args: {
-		comments: getCommentsForPassage(
-			comments, 
-			new CTS_URN('urn:cts:greekLit:tlg0011.tlg003:1-133')
-		),
+		comments: getCommentsForPassage(comments, new CTS_URN('urn:cts:greekLit:tlg0011.tlg003:1-133')),
 		stringifyCommentCitation
 	}
 };

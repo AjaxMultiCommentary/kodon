@@ -3,6 +3,7 @@
 
 	import CTS_URN from '$lib/cts_urn.js';
 	import { getCommentsContext } from '$lib/contexts/comments.js';
+	import CommentGrid from './CommentGrid.svelte';
 	import ReadableTextContainer from './ReadableTextContainer.svelte';
 	import Speaker from './Speaker.svelte';
 
@@ -27,6 +28,18 @@
 			?.filter((c) => !c.ctsUrn.tokens.some((t: string | undefined) => Boolean(t)))
 			.filter((c) => ctsUrn.hasEqualStart(c.ctsUrn)) || []
 	);
+
+	function stringifyCommentCitation(comment: Comment) {
+		const { integerCitations } = comment.ctsUrn;
+
+		// if (integerCitations.length === 2) {
+		// 	if (integerCitations[0].join('') !== integerCitations[1].join('')) {
+		// 		return `${integerCitations[0].join('')}-${integerCitations[1].join('')}`;
+		// 	}
+		// }
+
+		return `${integerCitations[0].join('.')}`;
+	}
 </script>
 
 <div class="collapse rounded-sm">
@@ -71,7 +84,9 @@
 			{/if}
 		</div>
 	</div>
-	<div class="collapse-content bg-base-200 inset-shadow-sm pt-4 rounded-b-sm">Comments</div>
+	<div class="collapse-content bg-base-200 inset-shadow-sm pt-4 rounded-b-sm">
+		<CommentGrid {comments} {stringifyCommentCitation} />
+	</div>
 </div>
 
 <style lang="postcss">

@@ -127,7 +127,6 @@
 		selectionFocusURN = selectionURN;
 
 		if (!selectionAnchorURN) return;
-		console.log('END SELECTION 3');
 
 		if (selectionAnchorURN === selectionFocusURN) {
 			selectedURN = selectionAnchorURN;
