@@ -2,7 +2,7 @@
 	import type { Comment, PassageConfig, TextContainer } from '$lib/types.js';
 
 	import _ from 'lodash';
-	import { onMount, setContext, tick } from 'svelte';
+	import { onMount, tick } from 'svelte';
 	import CollapsibleComment from '$lib/components/CollapsibleComment.svelte';
 	import FilterList from '$lib/components/FilterList.svelte';
 	import Navigation from '$lib/components/Navigation.svelte';
