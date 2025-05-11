@@ -1,0 +1,44 @@
+# Kōdōn
+
+Kōdōn (Greek for the bell of a trumpet or a crier's bell) is a library of components built for displaying and navigating commentaries using CTS URNs.
+
+## Usage
+
+The components are able to be used separately if you wish. You can also just pass all of your edition, translation, and commentary information to the `<ReadingEnvironment>` component for the default display.
+
+The components break down into three columns. The order described below is based on teh default presentation; you can change it by using the columns individually.
+
+### Left column – Navigation
+
+### Center column – Base text (critical edition)
+
+### Right column – Commentary
+
+## Architecture
+
+Relying on CTS URNs allows us to make a few assumptions:
+
+1. We can reference every passage in every edition/translation/commentary as long as we can figure out its URN.
+2. At the work level, we can coordinate comments (_glossae_) across editions. For example, urn:cts:greekLit:tlg0011.tlg003:672@αἰανῆς will not match editions that print αἰανὴς instead. However, we can "climb up" the URN and map a comment with the reference urn:cts:greekLit:tlg0011.tlg003:672@αἰανῆς to line 672 instead. This presentation entails more work for the reader, but it enables glossae to work across editions and translations (as long as a given translation contains alignment information).
+3. We can (eventually) swap editions, translations, and commentaries _as long as they are aligned_. Swapping makes cross-referencing commentaries that depend on different editions much easier, for example.
+
+# License
+
+Copyright 2025 Matteo Romanello, _Ajax_ Multi-Commentary Project
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the “Software”), to deal
+in the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS
+OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
