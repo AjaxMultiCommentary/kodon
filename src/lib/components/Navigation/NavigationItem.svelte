@@ -17,8 +17,6 @@
 		passageUrn.contains(currentUrn) ||
 			(!passage.subpassages?.length && passageUrn.isEqual(currentUrn))
 	);
-
-	$inspect(isUnderlined, currentUrn, passageUrn);
 </script>
 
 <li class="rounded-none">
