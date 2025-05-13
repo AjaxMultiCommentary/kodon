@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
-	// @ts-expect-error @citation-js doesn't have proper types'
+	// @ts-expect-error @citation-js/core lacks proper typing
 	import { Cite, plugins } from '@citation-js/core';
 
 	import '@citation-js/plugin-csl';
@@ -17,11 +15,10 @@
 
 	let { bibliographies, csls = [], lang = 'en-US', template = 'harvard1' }: Props = $props();
 
-	const citationCSLConfig = plugins.config.get('@csl');
-
-	run(() => {
+	const _citationCSLConfig = $derived.by(() => {
+		let config = plugins.config.get('@csl');
 		csls.forEach((csl) => {
-			citationCSLConfig.templates.add(csl.name, csl.template);
+			config.templates.add(csl.name, csl.template);
 		});
 	});
 

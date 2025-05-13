@@ -5,7 +5,7 @@
 	import { onMount, tick } from 'svelte';
 	import CollapsibleComment from '$lib/components/CollapsibleComment.svelte';
 	import FilterList from '$lib/components/FilterList.svelte';
-	import Navigation from '$lib/components/Navigation.svelte';
+	import { Navigation } from '$lib/components/Navigation/index.js';
 	import Tooltip from '$lib/components/Tooltip.svelte';
 	import { setCommentsContext } from '$lib/contexts/comments.js';
 	import { setTokenSelectionContext } from '$lib/contexts/tokenSelection.js';
@@ -238,7 +238,9 @@
 					<Tooltip text={navigationTooltip} />
 				{/if}
 			</div>
-			<Navigation {passages} currentPassageUrn={currentPassage.urn} />
+			<section class="col-span-1">
+				<Navigation {passages} currentPassageUrn={currentPassage.urn} />
+			</section>
 			{#if showCommentaryFilters}
 				<div class="py-2"></div>
 				<div class="flex justify-between items-center mb-2">

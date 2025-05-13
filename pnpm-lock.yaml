@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@citation-js/core':
+        specifier: ^0.7.18
+        version: 0.7.18
       '@citation-js/plugin-csl':
         specifier: ^0.7.14
         version: 0.7.18(@citation-js/core@0.7.18)
@@ -20,9 +23,6 @@ importers:
       '@tailwindcss/typography':
         specifier: ^0.5.13
         version: 0.5.16(tailwindcss@4.1.6)
-      citation-js:
-        specifier: ^0.7.14
-        version: 0.7.18
       front-matter:
         specifier: ^4.0.2
         version: 4.0.2
@@ -184,11 +184,6 @@ packages:
     peerDependencies:
       storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
 
-  '@citation-js/cli@0.7.18':
-    resolution: {integrity: sha512-Gu1EZG5E2panFcjmS31eaD6OyhG/jOalTftBWvJeQNDQSz7j4jnJrzVxFZtBCy9MOA+S12CYksTCRo9g8sgpmw==}
-    engines: {node: '>=16.0.0'}
-    hasBin: true
-
   '@citation-js/core@0.7.18':
     resolution: {integrity: sha512-EjLuZWA5156dIFGdF7OnyPyWFBW43B8Ckje6Sn/W2RFxHDu0oACvW4/6TNgWT80jhEA4bVFm7ahrZe9MJ2B2UQ==}
     engines: {node: '>=16.0.0'}
@@ -201,38 +196,8 @@ packages:
     resolution: {integrity: sha512-brSPsjs2fOVzSnARLKu0qncn6suWjHVQtrqSUrnqyaRH95r/Ad4wPF5EsoWr+Dx8HzkCGb/ogmoAzfCsqlTwTQ==}
     engines: {node: '>=6'}
 
-  '@citation-js/plugin-bibjson@0.7.18':
-    resolution: {integrity: sha512-i0iFu26QjfNNTaXmW/QRCUH+8LLgn1ZZppWyAnu+cJWbSLDduTumKt4U4AbPARb40Rewy+Ibqj1LPDfUqEUrrQ==}
-    engines: {node: '>=16.0.0'}
-    peerDependencies:
-      '@citation-js/core': ^0.7.0
-
-  '@citation-js/plugin-bibtex@0.7.18':
-    resolution: {integrity: sha512-TdsZSMpgpfcx2NMPu0KiulEoecllwT5EtRUzAJl2pDsdPD1tUqqbyj/NBi0l8fwNy1r7WwAqSFGiqGPjQWpFdg==}
-    engines: {node: '>=16.0.0'}
-    peerDependencies:
-      '@citation-js/core': ^0.7.0
-
   '@citation-js/plugin-csl@0.7.18':
     resolution: {integrity: sha512-cJcOdEZurmtIxNj0d4cOERHpVQJB/mN3YPSDNqfI/xTFRN3bWDpFAsaqubPtMO2ZPpoDS+ZGIP1kggbwCfMmlA==}
-    engines: {node: '>=16.0.0'}
-    peerDependencies:
-      '@citation-js/core': ^0.7.0
-
-  '@citation-js/plugin-doi@0.7.18':
-    resolution: {integrity: sha512-7ccmhfJJSDUhUqpWxesLAp3m1P5dhnZ4QNMctwJnU41T9vKGF7MXPKqMONSvL5JDZ7o7iWQTj2BFhSmh0euQxw==}
-    engines: {node: '>=16.0.0'}
-    peerDependencies:
-      '@citation-js/core': ^0.7.0
-
-  '@citation-js/plugin-ris@0.7.18':
-    resolution: {integrity: sha512-aHd8isGGxz6P63UjyTR4RfX1alqxu8PQLWeoUBcnTMAPmyn6qzJfdB+iZEFA8HyL4g3I33n431zL/0BV8XlJiw==}
-    engines: {node: '>=16.0.0'}
-    peerDependencies:
-      '@citation-js/core': ^0.7.0
-
-  '@citation-js/plugin-wikidata@0.7.18':
-    resolution: {integrity: sha512-wPtVIeYGbYNFT62WBqBzCZSAJDEHyVm73SeWRdfWm39pXQXElLlFDNh8aYVYKahDvWyoiMuQcIaXSeuhqb2HBg==}
     engines: {node: '>=16.0.0'}
     peerDependencies:
       '@citation-js/core': ^0.7.0
@@ -625,10 +590,6 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
-
-  '@larsgw/wikibase-sdk@10.2.1':
-    resolution: {integrity: sha512-tn5SsNJnM/zwe0sW+oKBZIJVlQSaq0hIWbZ3F0Zxnhh/AsgqZseP63xRGmwdgkvpI8NyRfjvdMQnzIavTMPglA==}
-    engines: {node: '>= 12.0.0'}
 
   '@lucide/svelte@0.488.0':
     resolution: {integrity: sha512-i8TFY+vOVci2J/UhaeF1Yj25NOL8UJ27hf+/CexvfIyLSdgid3zHwh0iVf+DlWpAsXXJl2rQ5Cl5g/qfMbfOHw==}
@@ -1385,11 +1346,6 @@ packages:
       '@chromatic-com/playwright':
         optional: true
 
-  citation-js@0.7.18:
-    resolution: {integrity: sha512-527qZYlzHowRKNPaBQhJLJRXTijlXkwK6LVQDoO+sVEs7ivJUVUsKCFUTu13mIKRMDb6TCYRgLb8dE3kbslARQ==}
-    engines: {node: '>=14'}
-    hasBin: true
-
   citeproc@2.4.63:
     resolution: {integrity: sha512-68F95Bp4UbgZU/DBUGQn0qV3HDZLCdI9+Bb2ByrTaNJDL5VEm9LqaiNaxljsvoaExSLEXe1/r6n2Z06SCzW3/Q==}
 
@@ -1403,10 +1359,6 @@ packages:
 
   color-name@1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
-
-  commander@11.1.0:
-    resolution: {integrity: sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==}
-    engines: {node: '>=16'}
 
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
@@ -1974,10 +1926,6 @@ packages:
     resolution: {integrity: sha512-1BC0BVFhS/p0qtw6enp8e+8OD0UrK0oFLztSjNzhcKA3WDuJxxAPXzPuPtKkjEY9UUoEWlX/8fgKeu2S8i9JTA==}
     engines: {node: '>= 0.4'}
 
-  is-core-module@2.16.1:
-    resolution: {integrity: sha512-UfoeMA6fIJ8wTYFEUjelnaGI67v6+N7qXJEvQuIGa99l4xsCruSYOVSQ0uPANn4dAzm8lkYPaKLrrijLq7x23w==}
-    engines: {node: '>= 0.4'}
-
   is-docker@2.2.1:
     resolution: {integrity: sha512-F+i2BKsFrH66iaUFc0woD8sLy8getkwTwtOBjvs56Cx4CgJDeKQeqfz8wAYiSb8JOprWhHH5p77PbmYCvvUuXQ==}
     engines: {node: '>=8'}
@@ -2263,9 +2211,6 @@ packages:
   mlly@1.7.4:
     resolution: {integrity: sha512-qmdSIPC4bDJXgZTCR7XosJiNKySV7O215tsPtDN9iEO/7q/76b/ijtgRu/+epFXSJhijtTCCGp3DWS549P3xKw==}
 
-  moo@0.5.2:
-    resolution: {integrity: sha512-iSAJLHYKnX41mKcJKjqvnAN9sf0LMDTXDEvFv+ffuRR9a1MIuXLjMNL6EsnDHSkKLTWNqQQ5uo61P4EbU4NU+Q==}
-
   mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
     engines: {node: '>=4'}
@@ -2395,9 +2340,6 @@ packages:
   path-key@4.0.0:
     resolution: {integrity: sha512-haREypq7xkM7ErfgIyA0z+Bj4AGKlMSdlQE2jvJo6huWD1EdkKYV+G/T4nq0YEF2vgTT8kqMFKo1uHn950r4SQ==}
     engines: {node: '>=12'}
-
-  path-parse@1.0.7:
-    resolution: {integrity: sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==}
 
   path-to-regexp@8.2.0:
     resolution: {integrity: sha512-TdrF7fW9Rphjq4RjrW0Kp2AW0Ahwu9sRGTkS6bvDi0SCwZlEZYmcfDbEsTz8RVk0EHIS/Vd1bv3JhG+1xZuAyQ==}
@@ -2588,11 +2530,6 @@ packages:
     resolution: {integrity: sha512-pb/MYmXstAkysRFx8piNI1tGFNQIFA3vkE3Gq4EuA1dF6gHp/+vgZqsCGJapvy8N3Q+4o7FwvquPJcnZ7RYy4g==}
     engines: {node: '>=4'}
 
-  resolve@https://codeload.github.com/tapjs/resolve/tar.gz/ef9e9dae6ccced153292eead6dfbc040ae680a95:
-    resolution: {tarball: https://codeload.github.com/tapjs/resolve/tar.gz/ef9e9dae6ccced153292eead6dfbc040ae680a95}
-    version: 1.22.6
-    hasBin: true
-
   reusify@1.1.0:
     resolution: {integrity: sha512-g6QUff04oZpHs0eG5p83rFLhHeV00ug/Yf9nZM6fLeUrPguBTkTQOdpAWWspMh55TZfVQDPaN3NQJfbVRAxdIw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
@@ -2761,10 +2698,6 @@ packages:
   supports-color@7.2.0:
     resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==}
     engines: {node: '>=8'}
-
-  supports-preserve-symlinks-flag@1.0.0:
-    resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
-    engines: {node: '>= 0.4'}
 
   svelte-check@4.1.7:
     resolution: {integrity: sha512-1jX4BzXrQJhC/Jt3SqYf6Ntu//vmfc6VWp07JkRfK2nn+22yIblspVUo96gzMkg0Zov8lQicxhxsMzOctwcMQQ==}
@@ -3207,19 +3140,6 @@ snapshots:
       - '@chromatic-com/playwright'
       - react
 
-  '@citation-js/cli@0.7.18':
-    dependencies:
-      '@citation-js/core': 0.7.18
-      '@citation-js/plugin-bibjson': 0.7.18(@citation-js/core@0.7.18)
-      '@citation-js/plugin-bibtex': 0.7.18(@citation-js/core@0.7.18)
-      '@citation-js/plugin-csl': 0.7.18(@citation-js/core@0.7.18)
-      '@citation-js/plugin-doi': 0.7.18(@citation-js/core@0.7.18)
-      '@citation-js/plugin-ris': 0.7.18(@citation-js/core@0.7.18)
-      '@citation-js/plugin-wikidata': 0.7.18(@citation-js/core@0.7.18)
-      commander: 11.1.0
-    transitivePeerDependencies:
-      - encoding
-
   '@citation-js/core@0.7.18':
     dependencies:
       '@citation-js/date': 0.5.1
@@ -3233,42 +3153,11 @@ snapshots:
 
   '@citation-js/name@0.4.2': {}
 
-  '@citation-js/plugin-bibjson@0.7.18(@citation-js/core@0.7.18)':
-    dependencies:
-      '@citation-js/core': 0.7.18
-      '@citation-js/date': 0.5.1
-      '@citation-js/name': 0.4.2
-
-  '@citation-js/plugin-bibtex@0.7.18(@citation-js/core@0.7.18)':
-    dependencies:
-      '@citation-js/core': 0.7.18
-      '@citation-js/date': 0.5.1
-      '@citation-js/name': 0.4.2
-      moo: 0.5.2
-
   '@citation-js/plugin-csl@0.7.18(@citation-js/core@0.7.18)':
     dependencies:
       '@citation-js/core': 0.7.18
       '@citation-js/date': 0.5.1
       citeproc: 2.4.63
-
-  '@citation-js/plugin-doi@0.7.18(@citation-js/core@0.7.18)':
-    dependencies:
-      '@citation-js/core': 0.7.18
-      '@citation-js/date': 0.5.1
-
-  '@citation-js/plugin-ris@0.7.18(@citation-js/core@0.7.18)':
-    dependencies:
-      '@citation-js/core': 0.7.18
-      '@citation-js/date': 0.5.1
-      '@citation-js/name': 0.4.2
-
-  '@citation-js/plugin-wikidata@0.7.18(@citation-js/core@0.7.18)':
-    dependencies:
-      '@citation-js/core': 0.7.18
-      '@citation-js/date': 0.5.1
-      '@citation-js/name': 0.4.2
-      '@larsgw/wikibase-sdk': 10.2.1
 
   '@esbuild/aix-ppc64@0.21.5':
     optional: true
@@ -3521,8 +3410,6 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
-
-  '@larsgw/wikibase-sdk@10.2.1': {}
 
   '@lucide/svelte@0.488.0(svelte@5.28.2)':
     dependencies:
@@ -4390,23 +4277,6 @@ snapshots:
 
   chromatic@11.28.2: {}
 
-  citation-js@0.7.18:
-    dependencies:
-      '@citation-js/cli': 0.7.18
-      '@citation-js/core': 0.7.18
-      '@citation-js/date': 0.5.1
-      '@citation-js/name': 0.4.2
-      '@citation-js/plugin-bibjson': 0.7.18(@citation-js/core@0.7.18)
-      '@citation-js/plugin-bibtex': 0.7.18(@citation-js/core@0.7.18)
-      '@citation-js/plugin-csl': 0.7.18(@citation-js/core@0.7.18)
-      '@citation-js/plugin-doi': 0.7.18(@citation-js/core@0.7.18)
-      '@citation-js/plugin-ris': 0.7.18(@citation-js/core@0.7.18)
-      '@citation-js/plugin-wikidata': 0.7.18(@citation-js/core@0.7.18)
-      citeproc: 2.4.63
-      resolve: https://codeload.github.com/tapjs/resolve/tar.gz/ef9e9dae6ccced153292eead6dfbc040ae680a95
-    transitivePeerDependencies:
-      - encoding
-
   citeproc@2.4.63: {}
 
   clsx@2.1.1: {}
@@ -4416,8 +4286,6 @@ snapshots:
       color-name: 1.1.4
 
   color-name@1.1.4: {}
-
-  commander@11.1.0: {}
 
   concat-map@0.0.1: {}
 
@@ -5093,10 +4961,6 @@ snapshots:
 
   is-callable@1.2.7: {}
 
-  is-core-module@2.16.1:
-    dependencies:
-      hasown: 2.0.2
-
   is-docker@2.2.1: {}
 
   is-extglob@2.1.1: {}
@@ -5329,8 +5193,6 @@ snapshots:
       pkg-types: 1.3.1
       ufo: 1.6.1
 
-  moo@0.5.2: {}
-
   mri@1.2.0: {}
 
   mrmime@2.0.1: {}
@@ -5436,8 +5298,6 @@ snapshots:
   path-key@3.1.1: {}
 
   path-key@4.0.0: {}
-
-  path-parse@1.0.7: {}
 
   path-to-regexp@8.2.0: {}
 
@@ -5595,12 +5455,6 @@ snapshots:
   regexpp@3.2.0: {}
 
   resolve-from@4.0.0: {}
-
-  resolve@https://codeload.github.com/tapjs/resolve/tar.gz/ef9e9dae6ccced153292eead6dfbc040ae680a95:
-    dependencies:
-      is-core-module: 2.16.1
-      path-parse: 1.0.7
-      supports-preserve-symlinks-flag: 1.0.0
 
   reusify@1.1.0: {}
 
@@ -5813,8 +5667,6 @@ snapshots:
   supports-color@7.2.0:
     dependencies:
       has-flag: 4.0.0
-
-  supports-preserve-symlinks-flag@1.0.0: {}
 
   svelte-check@4.1.7(picomatch@4.0.2)(svelte@5.28.2)(typescript@5.8.3):
     dependencies:

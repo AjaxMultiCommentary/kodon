@@ -88,10 +88,10 @@ export type Metadata = {
 };
 
 export type PassageConfig = {
-	ctsUrn: CTS_URN;
 	label: string;
-	urn: string;
+	subpassages?: Array<PassageConfig>;
 	ref: string;
+	urn: string;
 };
 
 export type DeserializedComment = Modify<
