@@ -12,7 +12,7 @@ const meta = {
 
 export default meta;
 
-const passages = [
+const basicPassages = [
 	{
 		label: 'Prologue',
 		ref: 'vv. 1-133',
@@ -34,23 +34,85 @@ type Story = StoryObj<typeof meta>;
 
 export const BasicNavigation: Story = {
 	args: {
-		passages,
+		passages: basicPassages,
 		currentPassageUrn: 'urn:cts:greekLit:tlg0011.tlg003.kodon-storybook:134-200'
 	}
 };
 
+const nestedPassages = [
+	{
+		label: 'Book 1',
+		ref: '',
+		urn: 'urn:cts:greekLit:tlg0525.tlg001.kodon-storybook:1',
+		subpassages: [
+			{
+				label: 'Chapter 1',
+				ref: '',
+				urn: 'urn:cts:greekLit:tlg0525.tlg001.kodon-storybook:1.1'
+			},
+			{
+				label: 'Chapter 2',
+				ref: '',
+				urn: 'urn:cts:greekLit:tlg0525.tlg001.kodon-storybook:1.2',
+				subpassages: [
+					{
+						label: 'Section 1',
+						ref: '',
+						urn: 'urn:cts:greekLit:tlg0525.tlg001.kodon-storybook:1.2.1'
+					},
+					{
+						label: 'Section 2',
+						ref: '',
+						urn: 'urn:cts:greekLit:tlg0525.tlg001.kodon-storybook:1.2.2'
+					}
+				]
+			}
+		]
+	},
+	{
+		label: 'Book 2',
+		ref: '',
+		urn: 'urn:cts:greekLit:tlg0525.tlg001.kodon-storybook:2',
+		subpassages: [
+			{
+				label: 'Chapter 1',
+				ref: '',
+				urn: 'urn:cts:greekLit:tlg0525.tlg001.kodon-storybook:2.1'
+			},
+			{
+				label: 'Chapter 2',
+				ref: '',
+				urn: 'urn:cts:greekLit:tlg0525.tlg001.kodon-storybook:2.2'
+			},
+			{
+				label: 'Chapter 3',
+				ref: '',
+				urn: 'urn:cts:greekLit:tlg0525.tlg001.kodon-storybook:2.3'
+			}
+		]
+	},
+	{
+		label: 'Book 3',
+		ref: '',
+		urn: 'urn:cts:greekLit:tlg0525.tlg001.kodon-storybook:3',
+		subpassages: [
+			{
+				label: 'Chapter 1',
+				ref: '',
+				urn: 'urn:cts:greekLit:tlg0525.tlg001.kodon-storybook:3.1'
+			},
+			{
+				label: 'Chapter 2',
+				ref: '',
+				urn: 'urn:cts:greekLit:tlg0525.tlg001.kodon-storybook:3.2'
+			}
+		]
+	}
+];
+
 export const NestedNavigation: Story = {
 	args: {
-		passages: passages.map((p, i) => ({
-			...p,
-			subpassages: [
-				{
-					label: `Episode ${i}`,
-					ref: `ref ${i}`,
-					urn: `urn:cts:greekLit:tlg0011.tlg003.kodon-storybook:subpassage${i}`
-				}
-			]
-		})),
-		currentPassageUrn: 'urn:cts:greekLit:tlg0011.tlg003.kodon-storybook:134-200'
+		passages: nestedPassages,
+		currentPassageUrn: 'urn:cts:greekLit:tlg0525.tlg001.kodon-storybook:1.2.1'
 	}
 };
