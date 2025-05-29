@@ -11,15 +11,15 @@
 	}
 
 	let { passage, currentPassageUrn }: Props = $props();
-	let currentUrn = new CTS_URN(currentPassageUrn);
-	let passageUrn = new CTS_URN(passage.urn);
-	let isUnderlined = $state(
+	let currentUrn = $derived(new CTS_URN(currentPassageUrn));
+	let passageUrn = $derived(new CTS_URN(passage.urn));
+	let isUnderlined = $derived(
 		passageUrn.contains(currentUrn) ||
 			(!passage.subpassages?.length && passageUrn.isEqual(currentUrn))
 	);
 </script>
 
-<li class="rounded-none">
+<li class="rounded-none" class:bg-secondary={isUnderlined}>
 	{#if passage.subpassages?.length}
 		<details open={isUnderlined}>
 			<summary>

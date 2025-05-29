@@ -2,25 +2,20 @@
 	import type { StaticPageInfo } from '$lib/types.js';
 
 	import { base } from '$app/paths';
-	import { marked } from 'marked';
 
-	export let title: string;
-	export let staticPages: StaticPageInfo[];
+	interface Props {
+		children?: import('svelte').Snippet;
+		staticPages: StaticPageInfo[];
+		title: string;
+	}
+
+	let { children, staticPages, title }: Props = $props();
 </script>
 
-<nav>
-	<div class="mx-auto">
-		<div class="flex h-16 justify-between">
-			<div class="flex">
-				<div class="hidden sm:-my-px sm:flex sm:space-x-8 sm:items-center">
-					<a href="{base}/" class="link link-hover">{@html marked(title)}</a>
-					<slot />
-					{#each staticPages as staticPage}
-						<a href="{base}{staticPage.path}" class="link link-hover">{staticPage.title}</a>
-					{/each}
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="divider"></div>
+<nav class="navbar">
+	<a href="{base}/" class="btn btn-link">{title}</a>
+	{@render children?.()}
+	{#each staticPages as staticPage}
+		<a href="{base}{staticPage.path}" class="btn btn-link">{staticPage.title}</a>
+	{/each}
 </nav>

@@ -42,11 +42,8 @@
 	}
 </script>
 
-<div class="collapse rounded-sm">
-	<input type="checkbox" />
-	<div
-		class="rounded-sm bg-base-100 border border-base-300 p-4 shadow-sm collapse-title flex justify-between"
-	>
+<div class="rounded-sm">
+	<div class="rounded-sm bg-base-100 flex justify-between">
 		<div>
 			{#each children as child}
 				{#if child.speaker}
@@ -55,7 +52,7 @@
 				<ReadableTextContainer {showHeatmap} {comments} textContainer={child} />
 			{/each}
 		</div>
-		<div>
+		<div class="flex flex-col justify-center">
 			{#if wholeLocationComments.length > 0}
 				<a
 					href={'#'}
@@ -78,14 +75,11 @@
 					data-citation={ctsUrn.citations[0]}>{ctsUrn.citations[0]}</a
 				>
 			{:else}
-				<span class="base-content w-12 text-center inline-block select-none"
+				<span class="base-content inline-block w-12 text-center select-none"
 					>{ctsUrn.citations.join('.')}</span
 				>
 			{/if}
 		</div>
-	</div>
-	<div class="collapse-content bg-base-200 inset-shadow-sm pt-4 rounded-b-sm">
-		<CommentGrid {comments} {stringifyCommentCitation} />
 	</div>
 </div>
 

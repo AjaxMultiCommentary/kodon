@@ -29,7 +29,8 @@
 </script>
 
 <div
-	class="border-2 collapse collapse-arrow rounded-xs mb-2"
+	class="border collapse collapse-arrow rounded-xs mb-2"
+	class:border-2={isHighlighted}
 	class:border-secondary={isOpen && isHighlighted}
 	class:collapse-open={isOpen}
 	id={comment.citable_urn}
@@ -46,7 +47,7 @@
 			}
 		}}
 	>
-		<h3 class="text-sm font-bold text-primary-content cursor-pointer">
+		<h3 class="text-sm font-bold text-b ase-content cursor-pointer">
 			<span class="text-sm font-medium text-slate-600"
 				><a data-sveltekit-reload href={`?gloss=${comment.citable_urn}`}
 					>{stringifyCommentCitation(comment)}</a
