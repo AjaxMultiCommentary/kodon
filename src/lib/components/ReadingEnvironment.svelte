@@ -144,9 +144,9 @@
 		const isBackward = focusLocation.some((l, index) => l < anchorLocation[index]);
 
 		if (isBackward) {
-			selectedURN = `${selectionFocusURN}-${selectionAnchorURN}`;
+			selectedURN = `${selectionFocusURN}-${anchorURN.passageComponent}`;
 		} else {
-			selectedURN = `${selectionAnchorURN}-${selectionFocusURN}`;
+			selectedURN = `${selectionAnchorURN}-${focusURN.passageComponent}`;
 		}
 	}
 
