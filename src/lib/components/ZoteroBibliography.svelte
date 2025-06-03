@@ -15,7 +15,7 @@
 
 	let { bibliographies, csls = [], lang = 'en-US', template = 'harvard1' }: Props = $props();
 
-	const _citationCSLConfig = $derived.by(() => {
+	$effect(() => {
 		let config = plugins.config.get('@csl');
 		csls.forEach((csl) => {
 			config.templates.add(csl.name, csl.template);

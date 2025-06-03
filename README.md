@@ -1,6 +1,6 @@
 # Kōdōn (κώδων)
 
-> φώνημ᾽ ἀκούω καὶ ξυναρπάζω φρενὶ  
+> φώνημ᾽ ἀκούω καὶ ξυναρπάζω φρενὶ
 > χαλκοστόμου κώδωνος ὡς Τυρσηνικῆς.
 
 > I hear your voice and grasp it in my mind, / like the voice of a bronze-belled Tyrrhenian trumpet. – Sophocles, _Ajax_ ll. 16–17
@@ -34,6 +34,12 @@ Each commentary consists of a series of glosses that point to canonical referenc
 Like commentaries, translations must point to a critical edition of the text.
 
 **TODO**: Specify how translations should work.
+
+## Bibliographies
+
+An essential component of any commentary is its bibliography. Kōdōn supports bibliographies in the JSON format exported by Zotero, with future support planned for BibLaTeX.
+
+To cite an item in a glossa, use the `\@citekey` syntax, replacing "citekey" with the cite key of the item you wish to cite.
 
 ## License
 
