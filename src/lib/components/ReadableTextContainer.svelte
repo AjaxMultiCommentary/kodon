@@ -127,7 +127,15 @@
 						);
 					});
 
-				if (allURNsMatch && allTextElementsMatch) {
+				const lastOfCurrentRunCommentURNs = lastOfCurrentRun.commentURNs || [];
+				const currentCommentURNs = curr.commentURNs || [];
+				const allCommentURNsMatch =
+					lastOfCurrentRunCommentURNs?.length === currentCommentURNs.length &&
+					lastOfCurrentRunCommentURNs?.every((commentURN: string | undefined, i: number) => {
+						return currentCommentURNs[i] === commentURN;
+					});
+
+				if (allURNsMatch && allTextElementsMatch && allCommentURNsMatch) {
 					currentRun.push(curr);
 
 					return [...acc, currentRun];

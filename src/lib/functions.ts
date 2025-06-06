@@ -4,7 +4,7 @@ import frontMatter from 'front-matter';
 
 import CTS_URN from '$lib/cts_urn.js';
 
-import type { Comment, PassageConfig, Word } from './types.js';
+import type { Comment, Word } from './types.js';
 
 const GLOSSA_PROPERTY_REGEX = /^:(?<name>[^:\n]+):\s+(?<value>.*)(?:\n|$)/;
 const URN_REGEX = /@(?<urn>[^\n]+)(?:\n|$)/u;
