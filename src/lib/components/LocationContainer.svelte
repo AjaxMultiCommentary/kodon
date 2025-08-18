@@ -38,7 +38,7 @@
 		// 	}
 		// }
 
-		return `${integerCitations[0].join('.')}`;
+		return integerCitations[0].join('.');
 	}
 </script>
 

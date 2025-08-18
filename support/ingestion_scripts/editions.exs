@@ -114,22 +114,9 @@ defmodule DataSchemas.Version.SaxEventHandler do
     state
   end
 
-  defp handle_element("p", _attributes, state) do
-    state
-  end
-
   defp handle_element("del", attributes, state) do
     element_stack = [
       %{name: "del", start_offset: String.length(state.text), attributes: attributes}
-      | state.element_stack
-    ]
-
-    %{state | element_stack: element_stack}
-  end
-
-  defp handle_element("quote", attributes, state) do
-    element_stack = [
-      %{name: "quote", start_offset: String.length(state.text), attributes: attributes}
       | state.element_stack
     ]
 
@@ -233,25 +220,25 @@ defmodule EditionsIngestion do
 
     lines
     |> Enum.with_index()
-    |> Enum.each(fn {line, offset} ->
-      json = line_to_json(line, offset)
+    |> Enum.each(fn {line, index} ->
+      json = line_to_json(line, index)
 
       File.write!(new_f, Jason.encode!(json) <> "\n", [:append])
 
-      line_elements_to_json(line, offset)
+      line_elements_to_json(line, index)
       |> Enum.each(fn e ->
         File.write!(new_f, Jason.encode!(e) <> "\n", [:append])
       end)
     end)
   end
 
-  defp line_elements_to_json(line, offset) do
+  defp line_elements_to_json(line, index) do
     line.elements
     |> Enum.map(fn element ->
       %{
         attributes: Map.new(element.attributes),
         end_offset: element.end_offset,
-        line_offset: offset,
+        block_index: index,
         start_offset: element.start_offset,
         type: "text_element",
         subtype: element.name
@@ -259,19 +246,19 @@ defmodule EditionsIngestion do
     end)
   end
 
-  defp line_to_json(line, offset) do
+  defp line_to_json(line, index) do
     %{
-      offset: offset,
+      index: index,
       location: line.location,
       text: line.text,
       type: "text_container",
-      subtype: "line",
+      subtype: "l",
       urn: line.urn,
       words: line.words
     }
   end
 
-  def enumerate_words(text, word_count) do
+  def enumerate_words(urn, text, word_count) do
     words_with_index =
       Regex.split(~r/[[:space:]]|—/, text)
       |> Enum.with_index()
@@ -287,12 +274,14 @@ defmodule EditionsIngestion do
 
       [left, right] = String.split(current_text, word, parts: 2)
       offset = current_offset + String.length(left)
+      urn_index = Enum.count(ws, fn w -> w.text == word end) + 1
 
       w = %{
         xml_id: "word_index_#{index + word_count}",
         offset: offset,
         text: word,
-        urn_index: Enum.count(ws, fn w -> w.text == word end) + 1
+        urn: "#{urn}@#{word}[#{urn_index}]",
+        urn_index: urn_index
       }
 
       %{offset: offset + String.length(word), current_text: right, words: [w | ws]}
@@ -316,7 +305,7 @@ defmodule EditionsIngestion do
         text = line.text |> String.trim()
         word_count = acc.word_count
 
-        words = enumerate_words(text, word_count)
+        words = enumerate_words("#{urn}:#{line.n}", text, word_count)
 
         speaker =
           version_body.body.speakers
