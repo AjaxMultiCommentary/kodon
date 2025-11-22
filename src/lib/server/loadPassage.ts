@@ -3,7 +3,6 @@ import type {
 	CommentaryConfig,
 	DeserializedEditionConfig,
 	DeserializedPassageConfig,
-	PassageConfig,
 	PassageInfo,
 	TextContainer,
 	TextElement
@@ -15,7 +14,7 @@ import { base } from '$app/paths';
 
 import CTS_URN from '$lib/cts_urn.js';
 import MarkdownParser from './MarkdownParser.js';
- import readCommentariesFromFS from './readCommentariesFromFS.js';
+import readCommentariesFromFS from './readCommentariesFromFS.js';
 import { getCommentsForPassage, parseCommentary } from '$lib/functions.js';
 
 export default function loadPassage(config: CommentaryConfig): (urn: string) => PassageInfo {
@@ -52,7 +51,10 @@ export default function loadPassage(config: CommentaryConfig): (urn: string) => 
 			.map((l) => JSON.parse(l));
 
 		const textContainers = getTextContainersForPassage(passageInfo, jsonl) as TextContainer[];
-		const comments = getCommentsForPassage(ALL_COMMENTS, new CTS_URN(passageInfo.ctsUrn.__urn)) as Comment[];
+		const comments = getCommentsForPassage(
+			ALL_COMMENTS,
+			new CTS_URN(passageInfo.ctsUrn.__urn)
+		) as Comment[];
 
 		return {
 			comments: comments.map((c) => ({

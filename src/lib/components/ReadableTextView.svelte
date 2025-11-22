@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Comment, TextContainer } from '$lib/types.js';
 
-	import _ from 'lodash';
+	import { isEqual } from 'lodash';
 
 	import LocationContainer from './LocationContainer.svelte';
 	import { nestBlocks } from '$lib/functions.js';
@@ -14,16 +14,22 @@
 
 	let { showHeatmap, selectedCommentaries, textContainers }: Props = $props();
 
+	/**
+	 * FIXME: There doesn't seem to be a good reason to pass entire
+	 * comments down the component tree like this. It would be much
+	 * better to have a clean separation of critical text and comments,
+	 * with just the CTS URNs being used to indicate highlights etc.
+	 */
 	let textContainerGroups = $derived(
 		textContainers
 			.reduce((groups: any, curr: TextContainer) => {
-				const lastGroup = groups.at(-1) || {};
-				const lastContainer = lastGroup.containers?.at(-1) || {};
+				const mostRecentGroup = groups.at(-1) || {};
+				const mostRecentContainer = mostRecentGroup.containers?.at(-1) || {};
 
-				if (_.isEqual(lastContainer.location, curr.location)) {
-					groups.at(-1).containers = lastGroup.containers.concat(curr);
+				if (isEqual(mostRecentContainer.location, curr.location)) {
+					groups.at(-1).containers = mostRecentGroup.containers.concat(curr);
 
-					groups.at(-1).comments = lastGroup.comments.concat(curr.comments);
+					groups.at(-1).comments = mostRecentGroup.comments.concat(curr.comments);
 
 					return groups;
 				}
