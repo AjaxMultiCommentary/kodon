@@ -1,21 +1,24 @@
-import _ from 'lodash';
+import type { Comment, TextContainer, Token } from './types.js';
 
+import assert from 'assert';
+
+import lodash from 'lodash';
 import frontMatter from 'front-matter';
 
 import CTS_URN from '$lib/cts_urn.js';
 
-import type { Comment, Word } from './types.js';
+const { dropWhile, isEqual, last, takeWhile } = lodash;
 
 const GLOSSA_PROPERTY_REGEX = /^:(?<name>[^:\n]+):\s+(?<value>.*)(?:\n|$)/;
 const URN_REGEX = /@(?<urn>[^\n]+)(?:\n|$)/u;
 
-export function dropTokensUntilStartOfComment(tokens: Word[], comment: Comment) {
-	return _.dropWhile(
+export function dropTokensUntilStartOfComment(tokens: Token[], comment: Comment) {
+	return dropWhile(
 		tokens,
-		(t: Word) =>
+		(t: Token) =>
 			!(
-				t.text.indexOf(_.first(comment.ctsUrn.tokens) || '') > -1 &&
-				t.urn_index === _.first(comment.ctsUrn.tokenIndexes)
+				t.text.indexOf(comment.ctsUrn.tokens[0] || '') > -1 &&
+				t.urn_index === comment.ctsUrn.tokenIndexes[0]
 			)
 	);
 }
@@ -50,61 +53,91 @@ export function getCommentsForPassage(comments: Comment[], ctsUrn: CTS_URN) {
 		});
 }
 
+export function highlightComments(
+	comments: Comment[],
+	commentsToHighlight: (string | undefined)[]
+) {
+	const revisedComments = comments.map((comment: Comment) => {
+		if (commentsToHighlight.includes(comment.citable_urn as string)) {
+			return {
+				...comment,
+				isHighlighted: true
+			};
+		}
+
+		return {
+			...comment,
+			isHighlighted: false
+		};
+	});
+
+	return revisedComments;
+}
+
 function makeSpan(text: string = '', urn: string) {
 	return {
 		type: 'text_container',
+		tagname: 'span',
 		subtype: 'span',
 		text,
 		urn
 	};
 }
 
-export function nestBlocks(blocks: any[], root: any = undefined) {
-	if (!root) return nestBlocks(blocks.slice(1), blocks[0]);
+interface TextContainerWithChildren extends TextContainer {
+	children: TextContainerWithChildren[];
+	parentIndex: number | null;
+}
 
-	blocks = blocks.sort((a, b) => a.start_offset - b.start_offset);
+function nest(
+	textContainers: TextContainerWithChildren[],
+	parent: any = { index: undefined },
+	tree: any = []
+) {
+	console.log(textContainers);
+	const children = textContainers.filter((child) => child.parentIndex === parent.index);
 
-	function nestChildren(parent: any) {
-		const urn = parent.urn;
-
-		let children = [];
-
-		for (let i = 0; i < blocks.length; i++) {
-			const child = blocks[i];
-
-			if (child.parentIndex === parent.index) {
-				blocks.splice(i, 1);
-				i--;
-
-				child.children = nestChildren(child);
-
-				if (child.children.length > 0) {
-					const preText = parent.text.slice(0, child.start_offset - parent.start_offset) as string;
-
-					children.push(makeSpan(preText, urn));
-				}
-
-				children.push(child);
-
-				if (child.children.length > 0) {
-					const nextChild = blocks[i + 1];
-
-					const postText = parent.text.slice(
-						child.end_offset - parent.start_offset,
-						nextChild ? nextChild.start_offset - parent.start_offset : parent.end_offset
-					);
-
-					children.push(makeSpan(postText, urn));
-				}
-			}
-		}
-
-		return children;
+	if (typeof parent.index === 'undefined') {
+		tree = children;
+	} else {
+		parent.children = children;
 	}
 
-	root.children = nestChildren(root);
+	children.forEach((child) => nest(textContainers, child));
 
-	return root;
+	return tree;
+}
+
+export function nestTextContainers(textContainers: TextContainer[]) {
+	const sortedContainers = textContainers
+		.toSorted(
+			(a: TextContainer, b: TextContainer) =>
+				a.char_offset - b.char_offset || a.end_char_offset - b.end_char_offset
+		)
+		.map((tc: TextContainer, i: number) => ({
+			...tc,
+			index: i
+		}));
+
+	const withParentIndexes = sortedContainers.map(
+		(textContainer: TextContainer, i: number, containers: TextContainer[]) => {
+			let parentIndex = containers.findLast(
+				(possibleParent: TextContainer) =>
+					(!isEqual(possibleParent, textContainer) &&
+						possibleParent.char_offset <= textContainer.char_offset &&
+						possibleParent.end_char_offset > textContainer.end_char_offset) ||
+					(possibleParent.char_offset < textContainer.char_offset &&
+						possibleParent.end_char_offset >= textContainer.end_char_offset)
+			)?.index;
+
+			return {
+				...textContainer,
+				parentIndex
+			};
+		}
+	) as TextContainerWithChildren[];
+
+	return nest(withParentIndexes);
 }
 
 export function parseCommentary(markdownString: string): Comment[] {
@@ -147,21 +180,21 @@ export function parseGlossa(attributes: object, glossa: string) {
 	}
 }
 
-export function takeTokensUntilEndOfComment(tokens: Word[], comment: Comment) {
-	const exclusive = _.takeWhile(
+export function takeTokensUntilEndOfComment(tokens: Token[], comment: Comment) {
+	const exclusive = takeWhile(
 		tokens,
-		(t: Word) =>
+		(t: Token) =>
 			!(
-				t.text.indexOf(_.last(comment.ctsUrn.tokens) || '') > -1 &&
-				t.urn_index === _.last(comment.ctsUrn.tokenIndexes)
+				t.text.indexOf(last(comment.ctsUrn.tokens) || '') > -1 &&
+				t.urn_index === last(comment.ctsUrn.tokenIndexes)
 			)
 	);
 
 	const excludedToken =
 		tokens.find(
 			(t) =>
-				t.text.indexOf(_.last(comment.ctsUrn.tokens) || '') > -1 &&
-				t.urn_index === _.last(comment.ctsUrn.tokenIndexes)
+				t.text.indexOf(last(comment.ctsUrn.tokens) || '') > -1 &&
+				t.urn_index === last(comment.ctsUrn.tokenIndexes)
 		) || [];
 
 	return exclusive.concat(excludedToken);
@@ -176,31 +209,31 @@ export function isCommentContainedByTextContainer(comment: Comment) {
 
 export function tokenTestForCommentContainedByTextContainer(
 	comment: Comment,
-	token: Word,
-	tokens: Word[]
+	token: Token,
+	tokens: Token[]
 ) {
 	if (token.urn_index > 0) {
 		const withoutLeadingTokens = dropTokensUntilStartOfComment(tokens, comment);
 		const availableTokens = takeTokensUntilEndOfComment(withoutLeadingTokens, comment);
 
-		return availableTokens.find((t: Word) => t.xml_id === token.xml_id);
+		return availableTokens.find((t: Token) => t.xml_id === token.xml_id);
 	}
 }
 
 export function tokenTestForCommentEndingInTextContainer(
 	comment: Comment,
-	token: Word,
-	tokens: Word[]
+	token: Token,
+	tokens: Token[]
 ) {
-	return takeTokensUntilEndOfComment(tokens, comment).find((t: Word) => t.xml_id === token.xml_id);
+	return takeTokensUntilEndOfComment(tokens, comment).find((t: Token) => t.xml_id === token.xml_id);
 }
 
 export function tokenTestForCommentStartingInTextContainer(
 	comment: Comment,
-	token: Word,
-	tokens: Word[]
+	token: Token,
+	tokens: Token[]
 ) {
 	return dropTokensUntilStartOfComment(tokens, comment).find(
-		(t: Word) => t.xml_id === token.xml_id
+		(t: Token) => t.xml_id === token.xml_id
 	);
 }

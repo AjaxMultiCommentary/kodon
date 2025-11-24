@@ -1,32 +1,30 @@
 <script lang="ts">
-	import type { Comment, TextContainer } from '$lib/types.js';
+	import type { TextContainer } from '$lib/types.js';
 
 	import CTS_URN from '$lib/cts_urn.js';
 	import { getCommentsContext } from '$lib/contexts/comments.js';
+	import { highlightComments, nestTextContainers } from '$lib/functions.js';
 	import ReadableTextContainer from './ReadableTextContainer.svelte';
 	import Speaker from './Speaker.svelte';
 
 	interface Props {
-		comments: Comment[];
 		showHeatmap: boolean;
 		locationContainer: TextContainer;
 	}
 
-	let { comments, showHeatmap, locationContainer }: Props = $props();
+	let { showHeatmap, locationContainer }: Props = $props();
 
-	const { highlightComments } = getCommentsContext();
+	const { comments } = getCommentsContext();
 
 	let children = $derived(
-		((locationContainer.children || []).length > 0
-			? locationContainer.children
-			: [locationContainer]) as TextContainer[]
-	);
+		(locationContainer.children || []).length > 0
+			? nestTextContainers(locationContainer.children as TextContainer[])
+			: [locationContainer]) as TextContainer[];
+
 	let ctsUrn = $derived(new CTS_URN(locationContainer.urn));
-	let wholeLocationComments = $derived(
-		comments
-			?.filter((c) => !c.ctsUrn.tokens.some((t: string | undefined) => Boolean(t)))
-			.filter((c) => ctsUrn.hasEqualStart(c.ctsUrn)) || []
-	);
+	let wholeLocationComments = $derived(comments.filter(c => !c.ctsUrn.isEqual(locationContainer.ctsUrn)));
+
+	$inspect(children)
 </script>
 
 <div class="rounded-sm">
@@ -49,6 +47,7 @@
 					tabindex="0"
 					onclick={() =>
 						highlightComments(
+							comments,
 							wholeLocationComments.map((c) => {
 								// fall back on c.urn in case citable_urn is not defined
 								return c.citable_urn || c.urn;
@@ -56,10 +55,10 @@
 						)}
 					onkeyup={(event) => {
 						if (event.key === 'Enter') {
-							highlightComments(wholeLocationComments.map((c) => c.citable_urn));
+							highlightComments(comments, wholeLocationComments.map((c) => c.citable_urn));
 						}
 					}}
-					data-citation={ctsUrn.citations[0]}>{ctsUrn.citations[0]}</a
+					data-citation={ctsUrn.citations.join('.')}>{ctsUrn.citations.join('.')}</a
 				>
 			{:else}
 				<span class="base-content inline-block w-12 text-center select-none"

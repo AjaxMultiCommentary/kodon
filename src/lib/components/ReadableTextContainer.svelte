@@ -1,16 +1,10 @@
 <script lang="ts">
 	import ReadableTextContainer from './ReadableTextContainer.svelte';
-	import type { Comment, TextContainer, TextElement, Word } from '$lib/types.js';
+	import type { Comment, TextContainer, TextElement, Token } from '$lib/types.js';
 
 	import isEqual from 'lodash/isEqual.js';
 
 	import CTS_URN from '$lib/cts_urn.js';
-	import {
-		isCommentContainedByTextContainer,
-		tokenTestForCommentContainedByTextContainer,
-		tokenTestForCommentStartingInTextContainer,
-		tokenTestForCommentEndingInTextContainer
-	} from '$lib/functions.js';
 	import TextRun from './TextRun.svelte';
 
 	interface Props {
@@ -21,81 +15,47 @@
 
 	let { comments, showHeatmap, textContainer }: Props = $props();
 
-	const CONTAINER_ELEMENTS = {
-		quote: 'div',
-		l: 'div',
-		p: 'p'
-	};
+	function getContainerElement(textContainer: TextContainer) {
+		switch (textContainer.subtype || textContainer.tagname) {
+		case "head":
+			return "h1";
+		case "l":
+			return "div";
+		case "lb":
+			return "div"
+		case "p":
+			return "p"
+		case "quote":
+			return "blockquote";
+		default:
+			return "span";
+		}
+	}
 
-	function isTokenWithinTextElementOffsets(w: Word, te: TextElement) {
+	function isTokenWithinTextElementOffsets(w: Token, te: TextElement) {
 		return te.start_offset <= w.offset && w.offset <= te.end_offset;
 	}
 
-	function tokenURNMatchesEntityURN(w: Word, te: TextElement) {
+	function tokenURNMatchesEntityURN(w: Token, te: TextElement) {
 		return w.urn === te.attributes.entity_urn;
 	}
 
-	let containerElement = $derived(CONTAINER_ELEMENTS[textContainer.subtype] || 'div');
+	let containerElement = $derived(getContainerElement(textContainer));
 	let ctsUrn = $derived(new CTS_URN(textContainer.urn));
 	let tokens = $derived(
-		textContainer.text
-			.split(/\s/)
-			.map((s, index, all) => {
-				const remaining = all.slice(index);
-				const offset = remaining.indexOf(s) + index;
-				const text = s;
-				const urn_index = all.slice(0, index).filter((a) => a === s).length + 1;
-				const urn = `${textContainer.urn}@${text}[${urn_index}]`;
-				return {
-					commentURNs: [],
-					offset,
-					text,
-					urn_index,
-					xml_id: urn,
-					urn
-				};
-			})
-			.map((w, _index, allWords) => {
-				return {
-					...w,
-					commentURNs: comments
-						?.filter((c) => c.ctsUrn.tokens.some((t: string | undefined) => Boolean(t)))
-						.filter((c) => {
-							const commentUrn = new CTS_URN(c.ctsUrn.__urn);
-
-							// comment only applies to this container
-							if (isCommentContainedByTextContainer(c)) {
-								return tokenTestForCommentContainedByTextContainer(c, w, allWords);
-							}
-
-							// comment starts on this container
-							if (ctsUrn.hasEqualStart(c.ctsUrn)) {
-								return tokenTestForCommentStartingInTextContainer(c, w, allWords);
-							}
-
-							// comment fully contains this container
-							if (commentUrn.contains(ctsUrn)) {
-								return true;
-							}
-
-							// comment ends on this container
-							if (ctsUrn.hasEqualEnd(c.ctsUrn)) {
-								return tokenTestForCommentEndingInTextContainer(c, w, allWords);
-							}
-
-							return false;
-						})
-						.map((c) => c.citable_urn),
-					textElements: textContainer.textElements?.filter((te: TextElement) => {
-						return isTokenWithinTextElementOffsets(w, te) || tokenURNMatchesEntityURN(w, te);
-					})
-				};
-			})
+		textContainer.tokens?.map((w) => {
+			return {
+				...w,
+				textElements: textContainer.textElements?.filter((te: TextElement) => {
+					return isTokenWithinTextElementOffsets(w, te) || tokenURNMatchesEntityURN(w, te);
+				})
+			};
+		})
 	);
 
 	let runs = $derived(
-		tokens.reduce(
-			(acc: Array<Word[]>, curr: Word) => {
+		tokens?.reduce(
+			(acc: Array<Token[]>, curr: Token) => {
 				const currentRun = acc.pop();
 
 				if (typeof currentRun === 'undefined') {
@@ -108,11 +68,18 @@
 					return [...acc, [curr]];
 				}
 
-				const allURNsMatch = lastOfCurrentRun.commentURNs.every(
-					(urn: string | undefined, index: number) => {
-						curr.commentURNs[index] === urn;
-					}
-				);
+				let allURNsMatch = true;
+				if (lastOfCurrentRun.commentURNs) {
+					allURNsMatch = lastOfCurrentRun.commentURNs?.every(
+						(urn: string | undefined, index: number) => {
+							if (curr.commentURNs) {
+								return curr.commentURNs[index] === urn;
+							}
+
+							return false;
+						}
+					);
+				}
 
 				const lastOfCurrentRunTextElements = lastOfCurrentRun.textElements || [];
 				const currentTextElements = curr.textElements || [];
@@ -143,30 +110,34 @@
 
 				return [...acc, currentRun, [curr]];
 			},
-			[] as Array<Word[]>
+			[] as Array<Token[]>
 		)
 	);
 </script>
 
-<div class="container">
-	<svelte:element
-		this={containerElement}
-		class="max-w-prose leading-6 {textContainer.subtype}"
-		class:indent-hanging={textContainer.subtype === 'l'}
-		data-urn={ctsUrn.__urn}
-		role="presentation"
-	>
-		{#if textContainer.children && textContainer.children.length > 0}
-			{#each textContainer.children as child}
+<svelte:element
+	this={containerElement}
+	class="max-w-prose leading-6 {textContainer.subtype}"
+	class:indent-hanging={textContainer.subtype === 'l'}
+	data-urn={ctsUrn.__urn}
+	role="presentation"
+>
+	{#if textContainer.children}
+		{#each textContainer.children as child}
+			{#if child.tagname === "lb"}
+				<p><a href="#{child.n}">{child.n}</a></p>
+			{:else if child.tagname === "pb"}
+				<p><a href="#{child.n}">page break {child.n}</a></p>
+			{:else}
 				<ReadableTextContainer {showHeatmap} {comments} textContainer={child} />
-			{/each}
-		{:else}
-			{#each runs as run}
-				<TextRun {showHeatmap} {run} />
-			{/each}
-		{/if}
-	</svelte:element>
-</div>
+			{/if}
+		{/each}
+	{:else}
+		{#each runs as run}
+			<TextRun {showHeatmap} {run} />
+		{/each}
+	{/if}
+</svelte:element>
 
 <style lang="postcss">
 	.indent-hanging {

@@ -3,7 +3,7 @@
 	import IIIFViewer from './IIIFViewer.svelte';
 
 	interface Props {
-		iiifURL: string;
+		iiifURL?: string;
 		comment: Comment;
 		stringifyCommentCitation: (comment: Comment) => string;
 	}
@@ -66,20 +66,22 @@
 		<p class="max-w-2xl text-sm text-gray-800 prose comment-body font-serif">
 			{@html comment.body}
 		</p>
-		{#if commentHasIIIF(comment)}
-			<div class="flex justify-center mt-2">
-				{#if showIIIFViewer}
-					<IIIFViewer url={iiifURL} {comment} />
-				{:else}
-					<button
-						type="button"
-						class="btn btn-xs btn-outline btn-secondary"
-						onclick={() => (showIIIFViewer = true)}
-					>
-						Show page image
-					</button>
-				{/if}
-			</div>
+		{#if iiifURL}
+			{#if commentHasIIIF(comment)}
+				<div class="flex justify-center mt-2">
+					{#if showIIIFViewer}
+						<IIIFViewer url={iiifURL} {comment} />
+					{:else}
+						<button
+							type="button"
+							class="btn btn-xs btn-outline btn-secondary"
+							onclick={() => (showIIIFViewer = true)}
+						>
+							Show page image
+						</button>
+					{/if}
+				</div>
+			{/if}
 		{/if}
 	</div>
 </div>

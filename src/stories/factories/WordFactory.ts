@@ -1,4 +1,4 @@
-import type { Word } from '$lib/types.js';
+import type { Token } from '$lib/types.js';
 
 import { faker } from '@faker-js/faker';
 
@@ -23,7 +23,7 @@ export const createWord = ({
 		urn_index,
 		urn: `urn:cts:greekLit:tlg0011.tlg003.kodon-tests:${line_number}@${guaranteedText}[${urn_index}]`,
 		xml_id: `word_index_${word_index}`
-	} as Word;
+	} as Token;
 };
 
 export const createWords = ({ howMany = 1, howManyComments = 0 } = {}) => {

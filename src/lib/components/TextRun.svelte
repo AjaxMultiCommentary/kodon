@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { Word } from '$lib/types.js';
+	import type { Token } from '$lib/types.js';
 
 	import { getCommentsContext } from '$lib/contexts/comments.js';
-
+	import { highlightComments } from '$lib/functions.js';
 	/**
 	 * A run of text is a series of tokens that all share
 	 * a style. This will help us render things like additions,
@@ -20,14 +20,14 @@
 		/**
 		 * A run is an array of Words with the same textElements.
 		 */
-		run: Word[];
+		run: Token[];
 	}
 
 	let { showHeatmap = true, run }: Props = $props();
 
-	const { highlightComments } = getCommentsContext();
+	const { comments } = getCommentsContext();
 
-	let commentURNs = $derived([...new Set(run.flatMap((t) => t.commentURNs))]);
+	let commentURNs = $derived([...new Set(run.flatMap((t) => t.commentURNs).filter(Boolean))]);
 	let commentCount = $derived(commentURNs.length || 0);
 	let spanId = $derived(run[0].xml_id);
 	let textElements = $derived(run.flatMap((t) => t.textElements));
@@ -40,7 +40,7 @@
 
 <span
 	id={spanId}
-	class={`comments-${Math.min(commentCount, 10)} 
+	class={`comments-${Math.min(commentCount, 10)}
 		${hasNamedEntity ? 'bg-secondary/30 mr-1 pl-1 py-1 rounded-sm' : ''}
 	`}
 	class:comment-box-shadow={showHeatmap}
@@ -48,17 +48,13 @@
 	title={titleText}
 	role="button"
 	tabindex="0"
-	onclick={() => highlightComments(commentURNs)}
+	onclick={() => highlightComments(comments, commentURNs)}
 	onkeyup={(event) => {
 		if (event.key === 'Enter') {
-			highlightComments(commentURNs);
+			highlightComments(comments, commentURNs);
 		}
 	}}
->
-	{#each run as token (token.xml_id)}
-		<TextToken {token} />{' '}
-	{/each}
-	{#if namedEntity}
+	>{#each run as token (token.xml_id)}<TextToken {token} />{/each}{#if namedEntity}
 		<a
 			href={namedEntity.attributes.entity_link}
 			class="bg-secondary font-semibold leading-6 p-1 rounded-r text-sm text-white"

@@ -97,7 +97,8 @@ export function getTextContainersForPassage(
 	const textContainerIndexes = textContainers.map((tc) => tc.index);
 
 	const textElements = jsonl.filter(
-		(el) => el.type === 'text_element' && textContainerIndexes.includes(el.block_index)
+		(el) =>
+			el.type === 'text_element' && textContainerIndexes.includes((el as TextElement).block_index)
 	) as TextElement[];
 	const personaeLoquentes = textElements
 		.filter((te) => te.subtype === 'speaker')

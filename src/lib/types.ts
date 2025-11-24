@@ -90,7 +90,7 @@ export type Metadata = {
 export type PassageConfig = {
 	label: string;
 	subpassages?: Array<PassageConfig>;
-	ref: string;
+	ref?: string;
 	urn: string;
 };
 
@@ -173,13 +173,17 @@ export interface WikidataRow extends WikidataEntry {
 	wikidataURL: string;
 }
 
-export type Word = {
-	commentURNs: (string | undefined)[];
+export type Token = {
+	commentURNs?: (string | undefined)[];
+	head?: string;
+	lemma?: string;
 	offset: number;
+	pos?: string;
 	text: string;
 	textElements?: (TextElement | undefined)[];
-	urn_index: number;
 	urn: string;
+	urn_index: number;
+	whitespace?: string;
 	xml_id: string;
 };
 
@@ -193,9 +197,11 @@ export type TextElement = {
 };
 
 export type TextContainer = {
+	char_offset: number;
 	children?: TextContainer[];
 	comments?: Comment[];
 	ctsUrn: CTS_URN;
+	end_char_offset: number;
 	end_offset: number;
 	index: number;
 	location: string[];
@@ -203,10 +209,11 @@ export type TextContainer = {
 	preText?: string;
 	speaker?: string | null;
 	start_offset: number;
-	subtype: 'l' | 'p' | 'quote';
+	subtype: 'l' | 'p' | 'quote' | string;
+	tagname?: string;
 	text: string;
-	type: 'text_container';
-	words: Word[];
+	type: 'text_container' | 'textpart' | string;
+	tokens: Token[];
 	urn: string;
 	textElements?: TextElement[];
 };

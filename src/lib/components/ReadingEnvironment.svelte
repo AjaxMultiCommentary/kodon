@@ -1,43 +1,46 @@
 <script lang="ts">
 	import type { Comment, PassageConfig, TextContainer } from '$lib/types.js';
 
-	import _ from 'lodash';
+	import lodash from 'lodash';
 	import { onMount, tick } from 'svelte';
 	import CollapsibleComment from '$lib/components/CollapsibleComment.svelte';
 	import FilterList from '$lib/components/FilterList.svelte';
 	import { Navigation } from '$lib/components/Navigation/index.js';
 	import Tooltip from '$lib/components/Tooltip.svelte';
-	import { setCommentsContext } from '$lib/contexts/comments.js';
+	import { getCommentsContext, setCommentsContext } from '$lib/contexts/comments.js';
 	import { setTokenSelectionContext } from '$lib/contexts/tokenSelection.js';
+	import { highlightComments } from '$lib/functions.js';
 	import CTS_URN from '$lib/cts_urn.js';
 	import ReadableTextView from './ReadableTextView.svelte';
 	import TabularTextView from './TabularTextView.svelte';
 
+	const { countBy, sortBy } = lodash;
+
 	interface Props {
-		DaisyUITheme?: string;
-		currentURL: URL;
-		comments: Comment[];
 		citationPrefix?: string;
 		citationPrefixPlural?: string;
+		comments?: Comment[];
+		currentPassage: PassageConfig;
+		currentURL: URL;
+		DaisyUITheme?: string;
+		filterListTooltip?: string;
+		heatmapTooltip?: string;
+		iiifURL?: string;
+		navigationTooltip?: string;
+		passages: PassageConfig[];
 		showCommentaryFilters?: boolean;
 		stringifyCommentCitation?: (comment: Comment) => string;
-		currentPassage: PassageConfig;
-		iiifURL: string;
-		passages: PassageConfig[];
+		tableViewTooltip?: string;
 		textContainers: TextContainer[];
-		heatmapTooltip: string | undefined;
-		filterListTooltip: string | undefined;
-		navigationTooltip: string | undefined;
-		tableViewTooltip: string | undefined;
 	}
 
 	let {
 		DaisyUITheme = 'corporate',
 		currentURL,
-		comments = $bindable(),
+		comments = $bindable([]),
 		citationPrefix = 'v.',
 		citationPrefixPlural = 'vv.',
-		showCommentaryFilters = true,
+		showCommentaryFilters = false,
 		stringifyCommentCitation = (comment: Comment) => {
 			const { integerCitations } = comment.ctsUrn;
 
@@ -63,52 +66,28 @@
 	let selectionAnchorURN: string | null | undefined = null;
 	let selectionFocusURN: string | null | undefined = null;
 
+	setCommentsContext({ comments });
+	setTokenSelectionContext({ handleEndSelection, handleStartSelection });
+
 	// TODO: (charles) This needs to happen in the parent component (the
 	// app running the show)
-	onMount(() => {
+	onMount(async () => {
 		const commentToHighlight = currentURL.searchParams.get('gloss');
 
 		if (commentToHighlight) {
-			highlightComments([commentToHighlight]);
+			const unhighlightedComments = getCommentsContext().comments;
+			const highlightedComments = highlightComments(unhighlightedComments, [commentToHighlight]);
+
+			setCommentsContext({ comments: highlightedComments });
+
+			await tick();
+
+			document.getElementById(commentToHighlight)?.scrollIntoView();
 		}
 	});
 
-	setCommentsContext({ highlightComments });
-	setTokenSelectionContext({ handleEndSelection, handleStartSelection });
-
 	function handleCommentaryFiltersChange(selectedOptions: string[]) {
 		selectedCommentaries = selectedOptions;
-	}
-
-	async function highlightComments(commentsToHighlight: (string | undefined)[]) {
-		let foundComment: Comment | undefined;
-
-		comments = comments.map((comment: Comment) => {
-			if (commentsToHighlight.includes(comment.citable_urn as string)) {
-				if (!foundComment) {
-					foundComment = comment;
-				}
-
-				return {
-					...comment,
-					isHighlighted: true
-				};
-			}
-
-			return {
-				...comment,
-				isHighlighted: false
-			};
-		});
-
-		if (foundComment && foundComment.citable_urn) {
-			await tick();
-
-			setTimeout(() => {
-				// @ts-expect-error We check for foundComment above
-				document.getElementById(foundComment.citable_urn)?.scrollIntoView({ behavior: 'smooth' });
-			}, 200);
-		}
 	}
 
 	function toggleHeatmap() {
@@ -158,9 +137,9 @@
 
 		selectionAnchorURN = selectionURN;
 	}
-	let commentCountsByCommentary = $derived(_.countBy(comments, (c) => c.commentaryAttributes?.pid));
+	let commentCountsByCommentary = $derived(countBy(comments, (c) => c.commentaryAttributes?.pid));
 	let commentaryOptions = $derived(
-		_.sortBy(
+		sortBy(
 			Object.keys(commentCountsByCommentary).map((c) => {
 				const attributes =
 					comments.find((comment) => comment.commentaryAttributes?.pid === c)
@@ -186,7 +165,7 @@
 </script>
 
 <article class="mx-auto w-full" data-theme={DaisyUITheme}>
-	<div class="grid grid-cols-10 gap-x-8 gap-y-2 h-screen max-h-[64rem]">
+	<div class="grid grid-cols-10 gap-x-8 gap-y-2 h-screen max-h-256">
 		<div class="col-span-full flex justify-between">
 			<div>
 				{#if selectedURN}
@@ -261,7 +240,7 @@
 			{#if showTableView}
 				<TabularTextView {selectedCommentaries} {textContainers} />
 			{:else}
-				<ReadableTextView {selectedCommentaries} {showHeatmap} {textContainers} />
+				<ReadableTextView {showHeatmap} {textContainers} />
 			{/if}
 		</section>
 		<section class="overflow-y-scroll col-span-3 max-h-screen">

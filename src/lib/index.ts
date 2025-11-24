@@ -11,6 +11,6 @@ export { default as ReadingEnvironment } from './components/ReadingEnvironment.s
 export { default as Tooltip } from './components/Tooltip.svelte';
 export { default as WikidataBibliography } from './components/WikidataBibliography.svelte';
 
-export { nestBlocks } from './functions.js';
+export { nestTextContainers } from './functions.js';
 
 export * from './types.js';

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/svelte';
 
 import CTS_URN from '$lib/cts_urn.js';
 import LocationContainer from '$lib/components/LocationContainer.svelte';
-import { getCommentsForPassage, nestBlocks } from '$lib/functions.js';
+import { getCommentsForPassage, nestTextContainers } from '$lib/functions.js';
 
 import decorator from './decorators/contextDecorator.js';
 import comments from './stubs/nagyComments.js';
@@ -55,6 +55,6 @@ export const LocationContainerStory: Story = {
 	args: {
 		comments: passageComments,
 		showHeatmap: true,
-		locationContainer: nestBlocks(textContainers)
+		locationContainer: nestTextContainers(textContainers)
 	}
 };

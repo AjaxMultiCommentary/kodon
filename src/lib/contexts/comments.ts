@@ -1,15 +1,17 @@
+import type { Comment } from '$lib/types.js';
+
 import { getContext, setContext } from 'svelte';
 
-const commentsContextKey = Symbol('comments');
+const commentsContextKey = Symbol( 'comments');
 
 type CommentsContext = {
-	highlightComments: (commentsToHighlight: (string | undefined)[]) => void;
+  comments: Comment[],
 };
 
-export function getCommentsContext() {
+export function getCommentsContext(): CommentsContext {
 	return getContext(commentsContextKey) as CommentsContext;
 }
 
-export function setCommentsContext(obj: CommentsContext) {
+export function setCommentsContext(obj: CommentsContext): void {
 	setContext(commentsContextKey, obj);
 }

@@ -39,6 +39,6 @@ const rawBlocks = [
 		start_offset: 656,
 		subtype: 'l'
 	}
-] as TextContainer[];
+];
 
 export default rawBlocks;

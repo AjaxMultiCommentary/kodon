@@ -18,7 +18,7 @@
 
 	let ctsUrn = $derived(new CTS_URN(textContainer.urn));
 	let tokens = $derived(
-		textContainer.words.map((w, _index, allWords) => {
+		textContainer.tokens.map((w, _index, allWords) => {
 			return {
 				...w,
 				commentURNs: comments

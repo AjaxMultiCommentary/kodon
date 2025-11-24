@@ -254,7 +254,7 @@ defmodule EditionsIngestion do
       type: "text_container",
       subtype: "l",
       urn: line.urn,
-      words: line.words
+      tokens: line.words
     }
   end
 

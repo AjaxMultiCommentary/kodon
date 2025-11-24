@@ -35,7 +35,7 @@
 	{:else}
 		<a href="{base}/passages/{passage.urn}">
 			<span class:underline={isUnderlined}>{@html marked(passage.label)}</span>
-			{passage.ref}
+			{passage.ref || ''}
 		</a>
 	{/if}
 </li>

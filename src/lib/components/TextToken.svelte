@@ -1,11 +1,13 @@
 <script lang="ts">
+	import type { Token } from '$lib/types.js';
+
 	import { getTokenSelectionContext } from '$lib/contexts/tokenSelection.js';
 
 	interface Props {
 		/**
 		 * The token to render here.
 		 */
-		token: { text: string; urn: string; xml_id: string };
+		token: Token;
 	}
 
 	let { token }: Props = $props();
@@ -24,5 +26,4 @@
 	onmouseup={() => {
 		handleEndSelection(token.urn);
 	}}
-	>{token.text}
-</span>
+	>{token.text}{token.whitespace}</span>
