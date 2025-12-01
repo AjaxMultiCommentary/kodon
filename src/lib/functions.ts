@@ -1,7 +1,5 @@
 import type { Comment, TextContainer, Token } from './types.js';
 
-import assert from 'assert';
-
 import lodash from 'lodash';
 import frontMatter from 'front-matter';
 
@@ -74,16 +72,6 @@ export function highlightComments(
 	return revisedComments;
 }
 
-function makeSpan(text: string = '', urn: string) {
-	return {
-		type: 'text_container',
-		tagname: 'span',
-		subtype: 'span',
-		text,
-		urn
-	};
-}
-
 interface TextContainerWithChildren extends TextContainer {
 	children: TextContainerWithChildren[];
 	parentIndex: number | null;
@@ -91,13 +79,12 @@ interface TextContainerWithChildren extends TextContainer {
 
 function nest(
 	textContainers: TextContainerWithChildren[],
-	parent: any = { index: undefined },
+	parent: any = { index: -1 },
 	tree: any = []
 ) {
-	console.log(textContainers);
 	const children = textContainers.filter((child) => child.parentIndex === parent.index);
 
-	if (typeof parent.index === 'undefined') {
+	if (parent.index === -1) {
 		tree = children;
 	} else {
 		parent.children = children;
@@ -109,35 +96,33 @@ function nest(
 }
 
 export function nestTextContainers(textContainers: TextContainer[]) {
-	const sortedContainers = textContainers
-		.toSorted(
-			(a: TextContainer, b: TextContainer) =>
-				a.char_offset - b.char_offset || a.end_char_offset - b.end_char_offset
-		)
-		.map((tc: TextContainer, i: number) => ({
-			...tc,
-			index: i
-		}));
+	const sortedContainers = textContainers.toSorted(
+		(a: TextContainer, b: TextContainer) =>
+			a.char_offset - b.char_offset || a.end_char_offset - b.end_char_offset
+	);
 
 	const withParentIndexes = sortedContainers.map(
-		(textContainer: TextContainer, i: number, containers: TextContainer[]) => {
-			let parentIndex = containers.findLast(
+		(textContainer: TextContainer, index: number, containers: TextContainer[]) => {
+			let parentIndex = containers.findLastIndex(
 				(possibleParent: TextContainer) =>
 					(!isEqual(possibleParent, textContainer) &&
 						possibleParent.char_offset <= textContainer.char_offset &&
 						possibleParent.end_char_offset > textContainer.end_char_offset) ||
 					(possibleParent.char_offset < textContainer.char_offset &&
 						possibleParent.end_char_offset >= textContainer.end_char_offset)
-			)?.index;
+			);
 
 			return {
 				...textContainer,
+				index,
 				parentIndex
 			};
 		}
 	) as TextContainerWithChildren[];
 
-	return nest(withParentIndexes);
+	const nestedContainers = nest(withParentIndexes);
+
+	return nestedContainers;
 }
 
 export function parseCommentary(markdownString: string): Comment[] {

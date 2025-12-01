@@ -19,12 +19,13 @@
 	let children = $derived(
 		(locationContainer.children || []).length > 0
 			? nestTextContainers(locationContainer.children as TextContainer[])
-			: [locationContainer]) as TextContainer[];
+			: [locationContainer]
+	) as TextContainer[];
 
 	let ctsUrn = $derived(new CTS_URN(locationContainer.urn));
-	let wholeLocationComments = $derived(comments.filter(c => !c.ctsUrn.isEqual(locationContainer.ctsUrn)));
-
-	$inspect(children)
+	let wholeLocationComments = $derived(
+		comments.filter((c) => !c.ctsUrn.isEqual(locationContainer.ctsUrn))
+	);
 </script>
 
 <div class="rounded-sm">
@@ -55,7 +56,10 @@
 						)}
 					onkeyup={(event) => {
 						if (event.key === 'Enter') {
-							highlightComments(comments, wholeLocationComments.map((c) => c.citable_urn));
+							highlightComments(
+								comments,
+								wholeLocationComments.map((c) => c.citable_urn)
+							);
 						}
 					}}
 					data-citation={ctsUrn.citations.join('.')}>{ctsUrn.citations.join('.')}</a

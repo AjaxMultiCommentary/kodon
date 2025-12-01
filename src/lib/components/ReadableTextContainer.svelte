@@ -15,128 +15,78 @@
 
 	let { comments, showHeatmap, textContainer }: Props = $props();
 
-	function getContainerElement(textContainer: TextContainer) {
-		switch (textContainer.subtype || textContainer.tagname) {
-		case "head":
-			return "h1";
-		case "l":
-			return "div";
-		case "lb":
-			return "div"
-		case "p":
-			return "p"
-		case "quote":
-			return "blockquote";
-		default:
-			return "span";
+	function getContainerElement(tc: TextContainer) {
+		switch (tc.subtype || tc.tagname) {
+			case 'head':
+				return 'h1';
+			case 'l':
+				return 'span';
+			case 'lb':
+				return 'span';
+			case 'lg':
+				return 'div';
+			case 'p':
+				return 'p';
+			case 'quote':
+				return 'blockquote';
+			default:
+				return 'span';
 		}
 	}
 
-	function isTokenWithinTextElementOffsets(w: Token, te: TextElement) {
-		return te.start_offset <= w.offset && w.offset <= te.end_offset;
+	function getTailTokens(child: TextContainer, childIndex: number) {
+		const nextChild = textContainer.children?.at(childIndex + 1);
+
+		if (nextChild) {
+			return textContainer.tokens.filter(
+				(token) => token.offset >= child.char_offset && token.offset < nextChild.char_offset
+			);
+		}
 	}
 
-	function tokenURNMatchesEntityURN(w: Token, te: TextElement) {
-		return w.urn === te.attributes.entity_urn;
+	function isTokenWithinTextElementOffsets(token: Token, te: TextElement) {
+		return te.start_offset <= token.offset && token.offset <= te.end_offset;
+	}
+
+	function tokenURNMatchesEntityURN(token: Token, te: TextElement) {
+		return token.urn === te.attributes.entity_urn;
 	}
 
 	let containerElement = $derived(getContainerElement(textContainer));
 	let ctsUrn = $derived(new CTS_URN(textContainer.urn));
-	let tokens = $derived(
-		textContainer.tokens?.map((w) => {
-			return {
-				...w,
-				textElements: textContainer.textElements?.filter((te: TextElement) => {
-					return isTokenWithinTextElementOffsets(w, te) || tokenURNMatchesEntityURN(w, te);
-				})
-			};
+
+	let lastTokens = $derived(
+		textContainer.tokens.filter((token) => {
+			if (textContainer.children && textContainer.children.length > 1) {
+				const lastChild = textContainer.children.at(-1);
+
+				return lastChild && token.offset >= lastChild.end_char_offset;
+			}
+
+			return false;
 		})
-	);
-
-	let runs = $derived(
-		tokens?.reduce(
-			(acc: Array<Token[]>, curr: Token) => {
-				const currentRun = acc.pop();
-
-				if (typeof currentRun === 'undefined') {
-					return [[curr]];
-				}
-
-				const lastOfCurrentRun = currentRun.at(-1);
-
-				if (typeof lastOfCurrentRun === 'undefined') {
-					return [...acc, [curr]];
-				}
-
-				let allURNsMatch = true;
-				if (lastOfCurrentRun.commentURNs) {
-					allURNsMatch = lastOfCurrentRun.commentURNs?.every(
-						(urn: string | undefined, index: number) => {
-							if (curr.commentURNs) {
-								return curr.commentURNs[index] === urn;
-							}
-
-							return false;
-						}
-					);
-				}
-
-				const lastOfCurrentRunTextElements = lastOfCurrentRun.textElements || [];
-				const currentTextElements = curr.textElements || [];
-				const allTextElementsMatch =
-					lastOfCurrentRunTextElements?.length === currentTextElements?.length &&
-					lastOfCurrentRunTextElements?.every((te: TextElement | undefined, i: number) => {
-						return (
-							currentTextElements[i]?.start_offset === te?.start_offset &&
-							currentTextElements[i]?.end_offset === te?.end_offset &&
-							currentTextElements[i]?.subtype === te?.subtype &&
-							isEqual(currentTextElements[i]?.attributes, te?.attributes)
-						);
-					});
-
-				const lastOfCurrentRunCommentURNs = lastOfCurrentRun.commentURNs || [];
-				const currentCommentURNs = curr.commentURNs || [];
-				const allCommentURNsMatch =
-					lastOfCurrentRunCommentURNs?.length === currentCommentURNs.length &&
-					lastOfCurrentRunCommentURNs?.every((commentURN: string | undefined, i: number) => {
-						return currentCommentURNs[i] === commentURN;
-					});
-
-				if (allURNsMatch && allTextElementsMatch && allCommentURNsMatch) {
-					currentRun.push(curr);
-
-					return [...acc, currentRun];
-				}
-
-				return [...acc, currentRun, [curr]];
-			},
-			[] as Array<Token[]>
-		)
 	);
 </script>
 
 <svelte:element
 	this={containerElement}
-	class="max-w-prose leading-6 {textContainer.subtype}"
-	class:indent-hanging={textContainer.subtype === 'l'}
+	class="max-token-prose leading-6 {textContainer.tagname}"
+	class:indent-hanging={textContainer.tagname === 'l'}
 	data-urn={ctsUrn.__urn}
 	role="presentation"
 >
-	{#if textContainer.children}
-		{#each textContainer.children as child}
-			{#if child.tagname === "lb"}
-				<p><a href="#{child.n}">{child.n}</a></p>
-			{:else if child.tagname === "pb"}
-				<p><a href="#{child.n}">page break {child.n}</a></p>
-			{:else}
-				<ReadableTextContainer {showHeatmap} {comments} textContainer={child} />
-			{/if}
+	{#if textContainer.tagname === 'lb' || textContainer.tagname === 'pb'}<br /><a
+			href="#{textContainer.n}">{textContainer.n}</a
+		>{/if}
+	{#each textContainer.children as child, index}
+		<ReadableTextContainer {showHeatmap} {comments} textContainer={child} />
+		{#each getTailTokens(child, index) as token}
+			{token.text}{token.whitespace}
 		{/each}
-	{:else}
-		{#each runs as run}
-			<TextRun {showHeatmap} {run} />
-		{/each}
-	{/if}
+	{/each}
+	{#each lastTokens as token}
+		{token.text}{token.whitespace}
+	{/each}
 </svelte:element>
 
 <style lang="postcss">

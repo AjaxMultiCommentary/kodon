@@ -197,6 +197,7 @@ export type TextElement = {
 };
 
 export type TextContainer = {
+	[x: string]: any;
 	char_offset: number;
 	children?: TextContainer[];
 	comments?: Comment[];
