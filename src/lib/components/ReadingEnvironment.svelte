@@ -11,7 +11,7 @@
 	import { setTokenSelectionContext } from '$lib/contexts/tokenSelection.js';
 	import { highlightComments } from '$lib/functions.js';
 	import CTS_URN from '$lib/cts_urn.js';
-	import ReadableTextView from './ReadableTextView.svelte';
+	import LocationContainer from './LocationContainer.svelte';
 	import TabularTextView from './TabularTextView.svelte';
 
 	const { countBy, sortBy } = lodash;
@@ -240,7 +240,9 @@
 			{#if showTableView}
 				<TabularTextView {selectedCommentaries} {textContainers} />
 			{:else}
-				<ReadableTextView {showHeatmap} {textContainers} />
+				{#each textContainers as textContainer}
+					<LocationContainer locationContainer={textContainer} {showHeatmap} />
+				{/each}
 			{/if}
 		</section>
 		<section class="overflow-y-scroll col-span-3 max-h-screen">

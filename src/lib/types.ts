@@ -198,22 +198,20 @@ export type TextElement = {
 
 export type TextContainer = {
 	[x: string]: any;
-	char_offset: number;
+	offset: number;
 	children?: TextContainer[];
 	comments?: Comment[];
 	ctsUrn: CTS_URN;
-	end_char_offset: number;
 	end_offset: number;
 	index: number;
 	location: string[];
 	postText?: string;
 	preText?: string;
 	speaker?: string | null;
-	start_offset: number;
-	subtype: 'l' | 'p' | 'quote' | string;
+	subtype: string;
 	tagname?: string;
 	text: string;
-	type: 'text_container' | 'textpart' | string;
+	type: string;
 	tokens: Token[];
 	urn: string;
 	textElements?: TextElement[];

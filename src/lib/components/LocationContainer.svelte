@@ -3,7 +3,7 @@
 
 	import CTS_URN from '$lib/cts_urn.js';
 	import { getCommentsContext } from '$lib/contexts/comments.js';
-	import { highlightComments, nestTextContainers } from '$lib/functions.js';
+	import { highlightComments } from '$lib/functions.js';
 	import ReadableTextContainer from './ReadableTextContainer.svelte';
 	import Speaker from './Speaker.svelte';
 
@@ -16,12 +16,6 @@
 
 	const { comments } = getCommentsContext();
 
-	let children = $derived(
-		(locationContainer.children || []).length > 0
-			? nestTextContainers(locationContainer.children as TextContainer[])
-			: [locationContainer]
-	) as TextContainer[];
-
 	let ctsUrn = $derived(new CTS_URN(locationContainer.urn));
 	let wholeLocationComments = $derived(
 		comments.filter((c) => !c.ctsUrn.isEqual(locationContainer.ctsUrn))
@@ -31,7 +25,7 @@
 <div class="rounded-sm">
 	<div class="rounded-sm bg-base-100 flex justify-between">
 		<div>
-			{#each children as child}
+			{#each (locationContainer.children as TextContainer[]) as child}
 				{#if child.speaker}
 					<Speaker name={child.speaker} />
 				{/if}

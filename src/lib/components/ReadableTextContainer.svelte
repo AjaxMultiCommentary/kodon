@@ -1,11 +1,8 @@
 <script lang="ts">
 	import ReadableTextContainer from './ReadableTextContainer.svelte';
-	import type { Comment, TextContainer, TextElement, Token } from '$lib/types.js';
-
-	import isEqual from 'lodash/isEqual.js';
+	import type { Comment, TextContainer } from '$lib/types.js';
 
 	import CTS_URN from '$lib/cts_urn.js';
-	import TextRun from './TextRun.svelte';
 
 	interface Props {
 		comments: Comment[];
@@ -34,38 +31,9 @@
 		}
 	}
 
-	function getTailTokens(child: TextContainer, childIndex: number) {
-		const nextChild = textContainer.children?.at(childIndex + 1);
-
-		if (nextChild) {
-			return textContainer.tokens.filter(
-				(token) => token.offset >= child.char_offset && token.offset < nextChild.char_offset
-			);
-		}
-	}
-
-	function isTokenWithinTextElementOffsets(token: Token, te: TextElement) {
-		return te.start_offset <= token.offset && token.offset <= te.end_offset;
-	}
-
-	function tokenURNMatchesEntityURN(token: Token, te: TextElement) {
-		return token.urn === te.attributes.entity_urn;
-	}
-
 	let containerElement = $derived(getContainerElement(textContainer));
 	let ctsUrn = $derived(new CTS_URN(textContainer.urn));
-
-	let lastTokens = $derived(
-		textContainer.tokens.filter((token) => {
-			if (textContainer.children && textContainer.children.length > 1) {
-				const lastChild = textContainer.children.at(-1);
-
-				return lastChild && token.offset >= lastChild.end_char_offset;
-			}
-
-			return false;
-		})
-	);
+	let tokens = $derived(textContainer.tokens || [])
 </script>
 
 <svelte:element
@@ -78,13 +46,11 @@
 	{#if textContainer.tagname === 'lb' || textContainer.tagname === 'pb'}<br /><a
 			href="#{textContainer.n}">{textContainer.n}</a
 		>{/if}
-	{#each textContainer.children as child, index}
+	{#each ((textContainer.children || []) as TextContainer[]) as child, index}
 		<ReadableTextContainer {showHeatmap} {comments} textContainer={child} />
-		{#each getTailTokens(child, index) as token}
-			{token.text}{token.whitespace}
-		{/each}
 	{/each}
-	{#each lastTokens as token}
+
+	{#each tokens as token}
 		{token.text}{token.whitespace}
 	{/each}
 </svelte:element>
