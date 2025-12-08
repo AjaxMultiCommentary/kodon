@@ -173,19 +173,18 @@ export interface WikidataRow extends WikidataEntry {
 	wikidataURL: string;
 }
 
-export type Token = {
-	commentURNs?: (string | undefined)[];
-	head?: string;
-	lemma?: string;
-	offset: number;
-	pos?: string;
-	text: string;
-	textElements?: (TextElement | undefined)[];
-	urn: string;
-	urn_index: number;
-	whitespace?: string;
-	xml_id: string;
-};
+export type Token = [
+	string,
+	{
+		commentURNs?: (string | undefined)[];
+		head?: string;
+		lemma?: string;
+		pos?: string;
+		text: string;
+		textElements?: (TextElement | undefined)[];
+		whitespace?: string;
+	}
+];
 
 export type TextElement = {
 	attributes: any;
@@ -198,23 +197,14 @@ export type TextElement = {
 
 export type TextContainer = {
 	[x: string]: any;
-	offset: number;
-	children?: TextContainer[];
+	children?: TextContainer[] | undefined;
 	comments?: Comment[];
-	ctsUrn: CTS_URN;
-	end_offset: number;
-	index: number;
-	location: string[];
-	postText?: string;
-	preText?: string;
+	ctsUrn?: CTS_URN;
+	index?: number | undefined;
 	speaker?: string | null;
-	subtype: string;
-	tagname?: string;
-	text: string;
-	type: string;
-	tokens: Token[];
+	tagname: string;
+	tokens?: Token[];
 	urn: string;
-	textElements?: TextElement[];
 };
 
 export type Author = {

@@ -24,6 +24,8 @@
 				return 'div';
 			case 'p':
 				return 'p';
+			case 'pb':
+				return 'p';
 			case 'quote':
 				return 'blockquote';
 			default:
@@ -32,8 +34,9 @@
 	}
 
 	let containerElement = $derived(getContainerElement(textContainer));
-	let ctsUrn = $derived(new CTS_URN(textContainer.urn));
-	let tokens = $derived(textContainer.tokens || [])
+	let ctsUrn = $derived(
+		(textContainer.urn && new CTS_URN(textContainer.urn)) || { __urn: 'unknown' }
+	);
 </script>
 
 <svelte:element
@@ -43,16 +46,19 @@
 	data-urn={ctsUrn.__urn}
 	role="presentation"
 >
-	{#if textContainer.tagname === 'lb' || textContainer.tagname === 'pb'}<br /><a
-			href="#{textContainer.n}">{textContainer.n}</a
+	{#each textContainer.children as TextContainer[] as child}
+		<ReadableTextContainer
+			{showHeatmap}
+			{comments}
+			textContainer={{ ...child, urn: child.urn || textContainer.urn }}
+		/>
+	{/each}
+	{#if textContainer.tagname === 'pb'}<a href="#{textContainer.n}">{textContainer.n}</a>
+	{:else if textContainer.tagname === 'lb'}<br /><a href="#{textContainer.n}">{textContainer.n}</a
 		>{/if}
-	{#each ((textContainer.children || []) as TextContainer[]) as child, index}
-		<ReadableTextContainer {showHeatmap} {comments} textContainer={child} />
-	{/each}
-
-	{#each tokens as token}
-		{token.text}{token.whitespace}
-	{/each}
+	{#if textContainer.tagname === 'text_run' && textContainer.tokens?.length}
+		{#each textContainer.tokens as token}{token[1].text}{/each}
+	{/if}
 </svelte:element>
 
 <style lang="postcss">
