@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Comment, PassageConfig, TextContainer } from '$lib/types.js';
+	import type { Comment, RenderablePassageConfig, TextContainer } from '$lib/types.js';
 
 	import lodash from 'lodash';
 	import { onMount, tick } from 'svelte';
@@ -20,17 +20,17 @@
 		citationPrefix?: string;
 		citationPrefixPlural?: string;
 		comments?: Comment[];
-		currentPassage: PassageConfig;
+		currentPassageURN: string;
 		currentURL: URL;
 		DaisyUITheme?: string;
-		filterListTooltip?: string;
-		heatmapTooltip?: string;
+		filterListTooltip?: string | boolean;
+		heatmapTooltip?: string | boolean;
 		iiifURL?: string;
-		navigationTooltip?: string;
-		passages: PassageConfig[];
+		navigationTooltip?: string | boolean;
+		passages: RenderablePassageConfig[];
 		showCommentaryFilters?: boolean;
 		stringifyCommentCitation?: (comment: Comment) => string;
-		tableViewTooltip?: string;
+		tableViewTooltip?: string | boolean;
 		textContainers: TextContainer[];
 	}
 
@@ -52,7 +52,7 @@
 
 			return `${citationPrefix} ${integerCitations[0].join('')}`;
 		},
-		currentPassage,
+		currentPassageURN,
 		iiifURL,
 		passages,
 		textContainers,
@@ -165,17 +165,15 @@
 </script>
 
 <article class="mx-auto w-full" data-theme={DaisyUITheme}>
-	<div class="grid grid-cols-10 gap-x-8 gap-y-2 h-screen max-h-256">
-		<div class="col-span-full flex justify-between">
-			<div>
-				{#if selectedURN}
-					<p class="text-gray-500">Selected URN: {selectedURN}</p>
-				{/if}
-			</div>
-			<div class="flex justify-between items-center mb-2">
-				{#if heatmapTooltip}
-					<Tooltip text={heatmapTooltip} />
-				{/if}
+	<div class="col-span-full flex justify-between">
+		<div>
+			{#if selectedURN}
+				<p class="text-gray-500">Selected URN: {selectedURN}</p>
+			{/if}
+		</div>
+		<div class="flex justify-between items-center mb-2">
+			{#if heatmapTooltip}
+				<Tooltip text={heatmapTooltip as string} />
 				<form onsubmit={toggleHeatmap}>
 					<div class="form-control">
 						<label class="label cursor-pointer">
@@ -191,10 +189,10 @@
 						</label>
 					</div>
 				</form>
+			{/if}
 
-				{#if tableViewTooltip}
-					<Tooltip text={tableViewTooltip} />
-				{/if}
+			{#if tableViewTooltip}
+				<Tooltip text={tableViewTooltip as string} />
 				<form onsubmit={toggleTextFormat}>
 					<div class="form-control">
 						<label class="label cursor-pointer">
@@ -210,24 +208,26 @@
 						</label>
 					</div>
 				</form>
-			</div>
+			{/if}
 		</div>
-		<section class="col-span-2">
+	</div>
+	<div class="flex h-screen justify-between max-h-256">
+		<section class="flex-auto">
 			<div class="flex justify-between items-center mb-2">
 				<h3 class="prose prose-h3 font-semibold text-sm">Navigation</h3>
 				{#if navigationTooltip}
-					<Tooltip text={navigationTooltip} />
+					<Tooltip text={navigationTooltip as string} />
 				{/if}
 			</div>
-			<section class="col-span-1">
-				<Navigation {passages} currentPassageUrn={currentPassage.urn} />
-			</section>
+			<div>
+				<Navigation {passages} currentPassageURN={currentPassageURN} />
+			</div>
 			{#if showCommentaryFilters}
 				<div class="py-2"></div>
 				<div class="flex justify-between items-center mb-2">
 					<h3 class="prose prose-h3 font-semibold text-sm">Filter Comments</h3>
 					{#if filterListTooltip}
-						<Tooltip text={filterListTooltip} />
+						<Tooltip text={filterListTooltip as string} />
 					{/if}
 				</div>
 				<FilterList
@@ -236,7 +236,7 @@
 				/>
 			{/if}
 		</section>
-		<section class="col-span-5 overflow-y-scroll">
+		<section class="flex-initial overflow-y-scroll">
 			{#if showTableView}
 				<TabularTextView {selectedCommentaries} {textContainers} />
 			{:else}
@@ -245,7 +245,7 @@
 				{/each}
 			{/if}
 		</section>
-		<section class="overflow-y-scroll col-span-3 max-h-screen">
+		<section class="flex-auto overflow-y-scroll max-h-screen">
 			{#each filteredComments as comment}
 				<CollapsibleComment {iiifURL} {comment} {stringifyCommentCitation} />
 			{/each}

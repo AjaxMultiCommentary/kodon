@@ -87,12 +87,17 @@ export type Metadata = {
 	description: string;
 };
 
-export type PassageConfig = {
+export interface PassageConfig {
 	label: string;
 	subpassages?: Array<PassageConfig>;
 	ref?: string;
 	urn: string;
-};
+}
+
+export interface RenderablePassageConfig extends PassageConfig {
+	subpassages?: Array<RenderablePassageConfig>;
+	url: string;
+}
 
 export type DeserializedComment = Modify<
 	Comment,
@@ -173,18 +178,15 @@ export interface WikidataRow extends WikidataEntry {
 	wikidataURL: string;
 }
 
-export type Token = [
-	string,
-	{
-		commentURNs?: (string | undefined)[];
-		head?: string;
-		lemma?: string;
-		pos?: string;
-		text: string;
-		textElements?: (TextElement | undefined)[];
-		whitespace?: string;
-	}
-];
+export type Token = {
+	commentURNs?: (string | undefined)[];
+	head?: string;
+	lemma?: string;
+	pos?: string;
+	text: string;
+	textElements?: (TextElement | undefined)[];
+	whitespace?: string;
+};
 
 export type TextElement = {
 	attributes: any;

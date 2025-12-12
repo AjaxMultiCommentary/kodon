@@ -18,7 +18,7 @@
 
 	let ctsUrn = $derived(new CTS_URN(locationContainer.urn));
 	let wholeLocationComments = $derived(
-		comments.filter((c) => !c.ctsUrn.isEqual(locationContainer.ctsUrn))
+		comments.filter((c) => !c.ctsUrn.isEqual(locationContainer.ctsUrn as CTS_URN))
 	);
 </script>
 

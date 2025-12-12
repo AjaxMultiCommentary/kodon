@@ -1,18 +1,18 @@
 <script lang="ts">
-	import type { PassageConfig } from '$lib/types.js';
+	import type { RenderablePassageConfig } from '$lib/types.js';
 
 	import NavigationItem from './NavigationItem.svelte';
 
 	interface Props {
-		passages: PassageConfig[];
-		currentPassageUrn: string;
+		passages: RenderablePassageConfig[];
+		currentPassageURN: string;
 	}
 
-	let { passages, currentPassageUrn }: Props = $props();
+	let { passages, currentPassageURN }: Props = $props();
 </script>
 
 <ul class="menu bg-base-200 p-0">
 	{#each passages as passage}
-		<NavigationItem {passage} {currentPassageUrn} />
+		<NavigationItem {passage} {currentPassageURN} />
 	{/each}
 </ul>

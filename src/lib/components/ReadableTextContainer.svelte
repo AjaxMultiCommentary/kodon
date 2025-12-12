@@ -41,7 +41,7 @@
 
 <svelte:element
 	this={containerElement}
-	class="max-token-prose leading-6 {textContainer.tagname}"
+	class="prose {textContainer.tagname}"
 	class:indent-hanging={textContainer.tagname === 'l'}
 	data-urn={ctsUrn.__urn}
 	role="presentation"
@@ -54,10 +54,10 @@
 		/>
 	{/each}
 	{#if textContainer.tagname === 'pb'}<a href="#{textContainer.n}">{textContainer.n}</a>
-	{:else if textContainer.tagname === 'lb'}<br /><a href="#{textContainer.n}">{textContainer.n}</a
+	{:else if textContainer.tagname === 'lb'}<a href="#{textContainer.n}">{textContainer.n}</a
 		>{/if}
 	{#if textContainer.tagname === 'text_run' && textContainer.tokens?.length}
-		{#each textContainer.tokens as token}{token[1].text}{/each}
+		{#each textContainer.tokens as token}{token.text}{token.whitespace ? ' ' : ''}{/each}
 	{/if}
 </svelte:element>
 

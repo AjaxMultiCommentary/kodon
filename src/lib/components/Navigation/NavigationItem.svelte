@@ -1,17 +1,16 @@
 <script lang="ts">
-	import type { PassageConfig } from '$lib/types.js';
-	import { base } from '$app/paths';
+	import type { RenderablePassageConfig } from '$lib/types.js';
 	import { marked } from 'marked';
 	import CTS_URN from '$lib/cts_urn.js';
 	import NavigationItem from './NavigationItem.svelte';
 
 	interface Props {
-		passage: PassageConfig;
-		currentPassageUrn: string;
+		passage: RenderablePassageConfig;
+		currentPassageURN: string;
 	}
 
-	let { passage, currentPassageUrn }: Props = $props();
-	let currentUrn = $derived(new CTS_URN(currentPassageUrn));
+	let { passage, currentPassageURN }: Props = $props();
+	let currentUrn = $derived(new CTS_URN(currentPassageURN));
 	let passageUrn = $derived(new CTS_URN(passage.urn));
 	let isUnderlined = $derived(
 		passageUrn.contains(currentUrn) ||
@@ -28,12 +27,12 @@
 			</summary>
 			<ul>
 				{#each passage.subpassages as subpassage}
-					<NavigationItem passage={subpassage} {currentPassageUrn} />
+					<NavigationItem passage={subpassage} {currentPassageURN} />
 				{/each}
 			</ul>
 		</details>
 	{:else}
-		<a href="{base}/passages/{passage.urn}">
+		<a href={passage.url}>
 			<span class:underline={isUnderlined}>{@html marked(passage.label)}</span>
 			{passage.ref || ''}
 		</a>
